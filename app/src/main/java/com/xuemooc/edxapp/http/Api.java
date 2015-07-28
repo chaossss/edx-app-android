@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xuemooc.edxapp.Config;
 import com.xuemooc.edxapp.model.api.AuthResponse;
+import com.xuemooc.edxapp.model.api.ResetPasswordResponse;
 import com.xuemooc.edxapp.module.prefs.PrefManager;
 
 import java.util.List;
@@ -105,5 +106,38 @@ public class Api {
             headers.putString("Authorization", String.format("%s %s", auth.token_type, auth.access_token));
         }
         return headers;
+    }
+
+    /**
+     * Resets password for the given email id.
+     * @param emailId
+     * @return
+     * @throws Exception
+     */
+    public ResetPasswordResponse resetPassword(String emailId)
+            throws Exception {
+        Bundle headerBundle = new Bundle();
+        headerBundle = setCookieHeaders(headerBundle);
+
+        Bundle params = new Bundle();
+        params.putString("email", emailId);
+
+        String url = getBaseUrl() + "/password_reset/";
+
+        String json = http.post(url, params, headerBundle);
+
+        if (json == null) {
+            return null;
+        }
+        //logger.debug("Reset password response=" + json);
+
+        // store auth token response
+        PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
+        pref.put(PrefManager.Key.AUTH_JSON, json);
+
+        Gson gson = new GsonBuilder().create();
+        ResetPasswordResponse res = gson.fromJson(json, ResetPasswordResponse.class);
+
+        return res;
     }
 }
