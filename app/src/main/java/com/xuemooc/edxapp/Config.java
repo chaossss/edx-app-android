@@ -7,9 +7,9 @@ public class Config {
 
     private static final String BASE_URL = "http://lms.geekmooc.com";
 
-    private static final String CLIENT_ID = "";
+    private static final String CLIENT_ID = "95ecc036ec9c74cfbf49";
 
-    private static final String CLIENT_SECRET = "";
+    private static final String CLIENT_SECRET = "4c89ff3332f048d85930fb4db1c1cbb239422969";
 
     private static Config configInstance;
 
