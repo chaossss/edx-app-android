@@ -44,9 +44,15 @@ public class ApiTest extends ApplicationTestCase<Application> {
         assertEquals(authResponse.token_type, "Bearer");
     }
 
-    public void testGetProfile() throws Exception {
+    public void testGetProfileWithName() throws Exception {
 
         ProfileModel profile = api.getProfile("Hackeris");
+        assertEquals(profile.username, "Hackeris");
+    }
+
+    public void testGetProfile() throws Exception {
+
+        ProfileModel profile = api.getProfile();
         assertEquals(profile.username, "Hackeris");
     }
 }

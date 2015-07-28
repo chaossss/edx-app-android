@@ -150,6 +150,44 @@ public class Api {
     }
 
     /**
+     * Returns user's basic profile information for current active session.
+     * @return
+     * @throws Exception
+     */
+    public ProfileModel getProfile() throws Exception {
+        Bundle p = new Bundle();
+        p.putString("format", "json");
+
+        String url = getBaseUrl() + "/api/mobile/v0.5/my_user_info";
+        String urlWithAppendedParams = HttpManager.toGetUrl(url, p);
+
+        //logger.debug("Url for getProfile: " + urlWithAppendedParams);
+
+        String json = http.get(urlWithAppendedParams, getAuthHeaders());
+
+        if (json == null) {
+            return null;
+        }
+        //logger.debug("GetProfile response=" + json);
+
+        Gson gson = new GsonBuilder().create();
+        ProfileModel res = gson.fromJson(json, ProfileModel.class);
+        res.json = json;
+
+        // store profile json
+        if (res != null) {
+            // FIXME: store the profile only from one place, right now it happens from LoginTask also.
+            PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
+            pref.put(PrefManager.Key.PROFILE_JSON, res.json);
+        }
+
+        // hold the json string as it is
+        res.json = json;
+
+        return res;
+    }
+
+    /**
      * Resets password for the given email id.
      * @param emailId
      * @return
