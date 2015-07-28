@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xuemooc.edxapp.Config;
 import com.xuemooc.edxapp.model.api.AuthResponse;
+import com.xuemooc.edxapp.model.api.ProfileModel;
 import com.xuemooc.edxapp.model.api.ResetPasswordResponse;
 import com.xuemooc.edxapp.module.prefs.PrefManager;
 
@@ -53,6 +54,9 @@ public class Api {
                 csrfPair = value;
             }
         }
+        if(csrfPair == null){
+            return "";
+        }
         return csrfPair.substring("csrftoken".length() + 1);
     }
 
@@ -98,6 +102,30 @@ public class Api {
 
         Gson gson = new GsonBuilder().create();
         AuthResponse res = gson.fromJson(json, AuthResponse.class);
+
+        return res;
+    }
+
+    /**
+     * Returns basic profile information of the given username.
+     * @deprecated Use {@link #getProfile()} instead.
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    public ProfileModel getProfile(String username) throws Exception {
+        Bundle p = new Bundle();
+        p.putString("username", username);
+
+        String url = getBaseUrl() + "/api/mobile/v0.5/users/" + username;
+        String json = http.get(url, getAuthHeaders());
+
+        Gson gson = new GsonBuilder().create();
+        ProfileModel res = gson.fromJson(json, ProfileModel.class);
+        // hold the json string as it is
+        res.json = json;
+
+        //logger.debug("profile=" + json);
 
         return res;
     }
