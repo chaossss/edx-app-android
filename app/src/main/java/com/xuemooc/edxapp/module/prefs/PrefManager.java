@@ -140,8 +140,6 @@ public class PrefManager {
         put(PrefManager.Key.AUTH_JSON, null);
     }
 
-
-
     /**
      * Contains preference name constants.
      *

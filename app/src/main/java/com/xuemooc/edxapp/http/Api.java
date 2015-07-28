@@ -37,10 +37,23 @@ public class Api {
      * @return
      * @throws Exception
      */
-    public Map<String, List<String>> getLoginResponseHeaders()
+    private Map<String, List<String>> getLoginResponseHeaders()
             throws Exception {
         String url = getBaseUrl() + "/login";
         return http.getRequestHeader(url);
+    }
+
+    private String getCsrfToken(Map<String, List<String>> map){
+
+        String cookie = map.get("Set-Cookie").get(0);
+        String[] values = cookie.split(";");
+        String csrfPair = null;
+        for(String value: values){
+            if(value.contains("csrftoken")){
+                csrfPair = value;
+            }
+        }
+        return csrfPair.substring("csrftoken".length() + 1);
     }
 
     /**
@@ -51,9 +64,9 @@ public class Api {
      * @return
      * @throws Exception
      */
-    private Bundle setCookieHeaders(Bundle headerBundle) throws Exception {
+    public Bundle setCookieHeaders(Bundle headerBundle) throws Exception {
         Map<String, List<String>> headers = getLoginResponseHeaders();
-        String csrfToken = headers.get("csrftoken").get(0);
+        String csrfToken = getCsrfToken(headers);
 
         headerBundle.putString("Cookie", "csrftoken" + "=" + csrfToken);
         headerBundle.putString("X-CSRFToken", csrfToken);
