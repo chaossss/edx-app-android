@@ -97,7 +97,7 @@ public class Api {
         Bundle headers = new Bundle();
 
         // generate auth headers
-        PrefManager pref = new PrefManager(context, PrefManager.Pref.LOGIN);
+        PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
         AuthResponse auth = pref.getCurrentAuth();
 
         if (auth == null || !auth.isSuccess()) {
