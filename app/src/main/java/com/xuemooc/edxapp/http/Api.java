@@ -177,7 +177,6 @@ public class Api {
         if (res == null) {
             return null;
         }
-        // FIXME: store the profile only from one place, right now it happens from LoginTask also.
         PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
         pref.put(PrefManager.Key.PROFILE_JSON, res.json);
 
@@ -219,4 +218,6 @@ public class Api {
 
         return res;
     }
+
+
 }
