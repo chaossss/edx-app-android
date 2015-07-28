@@ -172,14 +172,14 @@ public class Api {
 
         Gson gson = new GsonBuilder().create();
         ProfileModel res = gson.fromJson(json, ProfileModel.class);
-        res.json = json;
 
         // store profile json
-        if (res != null) {
-            // FIXME: store the profile only from one place, right now it happens from LoginTask also.
-            PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
-            pref.put(PrefManager.Key.PROFILE_JSON, res.json);
+        if (res == null) {
+            return null;
         }
+        // FIXME: store the profile only from one place, right now it happens from LoginTask also.
+        PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
+        pref.put(PrefManager.Key.PROFILE_JSON, res.json);
 
         // hold the json string as it is
         res.json = json;
