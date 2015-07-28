@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xuemooc.edxapp.Config;
 import com.xuemooc.edxapp.model.api.AuthResponse;
+import com.xuemooc.edxapp.module.prefs.PrefManager;
 
 import java.util.List;
 import java.util.Map;
@@ -78,13 +79,31 @@ public class Api {
         //logger.debug("Auth response= " + json);
 
         // store auth token response
-        //PrefManager pref = new PrefManager(context, PrefManager.Pref.LOGIN);
-        //pref.put(PrefManager.Key.AUTH_JSON, json);
-        //pref.put(PrefManager.Key.SEGMENT_KEY_BACKEND, ISegment.Values.PASSWORD);
+        PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
+        pref.put(PrefManager.Key.AUTH_JSON, json);
 
         Gson gson = new GsonBuilder().create();
         AuthResponse res = gson.fromJson(json, AuthResponse.class);
 
         return res;
+    }
+
+    /**
+     * Returns "Authorization" header with current active access token.
+     * @return
+     */
+    public Bundle getAuthHeaders() {
+        Bundle headers = new Bundle();
+
+        // generate auth headers
+        PrefManager pref = new PrefManager(context, PrefManager.Pref.LOGIN);
+        AuthResponse auth = pref.getCurrentAuth();
+
+        if (auth == null || !auth.isSuccess()) {
+            return null;
+        } else {
+            headers.putString("Authorization", String.format("%s %s", auth.token_type, auth.access_token));
+        }
+        return headers;
     }
 }
