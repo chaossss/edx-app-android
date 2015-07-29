@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_drawer_account_header_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/header_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_drawer_account_header_height"
+        android:background="@drawable/header"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_drawer_account_header_height">
+        <com.mikepenz.materialdrawer.view.BezelImageView
+            android:id="@+id/header_user_icon"
+            android:layout_width="@dimen/material_drawer_account_header_selected"
+            android:layout_height="@dimen/material_drawer_account_header_selected"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
+            android:layout_marginStart="@dimen/material_drawer_vertical_padding"
+            android:clickable="false"
+            android:elevation="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile"
+            app:biv_maskDrawable="@drawable/circle_mask" />
+
+        <TextView
+            android:id="@+id/header_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text=""
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:paddingRight="48dp"
+            android:paddingLeft="48dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/header_user_icon"
+            android:layout_toEndOf="@+id/header_user_icon" />
+
+        <Button
+            android:id="@+id/header_user_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drawer_header_login"
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:paddingRight="48dp"
+            android:paddingLeft="48dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/header_user_icon"
+            android:layout_toEndOf="@+id/header_user_icon" />
+    </RelativeLayout>
+</FrameLayout>

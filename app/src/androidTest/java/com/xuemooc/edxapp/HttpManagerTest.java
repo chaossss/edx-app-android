@@ -1,6 +1,11 @@
 package com.xuemooc.edxapp;
 
+import android.os.Bundle;
 import android.test.InstrumentationTestCase;
+
+import com.xuemooc.edxapp.http.HttpManager;
+
+import java.io.IOException;
 
 /**
  * Created by hackeris on 15/7/28.
