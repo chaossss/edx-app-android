@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView userName = null;
     private BezelImageView userImg = null;
 
+    //抽屉尾部组件
+    private RelativeLayout settings = null;
+    private RelativeLayout encourage = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
+    /**
+     * 初始化 Activity 要显示的 View
+     */
     private void initView(){
         initDrawer();
     }
@@ -88,41 +96,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initFooter(){
         footer = (LinearLayout)LayoutInflater.from(this.getApplication()).inflate(R.layout.drawer_footer,null);
+
+        settings = (RelativeLayout) footer.findViewById(R.id.drawer_footer_setting);
+        encourage = (RelativeLayout) footer.findViewById(R.id.drawer_footer_encourage);
+
+        settings.setOnClickListener(this);
+        encourage.setOnClickListener(this);
     }
 
+    /**
+     * 处理 View 的点击事件
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch(v.getId()){
+            case R.id.header_user_login:
+                break;
 
+            case R.id.drawer_footer_setting:
+                break;
+
+            case R.id.drawer_footer_encourage:
+                break;
         }
     }
 
+    /**
+     * 用于显示“编辑”按钮，只有在选择了抽屉中的我的下载才会显示
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        menu.setGroupVisible(0, false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * 保存当前 Activity 和 drawer 的状态
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //add the values which need to be saved from the drawer to the bundle
         outState = drawer.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * 按后退按钮后，如果抽屉处于打开状态，则关闭抽屉；否则退出应用
+     */
     @Override
     public void onBackPressed() {
-        //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
         } else {
