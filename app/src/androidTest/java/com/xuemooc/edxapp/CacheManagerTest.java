@@ -14,10 +14,6 @@ public class CacheManagerTest extends ApplicationTestCase<Application> {
 
     private CacheManager mCacheManager;
 
-    private String mTestUrl = "http://www.baidu.com";
-
-    private String mTestContent = "This is from baidu";
-
     public CacheManagerTest(){
 
         super(Application.class);
@@ -32,6 +28,9 @@ public class CacheManagerTest extends ApplicationTestCase<Application> {
     }
 
     public void testPut() throws IOException {
+
+        String mTestUrl = "http://www.baidu.com";
+        String mTestContent = "This is from baidu";
 
         mCacheManager.put(mTestUrl, mTestContent);
         String cache = mCacheManager.get(mTestUrl);

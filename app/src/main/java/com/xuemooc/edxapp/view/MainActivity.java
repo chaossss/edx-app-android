@@ -1,9 +1,11 @@
-package com.xuemooc.edxapp;
+package com.xuemooc.edxapp.view;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.xuemooc.edxapp.R;
 
 
 public class MainActivity extends ActionBarActivity {
