@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xuemooc.edxapp.model.api.AuthResponse;
+import com.xuemooc.edxapp.model.api.ProfileModel;
 
 /**
  * Created by hackeris on 15/7/28.
@@ -138,6 +139,23 @@ public class PrefManager {
     public void clearAuth() {
         put(PrefManager.Key.PROFILE_JSON, null);
         put(PrefManager.Key.AUTH_JSON, null);
+    }
+
+    /**
+     * Returns current user's profile from the preferences.
+     * @return
+     */
+    public ProfileModel getCurrentUserProfile() {
+        String json = getString(PrefManager.Key.PROFILE_JSON);
+        if (json == null) {
+            return null;
+        }
+
+        Gson gson = new GsonBuilder().create();
+        ProfileModel res = gson.fromJson(json, ProfileModel.class);
+        res.json = json;
+
+        return res;
     }
 
     /**
