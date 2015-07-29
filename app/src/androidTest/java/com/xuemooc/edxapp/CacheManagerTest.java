@@ -22,24 +22,34 @@ public class CacheManagerTest extends ApplicationTestCase<Application> {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-
         mCacheManager = new CacheManager(getContext());
         mCacheManager.clean();
     }
 
     public void testPut() throws IOException {
 
-        String mTestUrl = "http://www.baidu.com";
-        String mTestContent = "This is from baidu";
+        String testUrl1 = "http://www.baidu.com";
+        String testContent1 = "This is from baidu";
 
-        mCacheManager.put(mTestUrl, mTestContent);
-        String cache = mCacheManager.get(mTestUrl);
-        assertEquals(mTestContent, cache);
+        String testUrl2 = "https://www.google.com";
+        String testContent2 = "This is from google";
+
+        mCacheManager.put(testUrl1, testContent1);
+        mCacheManager.put(testUrl2, testContent2);
+        String cache = mCacheManager.get(testUrl1);
+        assertEquals(testContent1, cache);
+        cache = mCacheManager.get(testUrl2);
+        assertEquals(testContent2, cache);
     }
 
-    public void testHas() {
+    public void testHas() throws IOException {
+        String testUrl1 = "http://www.baidu.com";
+        String testContent1 = "This is from baidu";
+
+        mCacheManager.put(testUrl1,testContent1);
 
         assertFalse(mCacheManager.has("https://www.google.com"));
+        assertTrue(mCacheManager.has("http://www.baidu.com"));
     }
 
     @Override
