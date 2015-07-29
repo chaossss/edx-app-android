@@ -5,18 +5,12 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.xuemooc.edxapp.Config;
-import com.xuemooc.edxapp.exception.AuthException;
-import com.xuemooc.edxapp.model.api.AuthErrorResponse;
+import com.xuemooc.edxapp.utils.Config;
 import com.xuemooc.edxapp.model.api.AuthResponse;
-import com.xuemooc.edxapp.model.api.EnrolledCoursesResponse;
 import com.xuemooc.edxapp.model.api.ProfileModel;
 import com.xuemooc.edxapp.model.api.ResetPasswordResponse;
 import com.xuemooc.edxapp.module.prefs.PrefManager;
-import com.xuemooc.edxapp.util.NetworkUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +23,6 @@ public class Api {
 
     private HttpManager http;
 
-    private CacheManager mCache;
-
     public String getBaseUrl() {
         return Config.getInstance().getBaseUrl();
     }
@@ -38,7 +30,6 @@ public class Api {
     public Api(Context context) {
         this.mContext = context;
         this.http = new HttpManager();
-        this.mCache = new CacheManager(context);
     }
 
     /**
@@ -186,10 +177,12 @@ public class Api {
         if (res == null) {
             return null;
         }
-        // hold the json string as it is
-        res.json = json;
+        // FIXME: store the profile only from one place, right now it happens from LoginTask also.
         PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
         pref.put(PrefManager.Key.PROFILE_JSON, res.json);
+
+        // hold the json string as it is
+        res.json = json;
 
         return res;
     }
@@ -225,61 +218,5 @@ public class Api {
         ResetPasswordResponse res = gson.fromJson(json, ResetPasswordResponse.class);
 
         return res;
-    }
-
-    /**
-     * Returns enrolled courses of given user.
-     *
-     * @param fetchFromCache
-     * @return
-     * @throws Exception
-     */
-    public ArrayList<EnrolledCoursesResponse> getEnrolledCourses(boolean fetchFromCache) throws Exception {
-        PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
-
-        Bundle p = new Bundle();
-        p.putString("format", "json");
-        String url = getBaseUrl() + "/api/mobile/v0.5/users/" + pref.getCurrentUserProfile().username
-                + "/course_enrollments/";
-        String json = null;
-
-        if (NetworkUtil.isConnected(mContext) && !fetchFromCache) {
-            // get data from server
-            String urlWithAppendedParams = HttpManager.toGetUrl(url, p);
-            json = http.get(urlWithAppendedParams, getAuthHeaders());
-            // cache the response
-            mCache.put(url, json);
-        }
-
-        if(json == null) {
-            json = mCache.get(url);
-        }
-
-        if (json == null) {
-            return null;
-        }
-
-        //logger.debug("Url "+"enrolled_courses=" + json);
-
-        Gson gson = new GsonBuilder().create();
-
-        AuthErrorResponse authError = null;
-        try {
-            // check if auth error
-            authError = gson.fromJson(json, AuthErrorResponse.class);
-        } catch(Exception ex) {
-            // nothing to do here
-        }
-        if (authError != null && authError.detail != null) {
-            throw new AuthException(authError);
-        }
-
-        TypeToken<ArrayList<EnrolledCoursesResponse>> t = new TypeToken<ArrayList<EnrolledCoursesResponse>>() {
-        };
-
-        ArrayList<EnrolledCoursesResponse> list = gson.fromJson(json,
-                t.getType());
-
-        return list;
     }
 }
