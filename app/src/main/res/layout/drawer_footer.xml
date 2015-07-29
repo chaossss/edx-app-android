@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="64dp">
+    <RelativeLayout
+        android:id="@+id/drawer_footer_encourage"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1.0"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp">
+        <ImageView
+            android:id="@+id/encourage_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/profile"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/encourage_text"
+            android:layout_toStartOf="@+id/encourage_text"
+            android:layout_marginRight="16dp" />
+        <TextView
+            android:id="@+id/encourage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drawer_footer_encourage"
+            android:textColor="@color/md_white_1000"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1.0"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/drawer_footer_setting"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:id="@+id/setting_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/profile"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/setting_text"
+            android:layout_toEndOf="@+id/setting_text"
+            android:layout_marginLeft="16dp" />
+        <TextView
+            android:id="@+id/setting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drawer_footer_setting"
+            android:textSize="16sp"
+            android:textColor="@color/md_white_1000"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,6 +1,20 @@
 <resources>
-    <string name="app_name">学MOOC</string>
+    <string name="app_name">学Mooc</string>
 
-    <string name="xue_mooc">学MOOC</string>
-    <string name="action_settings">Settings</string>
+    <!-- Menu -->
+    <string name="action_settings">编辑</string>
+
+    <!-- DrawerHeader -->
+    <string name="drawer_header_login">登录</string>
+
+    <!-- Drawer Items -->
+    <string name="drawer_item_my_course">我的课程</string>
+    <string name="drawer_item_discover_course">发现课程</string>
+    <string name="drawer_item_settings">设置</string>
+    <string name="drawer_item_download">我的下载</string>
+    <string name="drawer_item_encourage">鼓励</string>
+
+    <!-- DrawerFooter -->
+    <string name="drawer_footer_setting">设置</string>
+    <string name="drawer_footer_encourage">鼓励</string>
 </resources>
