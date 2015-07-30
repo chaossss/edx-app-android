@@ -12,38 +12,38 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.model.data.DiscoverCourseModel;
-import com.xuemooc.edxapp.view.adapter.DiscoverListAdapter;
+import com.xuemooc.edxapp.model.data.MyCourseModel;
+import com.xuemooc.edxapp.view.adapter.MyCourseListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 发现课程页面
+ * 我的课程页面
  * Created by chaossss on 2015/7/30.
  */
-public class DiscoverFragment extends Fragment {
+public class MyCourseFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private DiscoverListAdapter adapter;
-    private List<DiscoverCourseModel> discoverList = new ArrayList<>();
+    private MyCourseListAdapter adapter;
+    private List<MyCourseModel> myCourseList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_discover, container, false);
+        View root = inflater.inflate(R.layout.fragment_my_course, container, false);
 
-        recyclerView=(RecyclerView) root.findViewById(R.id.discover_list);
-        swipeRefreshLayout=(SwipeRefreshLayout) root.findViewById(R.id.discover_swipe);
+        recyclerView = (RecyclerView) root.findViewById(R.id.my_course_list);
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.my_course_swipe);
         recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
 
         for(int i = 0;i < 5;++i)
         {
-            DiscoverCourseModel temp = new DiscoverCourseModel("课程" + i, "学校" + i,"", i, "时间" + i);
-            discoverList.add(temp);
+            MyCourseModel temp = new MyCourseModel("课程" + i, "学校" + i, "", "更新信息" + i);
+            myCourseList.add(temp);
         }
-        adapter = new DiscoverListAdapter(discoverList);
+        adapter = new MyCourseListAdapter(myCourseList);
         recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -65,8 +65,8 @@ public class DiscoverFragment extends Fragment {
             {
                 for(int i=0;i<5;++i)
                 {
-                    DiscoverCourseModel temp = new DiscoverCourseModel("new课程" + i, "new学校" + i,"", i, "new时间" + i);
-                    discoverList.add(temp);
+                    MyCourseModel temp = new MyCourseModel("new课程" + i, "new学校" + i, "", "new更新信息" + i);
+                    myCourseList.add(temp);
                 }
                 adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);

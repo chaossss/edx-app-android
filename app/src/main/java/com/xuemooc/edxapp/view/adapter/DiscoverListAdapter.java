@@ -6,24 +6,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.model.data.CourseModel;
+import com.xuemooc.edxapp.model.data.DiscoverCourseModel;
 import com.xuemooc.edxapp.view.holder.DiscoverListHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 发现课程列表的数据填充器
  * Created by chaossss on 2015/7/30.
  */
-public class CourseItemAdapter extends RecyclerView.Adapter<DiscoverListHolder> {
-    private List<CourseModel> courseList = new ArrayList<>();
+public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder> {
+    private List<DiscoverCourseModel> courseList = new ArrayList<>();
 
-    public CourseItemAdapter(List<CourseModel> courseList) {
+    /**
+     * @param courseList 发现课程列表的数据项
+     */
+    public DiscoverListAdapter(List<DiscoverCourseModel> courseList) {
         super();
         this.courseList = courseList;
     }
 
-    public void addCourse(CourseModel course){
+    /**
+     * 添加新增课程
+     * @param course
+     */
+    public void addCourse(DiscoverCourseModel course){
         courseList.add(course);
     }
 
@@ -37,7 +45,7 @@ public class CourseItemAdapter extends RecyclerView.Adapter<DiscoverListHolder> 
     @Override
     public void onBindViewHolder(DiscoverListHolder holder, int position)
     {
-        CourseModel course = courseList.get(position);
+        DiscoverCourseModel course = courseList.get(position);
         holder.setInfo(course.getCourseName(),course.getSchool(),course.getWatchNums(),course.getTime());
     }
 
