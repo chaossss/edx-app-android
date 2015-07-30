@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.util;
+package com.xuemooc.edxapp.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.xuemooc.edxapp.Config;
+import com.xuemooc.edxapp.utils.Config;
 import com.xuemooc.edxapp.exception.AuthException;
 import com.xuemooc.edxapp.model.api.AuthErrorResponse;
 import com.xuemooc.edxapp.model.api.AuthResponse;
@@ -14,7 +14,7 @@ import com.xuemooc.edxapp.model.api.EnrolledCoursesResponse;
 import com.xuemooc.edxapp.model.api.ProfileModel;
 import com.xuemooc.edxapp.model.api.ResetPasswordResponse;
 import com.xuemooc.edxapp.module.prefs.PrefManager;
-import com.xuemooc.edxapp.util.NetworkUtil;
+import com.xuemooc.edxapp.utils.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;
