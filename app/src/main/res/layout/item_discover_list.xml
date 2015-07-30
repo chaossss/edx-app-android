@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/discover_list_img"
+        android:layout_width="160dp"
+        android:layout_height="64dp"
+        android:src="@drawable/profile"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:id="@+id/discover_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/md_black_1000"
+        android:layout_alignTop="@+id/discover_list_img"
+        android:layout_toRightOf="@+id/discover_list_img"
+        android:layout_marginLeft="16dp" />
+
+    <TextView
+        android:id="@+id/discover_list_school"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/md_black_1000"
+        android:layout_above="@+id/discover_list_watch"
+        android:layout_toRightOf="@+id/discover_list_img"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/discover_list_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textColor="@color/md_black_1000"
+        android:layout_toRightOf="@+id/discover_list_time_img"
+        android:layout_alignBottom="@+id/discover_list_img"
+        android:layout_marginLeft="4dp" />
+
+    <TextView
+        android:id="@+id/discover_list_watch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textColor="@color/md_black_1000"
+        android:layout_toRightOf="@+id/discover_list_watch_img"
+        android:layout_alignBottom="@+id/discover_list_img"
+        android:layout_marginLeft="4dp" />
+
+    <ImageView
+        android:id="@+id/discover_list_time_img"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/profile"
+        android:layout_alignBottom="@+id/discover_list_watch"
+        android:layout_toRightOf="@+id/discover_list_watch"
+        android:layout_alignTop="@+id/discover_list_time"
+        android:layout_marginLeft="16dp" />
+
+    <ImageView
+        android:id="@+id/discover_list_watch_img"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/profile"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/discover_list_watch"
+        android:layout_toRightOf="@+id/discover_list_img"
+        android:layout_alignBottom="@+id/discover_list_img"
+        android:layout_marginLeft="16dp" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#ABABAB"
+        android:layout_below="@+id/discover_list_img"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp" />
+</RelativeLayout>
