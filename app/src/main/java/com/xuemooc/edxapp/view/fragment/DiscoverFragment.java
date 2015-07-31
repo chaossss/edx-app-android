@@ -22,8 +22,8 @@ import java.util.List;
  * 发现课程页面
  * Created by chaossss on 2015/7/30.
  */
-public class DiscoverFragment extends Fragment {
-    private RecyclerView recyclerView;
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    private RecyclerView discoverListView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private DiscoverListAdapter adapter;
@@ -34,9 +34,9 @@ public class DiscoverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_discover, container, false);
 
-        recyclerView=(RecyclerView) root.findViewById(R.id.discover_list);
+        discoverListView=(RecyclerView) root.findViewById(R.id.discover_list);
         swipeRefreshLayout=(SwipeRefreshLayout) root.findViewById(R.id.discover_swipe);
-        recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
+        discoverListView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
 
         for(int i = 0;i < 5;++i)
         {
@@ -44,14 +44,9 @@ public class DiscoverFragment extends Fragment {
             discoverList.add(temp);
         }
         adapter = new DiscoverListAdapter(discoverList);
-        recyclerView.setAdapter(adapter);
+        discoverListView.setAdapter(adapter);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshContent();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         return root;
     }
@@ -72,5 +67,10 @@ public class DiscoverFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         },1000);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshContent();
     }
 }
