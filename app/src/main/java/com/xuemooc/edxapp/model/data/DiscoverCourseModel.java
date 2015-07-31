@@ -1,7 +1,7 @@
 package com.xuemooc.edxapp.model.data;
 
 /**
- * ·¢ÏÖ¿Î³ÌÊı¾İÄ£ĞÍÀà
+ * å‘ç°è¯¾ç¨‹æ•°æ®æ¨¡å‹ç±»
  * Created by chaossss on 2015/7/29.
  */
 public class DiscoverCourseModel extends CourseModel{
@@ -12,11 +12,11 @@ public class DiscoverCourseModel extends CourseModel{
     }
 
     /**
-     * @param courseName ¿Î³ÌÃû³Æ
-     * @param school ¿Î³Ì¿ªÉèÑ§Ğ£
-     * @param imgUrl ¿Î³ÌÍ¼Æ¬
-     * @param watchNums ²ÎÓëÈËÊı
-     * @param time ¿Î³Ì¿ªÉèÊ±¼ä
+     * @param courseName è¯¾ç¨‹åç§°
+     * @param school è¯¾ç¨‹å¼€è®¾å­¦æ ¡
+     * @param imgUrl è¯¾ç¨‹å›¾ç‰‡
+     * @param watchNums å‚ä¸äººæ•°
+     * @param time è¯¾ç¨‹å¼€è®¾æ—¶é—´
      */
     public DiscoverCourseModel(String courseName, String school, String imgUrl, int watchNums, String time){
         super(courseName, school, imgUrl);

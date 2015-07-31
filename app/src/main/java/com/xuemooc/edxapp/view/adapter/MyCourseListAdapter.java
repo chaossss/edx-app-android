@@ -34,6 +34,10 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
         courseList.add(course);
     }
 
+    public MyCourseModel removeCourse(int pos){
+        return courseList.remove(pos);
+    }
+
     @Override
     public MyCourseListHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.xuemooc.edxapp.R;
 
 /**
- * ·¢ÏÖ¿Î³ÌÁĞ±íÏî²¼¾Ö
+ * å‘ç°è¯¾ç¨‹åˆ—è¡¨é¡¹å¸ƒå±€
  * Created by chaossss on 2015/7/29.
  */
 public class DiscoverListHolder extends RecyclerView.ViewHolder {
@@ -26,11 +26,11 @@ public class DiscoverListHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * ÌîÈë·¢ÏÖ¿Î³ÌÊı¾İ
-     * @param courseName ¿Î³ÌÃû
-     * @param school ¿Î³Ì¿ªÉèÑ§Ğ£
-     * @param watchNums ¿Î³Ì¹Û¿´ÈËÊı
-     * @param time ¿Î³Ì¿ªÉèÊ±¼ä
+     * å¡«å…¥å‘ç°è¯¾ç¨‹æ•°æ®
+     * @param courseName è¯¾ç¨‹å
+     * @param school è¯¾ç¨‹å¼€è®¾å­¦æ ¡
+     * @param watchNums è¯¾ç¨‹è§‚çœ‹äººæ•°
+     * @param time è¯¾ç¨‹å¼€è®¾æ—¶é—´
      */
     public void setInfo(String courseName,String school,int watchNums,String time){
         this.time.setText(time);
