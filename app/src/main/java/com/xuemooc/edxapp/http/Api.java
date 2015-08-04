@@ -570,7 +570,7 @@ public class Api {
         String json = null;
         if (NetworkUtil.isConnected(mContext) && !preferCache) {
             // get data from server
-            json = http.post(url, p, getAuthHeaders());
+            json = http.get(HttpManager.toGetUrl(url, p), getAuthHeaders());
             // cache the response
             mCache.put(url, json);
         } else {
