@@ -1,5 +1,6 @@
 package com.xuemooc.edxapp.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -115,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.drawer_footer_setting:
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                this.startActivity(intent);
                 break;
 
             case R.id.drawer_footer_encourage:
