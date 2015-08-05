@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.test.ApplicationTestCase;
 
 import com.xuemooc.edxapp.http.Api;
+import com.xuemooc.edxapp.http.IApi;
 import com.xuemooc.edxapp.model.api.AuthResponse;
 import com.xuemooc.edxapp.model.api.EnrolledCoursesResponse;
 import com.xuemooc.edxapp.model.api.ProfileModel;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 public class ApiTest extends ApplicationTestCase<Application> {
 
-    private Api api;
+    private IApi api;
 
     private String testUserEmail = "hackeris@qq.com";
     private String testUserName = "Hackeris";

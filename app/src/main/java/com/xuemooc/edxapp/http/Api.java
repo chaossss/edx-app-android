@@ -46,7 +46,7 @@ import java.util.Map;
 /**
  * Created by hackeris on 15/7/28.
  */
-public class Api {
+public class Api implements IApi {
 
     private Context mContext;
 
@@ -54,6 +54,7 @@ public class Api {
 
     private CacheManager mCache;
 
+    @Override
     public String getBaseUrl() {
         return Config.getInstance().getBaseUrl();
     }
@@ -100,6 +101,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public Bundle setCookieHeaders(Bundle headerBundle) throws Exception {
         Map<String, List<String>> headers = getLoginResponseHeaders();
         String csrfToken = getCsrfToken(headers);
@@ -115,6 +117,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public AuthResponse auth(String username, String password)
             throws Exception {
         Bundle p = new Bundle();
@@ -145,6 +148,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ProfileModel getProfile(String username) throws Exception {
         Bundle p = new Bundle();
         p.putString("username", username);
@@ -166,6 +170,7 @@ public class Api {
      * Returns "Authorization" header with current active access token.
      * @return
      */
+    @Override
     public Bundle getAuthHeaders() {
         Bundle headers = new Bundle();
 
@@ -186,6 +191,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ProfileModel getProfile() throws Exception {
         Bundle p = new Bundle();
         p.putString("format", "json");
@@ -223,6 +229,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ResetPasswordResponse resetPassword(String emailId)
             throws Exception {
         Bundle headerBundle = new Bundle();
@@ -257,6 +264,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ArrayList<EnrolledCoursesResponse> getEnrolledCourses(boolean fetchFromCache) throws Exception {
         PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
 
@@ -313,6 +321,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public Map<String, SectionEntry> getCourseHierarchy(String courseId)
             throws Exception {
         return getCourseHierarchy(courseId, false);
@@ -326,6 +335,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public Map<String, SectionEntry> getCourseHierarchy(String courseId, boolean preferCache)
             throws Exception {
         Bundle p = new Bundle();
@@ -418,6 +428,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public LectureModel getLecture(String courseId, String chapterName, String lectureName)
             throws Exception {
         Map<String, SectionEntry> map = getCourseHierarchy(courseId, true);
@@ -449,6 +460,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public VideoResponseModel getVideoById(String courseId, String videoId)
             throws Exception {
         Map<String, SectionEntry> map = getCourseHierarchy(courseId, true);
@@ -481,6 +493,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public VideoResponseModel getSubsectionById(String courseId, String subsectionId)
             throws Exception {
         Map<String, SectionEntry> map = getCourseHierarchy(courseId, true);
@@ -510,6 +523,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public String getUnitUrlByVideoById(String courseId, String videoId)
             throws Exception {
         try{
@@ -530,6 +544,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ArrayList<EnrolledCoursesResponse> getEnrolledCourses()
             throws Exception {
         return getEnrolledCourses(false);
@@ -540,6 +555,7 @@ public class Api {
      * @param courseId
      * @return
      */
+    @Override
     public CourseEntry getCourseById(String courseId) {
         try {
             for (EnrolledCoursesResponse r : getEnrolledCourses(true)) {
@@ -562,6 +578,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ArrayList<VideoResponseModel> getVideosByCourseId(String courseId, boolean preferCache)
             throws Exception {
         Bundle p = new Bundle();
@@ -594,6 +611,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public HandoutModel getHandout(String url, boolean preferCache) throws Exception {
         Bundle p = new Bundle();
         p.putString("format", "json");
@@ -627,6 +645,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public CourseInfoModel getCourseInfo(String url, boolean preferCache) throws Exception {
         Bundle p = new Bundle();
         p.putString("format", "json");
@@ -660,6 +679,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public List<AnnouncementsModel> getAnnouncement(String url, boolean preferCache)
             throws Exception {
         Bundle p = new Bundle();
@@ -695,6 +715,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public CourseInfoModel srtStream(String url, boolean preferCache) throws Exception {
         Bundle p = new Bundle();
         p.putString("format", "json");
@@ -728,6 +749,7 @@ public class Api {
      * @return TranscriptModel
      * @throws Exception
      */
+    @Override
     public TranscriptModel getTranscriptsOfVideo(String enrollmentId,
                                                  String videoId) throws Exception {
         try{
@@ -745,6 +767,7 @@ public class Api {
         return null;
     }
 
+    @Override
     public String downloadTranscript(String url)
             throws Exception {
         if (url != null){
@@ -767,6 +790,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public ArrayList<VideoResponseModel> getVideosByURL(String courseId, String videoUrl, boolean preferCache)
             throws Exception {
         if(videoUrl==null){
@@ -796,6 +820,7 @@ public class Api {
      * @param chapter
      * @return
      */
+    @Override
     public ArrayList<SectionItemInterface> getLiveOrganizedVideosByChapter
     (String courseId, String chapter) {
 
@@ -852,6 +877,7 @@ public class Api {
         return list;
     }
 
+    @Override
     public SyncLastAccessedSubsectionResponse syncLastAccessedSubsection(String courseId,
                                                                          String lastVisitedModuleId) throws Exception {
 
@@ -881,6 +907,7 @@ public class Api {
         return res;
     }
 
+    @Override
     public SyncLastAccessedSubsectionResponse getLastAccessedSubsection(String courseId) throws Exception {
         PrefManager pref = new PrefManager(mContext, PrefManager.Pref.LOGIN);
         String username = pref.getCurrentUserProfile().username;
@@ -909,6 +936,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public RegisterResponse register(Bundle parameters)
             throws Exception {
         String url = getBaseUrl() + "/user_api/v1/account/registration/";
@@ -942,6 +970,7 @@ public class Api {
      * @return
      * @throws Exception
      */
+    @Override
     public RegistrationDescription getRegistrationDescription() throws Exception {
         Gson gson = new Gson();
         InputStream in = mContext.getAssets().open("config/registration_form.json");
@@ -950,6 +979,7 @@ public class Api {
         return form;
     }
 
+    @Override
     public Boolean enrollInACourse(String courseId, boolean email_opt_in) throws Exception {
         String enrollUrl = getBaseUrl() + "/api/enrollment/v1/enrollment";
         //logger.debug("POST url for enrolling in a Course: " + enrollUrl);
