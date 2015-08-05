@@ -5,20 +5,30 @@ import android.os.Bundle;
 import android.test.ApplicationTestCase;
 
 import com.xuemooc.edxapp.http.Api;
+import com.xuemooc.edxapp.http.IApi;
 import com.xuemooc.edxapp.model.api.AuthResponse;
 import com.xuemooc.edxapp.model.api.EnrolledCoursesResponse;
 import com.xuemooc.edxapp.model.api.ProfileModel;
 import com.xuemooc.edxapp.model.api.ResetPasswordResponse;
+import com.xuemooc.edxapp.model.api.SectionEntry;
+import com.xuemooc.edxapp.model.api.VideoResponseModel;
 import com.xuemooc.edxapp.module.prefs.PrefManager;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by hackeris on 15/7/28.
  */
 public class ApiTest extends ApplicationTestCase<Application> {
 
-    private Api api;
+    private IApi api;
+
+    private String testUserEmail = "hackeris@qq.com";
+    private String testUserName = "Hackeris";
+    private String testUserPassword = "hackeris";
+//    private String testCourseId = "edX/DemoX/Demo_Course";
+    private String testCourseId = "UESTC/SLL001/2014-2015-1";
 
     public ApiTest() {
         super(Application.class);
@@ -28,12 +38,7 @@ public class ApiTest extends ApplicationTestCase<Application> {
     protected void setUp() throws Exception {
         super.setUp();
         api = new Api(getContext());
-    }
-
-    public void testApi() {
-
-        int a = 1, b = 1;
-        assertEquals(a, b);
+        api.auth(testUserName, testUserPassword);
     }
 
     public void testSetCookieHeaders() throws Exception {
@@ -45,27 +50,27 @@ public class ApiTest extends ApplicationTestCase<Application> {
 
     public void testAuth() throws Exception {
 
-        AuthResponse authResponse = api.auth("Hackeris", "hackeris");
+        AuthResponse authResponse = api.auth(testUserName, testUserPassword);
         assertEquals(authResponse.token_type, "Bearer");
     }
 
     @Deprecated
     public void testGetProfileWithName() throws Exception {
 
-        ProfileModel profile = api.getProfile("Hackeris");
-        assertEquals(profile.username, "Hackeris");
+        ProfileModel profile = api.getProfile(testUserName);
+        assertEquals(profile.username, testUserName);
     }
 
     public void testGetProfile() throws Exception {
 
         ProfileModel profile = api.getProfile();
-        assertEquals(profile.username, "Hackeris");
+        assertEquals(profile.username, testUserName);
     }
 
     public void testGetCurrentUserProfile() throws Exception {
 
         ProfileModel profile = new PrefManager(getContext(), PrefManager.Pref.LOGIN).getCurrentUserProfile();
-        assertEquals(profile.username, "Hackeris");
+        assertEquals(profile.username, testUserName);
     }
 
     public void testGetEnrolledCourse() throws Exception {
@@ -84,7 +89,19 @@ public class ApiTest extends ApplicationTestCase<Application> {
     public void testResetPassword() throws Exception {
 
         api.getProfile();
-        ResetPasswordResponse resp = api.resetPassword("hackeris@qq.com");
+        ResetPasswordResponse resp = api.resetPassword(testUserEmail);
         assertTrue(resp.isSuccess());
+    }
+
+    public void testGetCourseHierarchy() throws Exception {
+
+        Map<String, SectionEntry> courseHierarchy = api.getCourseHierarchy(testCourseId);
+        assertFalse(courseHierarchy.isEmpty());
+    }
+
+    public void testGetVideosByCourseId() throws Exception {
+
+        ArrayList<VideoResponseModel> videos = api.getVideosByCourseId(testCourseId, false);
+        assertFalse(videos.isEmpty());
     }
 }
