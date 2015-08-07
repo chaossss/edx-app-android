@@ -164,14 +164,14 @@
                 android:background="#BDBDBD" />
 
             <RelativeLayout
-                android:id="@+id/settings_recommendation"
+                android:id="@+id/settings_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_white_1000"
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/settings_recommendation_text"
+                    android:id="@+id/settings_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_header"/>
+
+    <LinearLayout
+        android:id="@+id/login_id_and_psd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp">
+        <RelativeLayout
+            android:id="@+id/login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+            <ImageView
+                android:id="@+id/login_username_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/profile"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"/>
+
+            <EditText
+                android:id="@+id/login_username_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/login_username_icon"
+                android:gravity="center"
+                android:hint="电子邮件"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/login_userpsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <ImageView
+                android:id="@+id/login_userpsd_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/profile"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"/>
+
+            <EditText
+                android:id="@+id/login_userpsd_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/login_userpsd_icon"
+                android:gravity="center"
+                android:hint="密码"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/login_id_and_psd"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:text="忘记密码？"/>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_forget"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="48dp"
+        android:text="登录"
+        android:textSize="20sp"
+        android:textColor="@color/md_white_1000"/>
+</RelativeLayout>
