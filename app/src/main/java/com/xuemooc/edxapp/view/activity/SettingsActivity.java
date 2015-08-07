@@ -24,7 +24,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
 
     private RelativeLayout aboutUs;
     private RelativeLayout checkUpdate;
-    private RelativeLayout recommenndtaion;
+    private RelativeLayout feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +43,15 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
         selectDownloadPosSwitch = (SlideSwitch)findViewById(R.id.settings_select_download_video_location_switch);
 
         aboutUs = (RelativeLayout)findViewById(R.id.settings_about_us);
+        feedback = (RelativeLayout) findViewById(R.id.settings_feedback);
         checkUpdate = (RelativeLayout)findViewById(R.id.settings_check_update);
-        recommenndtaion = (RelativeLayout) findViewById(R.id.settings_recommendation);
 
         initListener();
     }
 
     private void initHeader(){
         back = (TextView)findViewById(R.id.header_back);
+        back.setVisibility(View.VISIBLE);
     }
 
     private void initListener(){
@@ -64,8 +65,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
         selectDownloadPosSwitch.setOnClickListener(this);
 
         aboutUs.setOnClickListener(this);
+        feedback.setOnClickListener(this);
         checkUpdate.setOnClickListener(this);
-        recommenndtaion.setOnClickListener(this);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
             case R.id.settings_check_update:
                 break;
 
-            case R.id.settings_recommendation:
+            case R.id.settings_feedback:
                 break;
 
             case R.id.header_back:
