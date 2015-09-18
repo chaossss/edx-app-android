@@ -14,13 +14,8 @@
 
     <FrameLayout
         android:layout_below="@id/toolbar"
-        android:id="@+id/frame_container"
+        android:id="@+id/main_page_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <fragment
-            android:name="com.xuemooc.edxapp.view.fragment.MyCourseFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
     </FrameLayout>
 </RelativeLayout>

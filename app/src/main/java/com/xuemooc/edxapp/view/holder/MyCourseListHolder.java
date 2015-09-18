@@ -11,9 +11,9 @@ import com.xuemooc.edxapp.R;
  * Created by chaossss on 2015/7/30.
  */
 public class MyCourseListHolder extends RecyclerView.ViewHolder {
-    private TextView school = null;
-    private TextView courseName = null;
-    private TextView updateInfo = null;
+    private TextView school;
+    private TextView courseName;
+    private TextView updateInfo;
 
     public MyCourseListHolder(View itemView) {
         super(itemView);

@@ -10,7 +10,7 @@ import com.xuemooc.edxapp.R;
  * 发现课程列表项布局
  * Created by chaossss on 2015/7/29.
  */
-public class DiscoverListHolder extends RecyclerView.ViewHolder {
+public class DiscoverListHolder extends RecyclerView.ViewHolder{
     private TextView time = null;
     private TextView school = null;
     private TextView watchNums = null;

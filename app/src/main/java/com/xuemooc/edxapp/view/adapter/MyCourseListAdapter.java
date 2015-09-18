@@ -15,12 +15,19 @@ import java.util.List;
 /**
  * Created by chaossss on 2015/7/30.
  */
-public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> {
+public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> implements View.OnClickListener{
+    private OnItemClickListener listener;
     private List<MyCourseModel> courseList = new ArrayList<>();
 
-    /**
-     * @param courseList 我的课程列表
-     */
+    @Override
+    public void onClick(View v) {
+        listener.onItemClick(v);
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View v);
+    }
+
     public MyCourseListAdapter(List<MyCourseModel> courseList) {
         super();
         this.courseList = courseList;
@@ -42,6 +49,8 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     public MyCourseListHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_course_list, parent, false);
+        view.setOnClickListener(this);
+
         return new MyCourseListHolder(view);
     }
 
@@ -56,5 +65,9 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     public int getItemCount()
     {
         return courseList.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 }

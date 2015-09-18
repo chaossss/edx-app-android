@@ -2,6 +2,7 @@ package com.xuemooc.edxapp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -19,47 +21,79 @@ import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
+import com.xuemooc.edxapp.view.fragment.MyCourseFragment;
+import com.xuemooc.edxapp.view.fragment.MyDownloadFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 首页
+ * Main Page Activity
  * Created by chaossss on 28.07.15.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private Bundle savedInstanceState;//保存当前 Activity 的状态
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerItemClickListener{
+    private static final int DISCOVER = 1;
+    private static final int MY_COURSE = 0;
+    private static final int MY_DOWNLOAD = 2;
 
-    //UI 相关
-    private Drawer drawer = null;//抽屉
+    private Bundle savedInstanceState;//save activity's state
+
+    //drawer stuff
+    private Drawer drawer = null;//drawer
     private Toolbar toolbar = null;
-    private FrameLayout header = null;//抽屉中的头部
-    private LinearLayout footer = null;//抽屉中的尾部
+    private FrameLayout header = null;//drawer header
+    private LinearLayout footer = null;//drawer footer
 
-    //抽屉头部组件
+    //drawer header stuff
     private Button userLogin = null;
     private TextView userName = null;
     private BezelImageView userImg = null;
 
-    //抽屉尾部组件
+    //drawer footer stuff
     private RelativeLayout settings = null;
     private RelativeLayout encourage = null;
+
+    //main page view
+    private List<Fragment> fragments;
+
+    //menu's state
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.savedInstanceState = savedInstanceState;
         initView();
+        this.savedInstanceState = savedInstanceState;
     }
 
     /**
-     * 初始化 Activity 要显示的 View
+     * Init Activity's View
      */
     private void initView(){
+        initMainPage();
         initDrawer();
     }
 
+    /**
+     * Init Main Page
+     */
+    private void initMainPage(){
+        fragments = new ArrayList<>();
+        fragments.add(new MyCourseFragment());
+        fragments.add(new DiscoverFragment());
+        fragments.add(new MyDownloadFragment());
+        getSupportFragmentManager().beginTransaction().add(R.id.main_page_container, fragments.get(MY_COURSE)).commit();
+    }
+
+    /**
+     * Init Drawer
+     */
     private void initDrawer(){
         initHeader();
         initToolBar();
@@ -70,16 +104,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .withToolbar(toolbar)
                 .withHeader(header) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_my_course).withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down)
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_my_course).withIcon(FontAwesome.Icon.faw_home).withIdentifier(MY_COURSE),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(DISCOVER),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD)
                 )
+                .withOnDrawerItemClickListener(this)
                 .withStickyFooter(footer)
                 .withAnimateDrawerItems(true)
                 .withSavedInstance(savedInstanceState)
                 .build();
     }
 
+    /**
+     * Init Drawer Header, and set relating listener
+     */
     private void initHeader(){
         header = (FrameLayout) LayoutInflater.from(this.getApplication()).inflate(R.layout.drawer_header,null);
 
@@ -92,9 +130,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initToolBar(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.drawer_toolbar_my_course);
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * Init Drawer footer, and set relating listener
+     */
     private void initFooter(){
         footer = (LinearLayout)LayoutInflater.from(this.getApplication()).inflate(R.layout.drawer_footer,null);
 
@@ -106,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 处理 View 的点击事件
-     * @param v
+     * Response to onClick()
+     * @param v clicked view
      */
     @Override
     public void onClick(View v) {
@@ -126,15 +168,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 用于显示“编辑”按钮，只有在选择了抽屉中的我的下载才会显示
-     * @param menu
-     * @return
+     * Show "Edit" Button, only visiable while displaying my download page
+     * @param menu display menu
+     * @return true - create successfully, false - did not
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         menu.setGroupVisible(0, false);
+        this.menu = menu;
         return true;
     }
 
@@ -147,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 保存当前 Activity 和 drawer 的状态
+     * Save current Activity's and Drawer's state
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -156,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 按后退按钮后，如果抽屉处于打开状态，则关闭抽屉；否则退出应用
+     * Deal with "back"
      */
     @Override
     public void onBackPressed() {
@@ -165,5 +208,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             super.onBackPressed();
         }
+    }
+
+    /**
+     * Response to Drawer item's onClick()
+     * @return true - conumed, false - did not consume
+     */
+    @Override
+    public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
+        menu.setGroupVisible(0, iDrawerItem.getIdentifier() == MY_DOWNLOAD);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_page_container, fragments.get(iDrawerItem.getIdentifier())).commit();
+
+        switch(iDrawerItem.getIdentifier()){
+            case MY_COURSE:
+                toolbar.setTitle(R.string.drawer_toolbar_my_course);
+                break;
+
+            case DISCOVER:
+                toolbar.setTitle(R.string.drawer_toolbar_discover);
+                break;
+
+            case MY_DOWNLOAD:
+                toolbar.setTitle(R.string.drawer_toolbar_my_download);
+                break;
+        }
+        return false;
     }
 }
