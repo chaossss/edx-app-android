@@ -1,9 +1,10 @@
 package com.xuemooc.edxapp.view.fragment;
 
-import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.model.data.DiscoverCourseModel;
+import com.xuemooc.edxapp.view.activity.ClassDetailActivity;
 import com.xuemooc.edxapp.view.adapter.DiscoverListAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.List;
  * 发现课程页面
  * Created by chaossss on 2015/7/30.
  */
-public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, DiscoverListAdapter.OnItemClickListener{
     private RecyclerView discoverListView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -45,6 +47,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         }
         adapter = new DiscoverListAdapter(discoverList);
         discoverListView.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -72,5 +75,10 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         refreshContent();
+    }
+
+    @Override
+    public void onItemClick(View v) {
+        startActivity(new Intent(getActivity(), ClassDetailActivity.class));
     }
 }

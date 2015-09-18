@@ -16,8 +16,13 @@ import java.util.List;
  * 发现课程列表的数据填充器
  * Created by chaossss on 2015/7/30.
  */
-public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder> {
+public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder> implements View.OnClickListener{
+    private OnItemClickListener listener;
     private List<DiscoverCourseModel> courseList = new ArrayList<>();
+
+    public interface OnItemClickListener{
+        void onItemClick(View v);
+    }
 
     /**
      * @param courseList 发现课程列表的数据项
@@ -38,7 +43,8 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     @Override
     public DiscoverListHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discover_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discover_list, parent, false);
+        view.setOnClickListener(this);
         return new DiscoverListHolder(view);
     }
 
@@ -53,5 +59,14 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     public int getItemCount()
     {
         return courseList.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        listener.onItemClick(v);
     }
 }

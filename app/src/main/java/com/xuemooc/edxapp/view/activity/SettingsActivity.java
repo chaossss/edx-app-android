@@ -3,6 +3,7 @@ package com.xuemooc.edxapp.view.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import com.xuemooc.edxapp.view.custom.SlideSwitch;
  * 设置页面
  * Created by chaossss on 2015/8/5.
  */
-public class SettingsActivity extends Activity implements View.OnClickListener,SlideSwitch.SlideListener{
+public class SettingsActivity extends Activity implements View.OnClickListener{
     private TextView back;
 
     private Button loginOut;
@@ -29,6 +30,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_settings);
 
         initView();
@@ -58,10 +60,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
         back.setOnClickListener(this);
         loginOut.setOnClickListener(this);
 
-        wifiDownloadSwitch.setSlideListener(this);
         wifiDownloadSwitch.setOnClickListener(this);
-
-        selectDownloadPosSwitch.setSlideListener(this);
         selectDownloadPosSwitch.setOnClickListener(this);
 
         aboutUs.setOnClickListener(this);
@@ -104,15 +103,5 @@ public class SettingsActivity extends Activity implements View.OnClickListener,S
                 this.finish();
                 break;
         }
-    }
-
-    @Override
-    public void open() {
-
-    }
-
-    @Override
-    public void close() {
-
     }
 }

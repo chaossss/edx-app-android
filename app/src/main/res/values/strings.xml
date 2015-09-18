@@ -4,6 +4,11 @@
     <!-- Menu -->
     <string name="action_settings">编辑</string>
 
+    <!-- DrawerToolBar -->
+    <string name="drawer_toolbar_discover">发现</string>
+    <string name="drawer_toolbar_my_course">我的课程</string>
+    <string name="drawer_toolbar_my_download">我的下载</string>
+
     <!-- DrawerHeader -->
     <string name="drawer_header_login">登录</string>
 
@@ -17,4 +22,25 @@
     <!-- DrawerFooter -->
     <string name="drawer_footer_setting">设置</string>
     <string name="drawer_footer_encourage">鼓励</string>
+
+    <!-- LoginPage -->
+    <string name="login_psd">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_regist">注册</string>
+    <string name="login_email">电子邮件</string>
+    <string name="login_forget_psd">忘记密码？</string>
+
+    <!-- ClassDetailPage -->
+    <!-- 测试数据 -->
+    <string name="class_detail_time">2015-08-06</string>
+    <string name="class_detail_frequency">3h/week</string>
+    <string name="class_detail_teacher_name">杨洪春</string>
+    <string name="class_detail_course_name">大学物理</string>
+    <string name="class_detail_teacher_school">电子科技大学</string>
+    <string name="class_detail_text">电子科技大学原名成都电讯工程学院，成立于1956年9月，是在周恩来总理的亲自部署下，由交通大学（现上海交通大学、西安交通大学）的电讯工程系、华南工学院（现华南理工大学）的电讯系和南京工学院（现东南大学）的无线电系合并创建而成的新中国第一所无线电大学。学校成立以来，随着国务院机构改革的进程，先后归属二机部、一机部、三机部、四机部、电子工业部、机械电子工业部、电子工业总公司、信息产业部负责管理。建校之初，学校定位为中国培养无线电工业干部（人才）的主要基地，重点为中国无线电工业部门培养专业技术人才。
+1955年3月30日，高等教育部党组织向周恩来总理呈送《关于沿海城市高等学校1955年建设任务处理方案的报告》中提出：“将华南工学院、南京工学院、交通大学等校的电讯工程有关专业调出，在成都建立无线电工程学院。”5月，国务院同意高等教育部的报告，并决定由高等教育部和第二机械工业部共同负责筹建成都无线电工程学院。
+1955年7月21－28日，在北京第二机械工业部会议室，召开成都无线电工程学院的筹备会议；会议决定，成立成都无线电工程学院筹备委员会以及下属秘书、基建、教务三个组，并从即日起开始办公。
+1956年2月4日，中共四川省委常委会议正式决定，学院院址设在成都市东北郊府青路以东、沙河以西的保和乡地区。随后开始大规模基建工作。
+1956年9月初，沙河校区电子通信大楼、教学主楼两翼和4幢教职工眷属宿舍15639平方米、3幢教职工单身宿舍15505平方米，以及教职工食堂1329平方米，均以竣工。
+1956年9月29日下午3时，全校3000多名师生员工和来宾，在主楼东边体育场隆重举行了成都电讯工程学院首届开学典礼；中国的科学巨匠，一代文学大师郭沫若手书的"成都电讯工程学院"校名已经成为学校创建的象征载入史册。</string>
 </resources>

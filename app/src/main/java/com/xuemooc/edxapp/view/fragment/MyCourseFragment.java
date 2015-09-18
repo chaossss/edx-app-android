@@ -1,10 +1,11 @@
 package com.xuemooc.edxapp.view.fragment;
 
-import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import com.github.mrengineer13.snackbar.SnackBar;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
+import com.xuemooc.edxapp.view.activity.ClassDetailActivity;
 import com.xuemooc.edxapp.view.adapter.MyCourseListAdapter;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import io.github.codefalling.recyclerviewswipedismiss.SwipeDismissRecyclerViewTo
  * 我的课程页面
  * Created by chaossss on 2015/7/30.
  */
-public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, MyCourseListAdapter.OnItemClickListener{
     private RecyclerView myCourseListView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SwipeDismissRecyclerViewTouchListener listener;
@@ -55,6 +57,7 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         adapter = new MyCourseListAdapter(myCourseList);
         myCourseListView.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
 
         return root;
     }
@@ -137,5 +140,10 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         refreshContent();
+    }
+
+    @Override
+    public void onItemClick(View v) {
+        startActivity(new Intent(getActivity(), ClassDetailActivity.class));
     }
 }

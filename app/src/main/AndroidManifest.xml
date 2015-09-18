@@ -11,7 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name=".view.activity.LoginActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus"
             android:label="@string/app_name" >
             <intent-filter>
@@ -21,7 +21,39 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.activity.SettingsActivity"/>
-    </application>
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
 
+        <activity
+            android:name=".view.activity.SettingsActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
+
+        <activity
+            android:name=".view.activity.AboutActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
+
+        <activity
+            android:name=".view.activity.FeedbackActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
+
+        <activity
+            android:name=".view.activity.ForgetPsdActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
+
+        <activity
+            android:name=".view.activity.RegistActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
+
+        <activity
+            android:name=".view.activity.ClassDetailActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+        </activity>
+    </application>
 </manifest>

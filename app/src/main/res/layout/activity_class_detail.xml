@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_detail_toolbar_height"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+
+            <TextView
+                android:id="@+id/class_detail_course_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image"
+                android:padding="16dp"
+                android:text="@string/class_detail_course_name"/>
+
+            <RelativeLayout
+                android:id="@+id/class_detail_teacher_info_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/class_detail_course_name" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/divider"/>
+
+                <ImageView
+                    android:id="@+id/class_detail_teacher_img"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/profile"/>
+
+                <TextView
+                    android:id="@+id/class_detail_teacher_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="@string/class_detail_teacher_name"
+                    android:layout_alignTop="@+id/class_detail_teacher_img"
+                    android:layout_toRightOf="@+id/class_detail_teacher_img"
+                    android:layout_toEndOf="@+id/class_detail_teacher_img" />
+
+                <TextView
+                    android:id="@+id/class_detail_teacher_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/class_detail_teacher_school"
+                    android:layout_alignBottom="@+id/class_detail_teacher_img"
+                    android:layout_alignLeft="@+id/class_detail_teacher_name"
+                    android:layout_alignStart="@+id/class_detail_teacher_name" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_alignBottom="@+id/class_detail_teacher_info_wrapper"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:id="@+id/class_detail_info_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/class_detail_teacher_info_wrapper"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1.0">
+                    <ImageView
+                        android:id="@+id/class_detail_frequency_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/profile"/>
+
+                    <TextView
+                        android:id="@+id/class_detail_frequency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_detail_frequency"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/class_detail_frequency_icon"
+                        android:layout_toEndOf="@+id/class_detail_frequency_icon" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0">
+                    <ImageView
+                        android:id="@+id/class_detail_time_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/profile"/>
+
+                    <TextView
+                        android:id="@+id/class_detail_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_detail_time"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/class_detail_time_icon"
+                        android:layout_toEndOf="@+id/class_detail_time_icon" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/class_detail_info_wrapper"
+                android:background="@android:color/white"
+                android:textColor="#000000"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/class_detail_text" />
+        </RelativeLayout>
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"/>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_white_24dp"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorRipple="@color/ripple" />
+</FrameLayout>
