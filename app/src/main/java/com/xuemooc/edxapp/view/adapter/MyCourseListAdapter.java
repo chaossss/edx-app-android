@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
-import com.xuemooc.edxapp.view.holder.MyCourseListHolder;
+import com.xuemooc.edxapp.view.subview.MyCourseListHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -32,49 +32,12 @@
             android:id="@+id/header_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text=""
-            android:gravity="center"
-            android:layout_marginLeft="16dp"
-            android:paddingRight="48dp"
-            android:paddingLeft="48dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/header_user_icon"
-            android:layout_toEndOf="@+id/header_user_icon" />
-
-        <Button
-            android:id="@+id/header_user_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/drawer_header_login"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp"
-            android:paddingBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/header_user_icon"
-            android:layout_toEndOf="@+id/header_user_icon" />
-
-        <TextView
-            android:id="@+id/header_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="用户名"
             android:textColor="@color/md_white_1000"
             android:textSize="20sp"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp"
-            android:paddingBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/header_user_icon"
-            android:layout_toEndOf="@+id/header_user_icon" />
+            android:gravity="center_vertical|start"
+            android:padding="@dimen/text_padding"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/header_user_icon" />
     </RelativeLayout>
 </FrameLayout>

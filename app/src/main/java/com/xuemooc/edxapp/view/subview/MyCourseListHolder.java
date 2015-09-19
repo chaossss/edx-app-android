@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.view.holder;
+package com.xuemooc.edxapp.view.subview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

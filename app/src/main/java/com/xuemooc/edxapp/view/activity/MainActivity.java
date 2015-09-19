@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,6 +26,7 @@ import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
 import com.xuemooc.edxapp.view.fragment.MyCourseFragment;
 import com.xuemooc.edxapp.view.fragment.MyDownloadFragment;
+import com.xuemooc.edxapp.view.subview.MyDrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout footer = null;//drawer footer
 
     //drawer header stuff
-    private Button userLogin = null;
     private TextView userName = null;
     private BezelImageView userImg = null;
 
@@ -106,7 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addDrawerItems(
                         new SecondaryDrawerItem().withName(R.string.drawer_item_my_course).withIcon(FontAwesome.Icon.faw_home).withIdentifier(MY_COURSE),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(DISCOVER),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD)
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD),
+                        new MyDrawerItem().withName("test").withIcon(FontAwesome.Icon.faw_adjust)
                 )
                 .withStickyFooter(footer)
                 .withAnimateDrawerItems(true)
@@ -122,10 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         header = (FrameLayout) LayoutInflater.from(this.getApplication()).inflate(R.layout.drawer_header,null);
 
         userName = (TextView) header.findViewById(R.id.header_user_name);
-        userLogin = (Button) header.findViewById(R.id.header_user_login);
         userImg = (BezelImageView) header.findViewById(R.id.header_user_icon);
-
-        userLogin.setOnClickListener(this);
     }
 
     private void initToolBar(){
@@ -154,9 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.header_user_login:
-                break;
-
             case R.id.drawer_footer_setting:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 this.startActivity(intent);

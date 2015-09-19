@@ -58,7 +58,6 @@ public class ClassDetailActivity extends BaseActivity implements ObservableScrol
 
         toolbar = (Toolbar)findViewById(R.id.class_detail_toolbar);
         toolbar.setTitle("");
-        toolbar.setNavigationIcon(R.drawable.ic_add_white_24dp);
         toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
 
         setSupportActionBar(toolbar);

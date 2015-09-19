@@ -139,11 +139,10 @@
 
     <com.xuemooc.edxapp.view.custom.CheckableFrameLayout
         android:id="@+id/class_detail_fab"
-        android:layout_width="@dimen/activity_toolbar_height"
-        android:layout_height="@dimen/activity_toolbar_height"
+        android:layout_width="@dimen/class_detail_fab_size"
+        android:layout_height="@dimen/class_detail_fab_size"
         android:clickable="true"
         android:focusable="true"
-        android:layout_margin="@dimen/fab_margin"
         android:background="@drawable/add_schedule_fab_background"
         android:layout_gravity="bottom|right">
 
