@@ -52,7 +52,6 @@ public class FeedbackActivity extends Activity implements View.OnClickListener{
 
     private void initToolbar(){
         toolbar = (Toolbar) findViewById(R.id.feedback_toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_add_white_24dp);
         toolbar.setTitle("");
     }
 

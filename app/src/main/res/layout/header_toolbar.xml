@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/header_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/activity_toolbar_height"
+    app:navigationIcon="@drawable/ic_arrow_back"
     android:background="?attr/colorPrimary"
     android:clipToPadding="true"
     android:elevation="4dp" />
