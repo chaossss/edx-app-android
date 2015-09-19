@@ -8,15 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 
 /**
  * Login Page Activity
  * Created by chaossss on 2015/8/7.
  */
 public class LoginActivity extends Activity implements View.OnClickListener{
-    private Button login;
     private Button regist;
+
+    private ProgressButtonUtil pbUtil;
+    private CircularProgressButton login;
 
     private TextView forgetPsd;
 
@@ -29,11 +33,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_login);
 
         initView();
+        initParam();
     }
 
     private void initView(){
-        login = (Button) findViewById(R.id.login_btn);
         regist = (Button) findViewById(R.id.login_regist);
+        login = (CircularProgressButton) findViewById(R.id.login_btn);
 
         forgetPsd = (TextView) findViewById(R.id.login_forget_psd);
 
@@ -47,6 +52,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         login.setOnClickListener(this);
         regist.setOnClickListener(this);
         forgetPsd.setOnClickListener(this);
+    }
+
+    private void initParam(){
+        pbUtil = new ProgressButtonUtil(login);
     }
 
     @Override
@@ -63,7 +72,13 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             case R.id.login_btn:
                 String psdStr = psd.getText().toString();
                 String uidStr = email.getText().toString();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                if(!pbUtil.isProgressing()){
+                    pbUtil.progress();
+                }else{
+                    pbUtil.finishProgress();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
 
                 break;
         }

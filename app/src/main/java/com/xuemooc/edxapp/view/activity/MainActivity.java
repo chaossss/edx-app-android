@@ -101,16 +101,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         drawer = new DrawerBuilder()
                 .withActivity(this)
+                .withHeader(header)
                 .withToolbar(toolbar)
-                .withHeader(header) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new SecondaryDrawerItem().withName(R.string.drawer_item_my_course).withIcon(FontAwesome.Icon.faw_home).withIdentifier(MY_COURSE),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(DISCOVER),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD)
                 )
-                .withOnDrawerItemClickListener(this)
                 .withStickyFooter(footer)
                 .withAnimateDrawerItems(true)
+                .withOnDrawerItemClickListener(this)
                 .withSavedInstance(savedInstanceState)
                 .build();
     }
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initToolBar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.drawer_toolbar_my_course);
         setSupportActionBar(toolbar);
     }

@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp;
+package com.xuemooc.edxapp.view;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,45 +1,52 @@
 package com.xuemooc.edxapp.view.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.custom.SlideSwitch;
+import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
+import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
 /**
  * 设置页面
  * Created by chaossss on 2015/8/5.
  */
-public class SettingsActivity extends Activity implements View.OnClickListener{
-    private TextView back;
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
+    private Toolbar toolbar;
 
-    private Button loginOut;
+    private RelativeLayout aboutUs;
+    private RelativeLayout feedback;
+    private RelativeLayout checkUpdate;
 
     private SlideSwitch wifiDownloadSwitch;
     private SlideSwitch selectDownloadPosSwitch;
 
-    private RelativeLayout aboutUs;
-    private RelativeLayout checkUpdate;
-    private RelativeLayout feedback;
+    private ProgressButtonUtil pbUtil;
+    private CircularProgressButton loginOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_settings);
+
+        SystemBarTintManager sm = new SystemBarTintManager(this);
+        sm.setStatusBarTintEnabled(true);
+        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
 
         initView();
     }
 
     private void initView(){
-        initHeader();
+        initToolbar();
 
-        loginOut = (Button)findViewById(R.id.settings_login_out);
+        loginOut = (CircularProgressButton)findViewById(R.id.settings_login_out);
+        pbUtil = new ProgressButtonUtil(loginOut);
 
         wifiDownloadSwitch = (SlideSwitch)findViewById(R.id.settings_wifi_download_only_switch);
         selectDownloadPosSwitch = (SlideSwitch)findViewById(R.id.settings_select_download_video_location_switch);
@@ -51,13 +58,15 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
         initListener();
     }
 
-    private void initHeader(){
-        back = (TextView)findViewById(R.id.header_back);
-        back.setVisibility(View.VISIBLE);
+    private void initToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.setting_toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_add_white_24dp);
+        toolbar.setTitle(R.string.setting_title);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(this);
     }
 
     private void initListener(){
-        back.setOnClickListener(this);
         loginOut.setOnClickListener(this);
 
         wifiDownloadSwitch.setOnClickListener(this);
@@ -72,6 +81,12 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.settings_login_out:
+                if(!pbUtil.isProgressing()){
+                    pbUtil.progress();
+                }else{
+                    pbUtil.finishProgress();
+                }
+
                 break;
 
             case R.id.settings_wifi_download_only_switch:
@@ -91,16 +106,18 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.settings_about_us:
+                startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
                 break;
 
             case R.id.settings_check_update:
                 break;
 
             case R.id.settings_feedback:
+                startActivity(new Intent(SettingsActivity.this, FeedbackActivity.class));
                 break;
 
-            case R.id.header_back:
-                this.finish();
+            default:
+                finish();
                 break;
         }
     }
