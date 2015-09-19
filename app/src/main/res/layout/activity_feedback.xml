@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/md_white_1000">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <include android:id="@+id/feedback_toolbar" layout="@layout/header_toolbar"/>
 
+            <EditText
+                android:id="@+id/feedback_input"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/feedback_toolbar"
+                android:layout_height="@dimen/feedback_input_height"
+                android:gravity="top"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:hint="@string/feedback_hint"
+                android:padding="@dimen/text_padding"
+                android:textSize="@dimen/feedback_text_size" />
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/feedback_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/feedback_input"
+                android:layout_margin="@dimen/text_padding"
+                app:cpb_paddingProgress="10dp"
+                app:cpb_textIdle="@string/feedback_submit"
+                app:cpb_textComplete="@string/feedback_submit_success"/>
+        </RelativeLayout>
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 </LinearLayout>

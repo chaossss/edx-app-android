@@ -42,7 +42,15 @@
     <string name="setting_download_pos">下载视频位置选择</string>
     <string name="setting_download_wifi_only">仅在WIFI环境下载</string>
 
+    <!-- SettingPage -->
+    <string name="feedback_submit">提交</string>
+    <string name="feedback_submit_success">提交成功</string>
+    <string name="feedback_hint">请输入你对我们的建议</string>
+
     <!-- ClassDetailPage -->
+    <string name="class_detail_add">学习该课程</string>
+    <string name="class_detail_remove">取消学习该课程</string>
+
     <!-- 测试数据 -->
     <string name="class_detail_time">2015-08-06</string>
     <string name="class_detail_frequency">3h/week</string>

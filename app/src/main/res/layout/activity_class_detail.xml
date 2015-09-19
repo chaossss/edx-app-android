@@ -137,13 +137,22 @@
 
     <include android:id="@+id/class_detail_toolbar" layout="@layout/header_toolbar"/>
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white_24dp"
-        fab:fab_colorNormal="@color/primary"
-        fab:fab_colorRipple="@color/ripple" />
+    <com.xuemooc.edxapp.view.custom.CheckableFrameLayout
+        android:id="@+id/class_detail_fab"
+        android:layout_width="@dimen/activity_toolbar_height"
+        android:layout_height="@dimen/activity_toolbar_height"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/add_schedule_fab_background"
+        android:layout_gravity="bottom|right">
+
+        <ImageView android:id="@+id/class_detail_fab_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@drawable/add_schedule_button_icon_unchecked"
+            android:contentDescription="@null"
+            android:layout_gravity="center" />
+    </com.xuemooc.edxapp.view.custom.CheckableFrameLayout>
 </FrameLayout>

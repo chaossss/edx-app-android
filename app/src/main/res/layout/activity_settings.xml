@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sildeswitch="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -42,9 +42,9 @@
                     android:layout_width="48dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
-                    sildeswitch:isOpen="true"
-                    sildeswitch:shape="circle"
-                    sildeswitch:themeColor="#f200aa96" />
+                    app:isOpen="true"
+                    app:shape="circle"
+                    app:themeColor="#f200aa96" />
             </RelativeLayout>
 
             <View
@@ -74,9 +74,9 @@
                     android:layout_width="48dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
-                    sildeswitch:isOpen="true"
-                    sildeswitch:shape="circle"
-                    sildeswitch:themeColor="#f200aa96" />
+                    app:isOpen="true"
+                    app:shape="circle"
+                    app:themeColor="#f200aa96" />
             </RelativeLayout>
 
             <View
@@ -194,15 +194,15 @@
                 android:layout_height="0.1dp"
                 android:background="#BDBDBD" />
 
-            <Button
+            <com.dd.CircularProgressButton
                 android:id="@+id/settings_login_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="#E9788A"
-                android:text="@string/setting_logout"
+                app:cpb_selectorIdle="@color/logout"
                 android:textColor="@color/md_white_1000"
-                android:textSize="20sp" />
+                android:layout_margin="@dimen/text_padding"
+                app:cpb_paddingProgress="10dp"
+                app:cpb_textIdle="@string/setting_logout"/>
         </LinearLayout>
     </com.xuemooc.edxapp.view.custom.OverScrollView>
 </LinearLayout>

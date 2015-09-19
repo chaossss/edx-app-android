@@ -1,14 +1,16 @@
 package com.xuemooc.edxapp.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.custom.SlideSwitch;
+import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
 /**
@@ -18,14 +20,15 @@ import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
 
-    private Button loginOut;
+    private RelativeLayout aboutUs;
+    private RelativeLayout feedback;
+    private RelativeLayout checkUpdate;
 
     private SlideSwitch wifiDownloadSwitch;
     private SlideSwitch selectDownloadPosSwitch;
 
-    private RelativeLayout aboutUs;
-    private RelativeLayout checkUpdate;
-    private RelativeLayout feedback;
+    private ProgressButtonUtil pbUtil;
+    private CircularProgressButton loginOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private void initView(){
         initToolbar();
 
-        loginOut = (Button)findViewById(R.id.settings_login_out);
+        loginOut = (CircularProgressButton)findViewById(R.id.settings_login_out);
+        pbUtil = new ProgressButtonUtil(loginOut);
 
         wifiDownloadSwitch = (SlideSwitch)findViewById(R.id.settings_wifi_download_only_switch);
         selectDownloadPosSwitch = (SlideSwitch)findViewById(R.id.settings_select_download_video_location_switch);
@@ -77,6 +81,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.settings_login_out:
+                if(!pbUtil.isProgressing()){
+                    pbUtil.progress();
+                }else{
+                    pbUtil.finishProgress();
+                }
+
                 break;
 
             case R.id.settings_wifi_download_only_switch:
@@ -96,12 +106,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.settings_about_us:
+                startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
                 break;
 
             case R.id.settings_check_update:
                 break;
 
             case R.id.settings_feedback:
+                startActivity(new Intent(SettingsActivity.this, FeedbackActivity.class));
                 break;
 
             default:
