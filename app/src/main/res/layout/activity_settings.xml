@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sildeswitch="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_header" />
+    <include android:id="@+id/setting_toolbar" layout="@layout/header_toolbar"/>
 
     <com.xuemooc.edxapp.view.custom.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            xmlns:sildeswitch="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F2F2F2"
@@ -32,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="仅在WIFI环境下载视频"
+                    android:text="@string/setting_download_wifi_only"
                     android:textColor="@color/md_black_1000"
                     android:textSize="18sp" />
 
@@ -64,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="下载视频位置选择"
+                    android:text="@string/setting_download_pos"
                     android:textColor="@color/md_black_1000"
                     android:textSize="18sp" />
 
@@ -101,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="检查更新"
+                    android:text="@string/setting_check_update"
                     android:textColor="@color/md_black_1000"
                     android:textSize="18sp" />
 
@@ -139,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="关于我们"
+                    android:text="@string/setting_about_us"
                     android:textColor="@color/md_black_1000"
                     android:textSize="18sp" />
 
@@ -175,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="意见反馈"
+                    android:text="@string/setting_feedback"
                     android:textColor="@color/md_black_1000"
                     android:textSize="18sp" />
 
@@ -199,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="#E9788A"
-                android:text="退出登录"
+                android:text="@string/setting_logout"
                 android:textColor="@color/md_white_1000"
                 android:textSize="20sp" />
         </LinearLayout>

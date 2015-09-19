@@ -1,22 +1,22 @@
 package com.xuemooc.edxapp.view.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.custom.SlideSwitch;
+import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
 /**
  * 设置页面
  * Created by chaossss on 2015/8/5.
  */
-public class SettingsActivity extends Activity implements View.OnClickListener{
-    private TextView back;
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
+    private Toolbar toolbar;
 
     private Button loginOut;
 
@@ -30,14 +30,17 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_settings);
+
+        SystemBarTintManager sm = new SystemBarTintManager(this);
+        sm.setStatusBarTintEnabled(true);
+        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
 
         initView();
     }
 
     private void initView(){
-        initHeader();
+        initToolbar();
 
         loginOut = (Button)findViewById(R.id.settings_login_out);
 
@@ -51,13 +54,15 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
         initListener();
     }
 
-    private void initHeader(){
-        back = (TextView)findViewById(R.id.header_back);
-        back.setVisibility(View.VISIBLE);
+    private void initToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.setting_toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_add_white_24dp);
+        toolbar.setTitle(R.string.setting_title);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(this);
     }
 
     private void initListener(){
-        back.setOnClickListener(this);
         loginOut.setOnClickListener(this);
 
         wifiDownloadSwitch.setOnClickListener(this);
@@ -99,8 +104,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
             case R.id.settings_feedback:
                 break;
 
-            case R.id.header_back:
-                this.finish();
+            default:
+                finish();
                 break;
         }
     }

@@ -30,6 +30,18 @@
     <string name="login_email">电子邮件</string>
     <string name="login_forget_psd">忘记密码？</string>
 
+    <!-- LoginInfo -->
+    <string name="login_login_success">登录成功</string>
+
+    <!-- SettingPage -->
+    <string name="setting_title">设置</string>
+    <string name="setting_logout">退出登录</string>
+    <string name="setting_about_us">关于我们</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_check_update">检查更新</string>
+    <string name="setting_download_pos">下载视频位置选择</string>
+    <string name="setting_download_wifi_only">仅在WIFI环境下载</string>
+
     <!-- ClassDetailPage -->
     <!-- 测试数据 -->
     <string name="class_detail_time">2015-08-06</string>

@@ -11,6 +11,7 @@ import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.melnykov.fab.FloatingActionButton;
 import com.nineoldandroids.view.ViewHelper;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
 /**
  * Created by chaossss on 2015/9/17.
@@ -21,24 +22,30 @@ public class ClassDetailActivity extends BaseActivity implements ObservableScrol
     private FloatingActionButton fab;
     private ObservableScrollView mScrollView;
 
-    private int mParallaxImageHeight;
+    private int parallaxImgHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_detail);
 
+        SystemBarTintManager sm = new SystemBarTintManager(this);
+        sm.setStatusBarTintEnabled(true);
+        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
+
         initView();
+        initParam();
     }
 
     private void initView(){
         previewImg = findViewById(R.id.image);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar = (Toolbar)findViewById(R.id.class_detail_toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_add_white_24dp);
         toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
+
+        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(this);
 
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
@@ -46,8 +53,10 @@ public class ClassDetailActivity extends BaseActivity implements ObservableScrol
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
+    }
 
-        mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.activity_detail_toolbar_height);
+    private void initParam(){
+        parallaxImgHeight = getResources().getDimensionPixelSize(R.dimen.activity_detail_toolbar_height);
     }
 
     @Override
@@ -59,7 +68,7 @@ public class ClassDetailActivity extends BaseActivity implements ObservableScrol
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
         int baseColor = getResources().getColor(R.color.primary);
-        float alpha = Math.min(1, (float) scrollY / mParallaxImageHeight);
+        float alpha = Math.min(1, (float) scrollY / parallaxImgHeight);
         toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
         ViewHelper.setTranslationY(previewImg, scrollY / 2);
     }

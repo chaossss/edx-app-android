@@ -3,7 +3,8 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -134,12 +135,7 @@
         </RelativeLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"/>
+    <include android:id="@+id/class_detail_toolbar" layout="@layout/header_toolbar"/>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"

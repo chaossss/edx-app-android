@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".CustomApplication"
+        android:name=".view.CustomApplication"
         android:allowBackup="true"
+        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name" >
+        android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
         <activity
             android:name=".view.activity.LoginActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,38 +22,32 @@
         </activity>
 
         <activity
-            android:name=".view.activity.MainActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.MainActivity" >
         </activity>
 
         <activity
-            android:name=".view.activity.SettingsActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.SettingsActivity">
         </activity>
 
         <activity
-            android:name=".view.activity.AboutActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.AboutActivity" >
         </activity>
 
         <activity
-            android:name=".view.activity.FeedbackActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.FeedbackActivity" >
         </activity>
 
         <activity
-            android:name=".view.activity.ForgetPsdActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.ForgetPsdActivity" >
         </activity>
 
         <activity
-            android:name=".view.activity.RegistActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.RegistActivity" >
         </activity>
 
         <activity
-            android:name=".view.activity.ClassDetailActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" >
+            android:name=".view.activity.ClassDetailActivity" >
         </activity>
+
     </application>
 </manifest>
