@@ -8,8 +8,7 @@
         android:layout_width="@dimen/drawer_item_icon_size"
         android:layout_height="@dimen/drawer_item_icon_size"
         android:layout_marginRight="@dimen/text_padding"
-        android:scaleType="fitXY"
-        android:src="@drawable/add_schedule_button_icon_checked"/>
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/drawer_item_name"
@@ -17,7 +16,7 @@
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:layout_marginLeft="@dimen/text_padding"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/drawer_item_icon" />
 </RelativeLayout>

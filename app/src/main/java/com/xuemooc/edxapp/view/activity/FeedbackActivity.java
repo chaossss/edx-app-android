@@ -1,7 +1,7 @@
 package com.xuemooc.edxapp.view.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +14,7 @@ import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 /**
  * Created by chaossss on 2015/8/7.
  */
-public class FeedbackActivity extends Activity implements View.OnClickListener{
+public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
 
     private EditText feedback;
@@ -79,7 +79,7 @@ public class FeedbackActivity extends Activity implements View.OnClickListener{
                 if(!pbUtil.isProgressing()){
                     pbUtil.progress();
                 }else{
-                    pbUtil.finishProgress();
+                    pbUtil.finishProgress(ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS);
                     finish();
                 }
 

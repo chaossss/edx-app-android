@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 /**
  * Created by chaossss on 2015/9/17.
  */
-public class ClassDetailActivity extends BaseActivity implements ObservableScrollViewCallbacks, View.OnClickListener{
+public class ClassDetailActivity extends AppCompatActivity implements ObservableScrollViewCallbacks, View.OnClickListener{
     private static final int[] STATE_CHECKED = new int[]{android.R.attr.state_checked};
     private static final int[] STATE_UNCHECKED = new int[]{};
 

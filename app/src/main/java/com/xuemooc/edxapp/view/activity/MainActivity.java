@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.xuemooc.edxapp.R;
@@ -36,8 +35,8 @@ import java.util.List;
  * Created by chaossss on 28.07.15.
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerItemClickListener{
-    private static final int DISCOVER = 1;
     private static final int MY_COURSE = 0;
+    private static final int DISCOVER = 1;
     private static final int MY_DOWNLOAD = 2;
 
     private Bundle savedInstanceState;//save activity's state
@@ -95,18 +94,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initDrawer(){
         initHeader();
-        initToolBar();
         initFooter();
+        initToolBar();
 
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withHeader(header)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_my_course).withIcon(FontAwesome.Icon.faw_home).withIdentifier(MY_COURSE),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(DISCOVER),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD),
-                        new MyDrawerItem().withName("test").withIcon(FontAwesome.Icon.faw_adjust)
+                        new MyDrawerItem().withName(R.string.drawer_item_my_course).withIcon(FontAwesome.Icon.faw_home).withIdentifier(MY_COURSE),
+                        new MyDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(DISCOVER),
+                        new MyDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD)
                 )
                 .withStickyFooter(footer)
                 .withAnimateDrawerItems(true)

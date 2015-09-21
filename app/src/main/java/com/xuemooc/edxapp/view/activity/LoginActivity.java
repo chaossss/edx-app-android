@@ -1,8 +1,9 @@
 package com.xuemooc.edxapp.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,13 +11,15 @@ import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.http.interfaces.ILogin;
+import com.xuemooc.edxapp.http.util.LoginUtil;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 
 /**
  * Login Page Activity
  * Created by chaossss on 2015/8/7.
  */
-public class LoginActivity extends Activity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ILogin{
     private Button regist;
 
     private ProgressButtonUtil pbUtil;
@@ -70,17 +73,30 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.login_btn:
-                String psdStr = psd.getText().toString();
-                String uidStr = email.getText().toString();
-
                 if(!pbUtil.isProgressing()){
                     pbUtil.progress();
-                }else{
-                    pbUtil.finishProgress();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
 
+                Bundle data = new Bundle();
+                Message msg = new Message();
+
+                data.putString("uid", email.getText().toString());
+                data.putString("psd", psd.getText().toString());
+
+                msg.setData(data);
+                msg.what = LoginUtil.SEND_LOGIN_INFO;
+
+                LoginUtil.getLoginUtil(this).sendRequest(msg);
+
                 break;
+        }
+    }
+
+    @Override
+    public void updateUI(ProgressButtonUtil.PBConst state) {
+        pbUtil.finishProgress(state);
+        if(state == ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     }
 }
