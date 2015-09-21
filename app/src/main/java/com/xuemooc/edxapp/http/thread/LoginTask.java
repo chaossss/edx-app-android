@@ -11,12 +11,12 @@ import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 /**
  * Created by chaossss on 2015/9/21.
  */
-public class LoginThread extends Thread{
+public class LoginTask implements Runnable {
     private Message msg;
     private LoginHandler loginHandler;
     private ProgressButtonUtil.PBConst state;
 
-    public LoginThread(ILogin iLogin) {
+    public LoginTask(ILogin iLogin) {
         loginHandler = new LoginHandler(iLogin);
     }
 
@@ -49,27 +49,26 @@ public class LoginThread extends Thread{
                 //start->end 代码段应该添加发送UID+PSD到网络的逻辑，获得网络响应后通过接口回调的方式向Handler发送服务器的响应结果，更新UI
 
                 temp.obj = state;
-                loginHandler.sendMessageDelayed(temp, 1000);
+                loginHandler.sendMessageDelayed(temp, 3000);
                 break;
 
             case LoginUtil.LOGIN_SUCCESS:
                 temp.what = msg.what;
                 temp.obj = ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS;
 
-                loginHandler.sendMessageDelayed(temp, 3000);
+                loginHandler.sendMessageDelayed(temp, 5000);
                 break;
 
             case LoginUtil.LOGIN_RESET:
                 temp.what = msg.what;
                 temp.obj = ProgressButtonUtil.PBConst.PB_INIT;
 
-                loginHandler.sendMessageDelayed(temp, 3000);
+                loginHandler.sendMessageDelayed(temp, 5000);
                 break;
         }
     }
 
     public void sendMsgToServer(Message msg){
         this.msg = msg;
-        this.start();
     }
 }
