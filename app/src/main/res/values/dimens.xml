@@ -5,7 +5,7 @@
     <dimen name="feedback_text_size">18sp</dimen>
     <dimen name="feedback_input_height">360dp</dimen>
     <dimen name="activity_toolbar_height">56dp</dimen>
-    <dimen name="drawer_item_icon_size">48dp</dimen>
+    <dimen name="drawer_item_icon_size">24dp</dimen>
     <dimen name="class_detail_fab_size">64dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
