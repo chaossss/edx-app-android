@@ -9,13 +9,17 @@ import com.xuemooc.edxapp.http.thread.LoginThread;
  * Created by chaossss on 2015/9/21.
  */
 public class LoginUtil{
-    private LoginThread loginThread;
+    private ILogin iLogin;
     private volatile static LoginUtil loginUtil;
 
-    public static final int SEND_LOGIN_INFO = 0;
+    public static final int SEND_INFO = 0;
+    public static final int LOGIN_RESET = 1;
+    public static final int LOGIN_SUCCESS = 2;
+    public static final int LOGIN_SUCCESS_SHOW = 3;
+    public static final int LOGIN_ERROR_SHOW = 4;
 
     private LoginUtil(ILogin iLogin) {
-        loginThread = new LoginThread(iLogin);
+        this.iLogin = iLogin;
     }
 
     public static LoginUtil getLoginUtil(ILogin iLogin){
@@ -31,6 +35,6 @@ public class LoginUtil{
     }
 
     public void sendRequest(Message msg){
-        loginThread.sendMsgToServer(msg);
+        new LoginThread(iLogin).sendMsgToServer(msg);
     }
 }

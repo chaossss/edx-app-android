@@ -82,17 +82,25 @@ public class ProgressButtonUtil {
     }
 
     public void finishProgress(PBConst state){
-        if(isProgressing){
-            isProgressing = false;
-            if(state != PBConst.PB_LOGIN_SUCCESS){
-                Log.v("login", "fail");
-                valueAnimator.end();
-                pb.setProgress(state.getPBState());
-                pb.setErrorText(state.getPBString());
-            }else{
-                Log.v("login", "success");
-                valueAnimator.end();
-            }
+        if(state == PBConst.PB_LOGIN_SUCCESS){
+            Log.v("login", "success");
+            valueAnimator.end();
+            pb.setProgress(state.getPBState());
+            return;
+        }
+
+        if(state == PBConst.PB_INIT){
+            Log.v("login", "init");
+            valueAnimator.end();
+            pb.setProgress(state.getPBState());
+            return;
+        }
+
+        if(state != PBConst.PB_LOGIN_SUCCESS || state != PBConst.PB_INIT){
+            Log.v("login", "fail");
+            valueAnimator.end();
+            pb.setProgress(state.getPBState());
+            pb.setErrorText(state.getPBString());
         }
     }
 }

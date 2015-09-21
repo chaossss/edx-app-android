@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 data.putString("psd", psd.getText().toString());
 
                 msg.setData(data);
-                msg.what = LoginUtil.SEND_LOGIN_INFO;
+                msg.what = LoginUtil.SEND_INFO;
 
                 LoginUtil.getLoginUtil(this).sendRequest(msg);
 
@@ -93,10 +93,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void updateUI(ProgressButtonUtil.PBConst state) {
-        pbUtil.finishProgress(state);
-        if(state == ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    public void updateUI(Message msg) {
+        Message temp = null;
+
+        switch (msg.what){
+            case LoginUtil.LOGIN_SUCCESS:
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                break;
+
+            case LoginUtil.LOGIN_SUCCESS_SHOW:
+                showLoginState((ProgressButtonUtil.PBConst)msg.obj);
+
+                temp = new Message();
+                temp.what = LoginUtil.LOGIN_SUCCESS;
+                LoginUtil.getLoginUtil(this).sendRequest(temp);
+                break;
+
+            case LoginUtil.LOGIN_ERROR_SHOW:
+                showLoginState((ProgressButtonUtil.PBConst)msg.obj);
+
+                temp = new Message();
+                temp.what = LoginUtil.LOGIN_RESET;
+                LoginUtil.getLoginUtil(this).sendRequest(temp);
+                break;
+
+            case LoginUtil.LOGIN_RESET:
+                showLoginState((ProgressButtonUtil.PBConst)msg.obj);
+                break;
         }
+    }
+
+    public void showLoginState(ProgressButtonUtil.PBConst loginState){
+        pbUtil.finishProgress(loginState);
     }
 }
