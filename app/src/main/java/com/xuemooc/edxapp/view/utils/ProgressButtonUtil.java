@@ -19,7 +19,6 @@ public class ProgressButtonUtil {
 
     public enum PBConst implements IpbConst{
         PB_INIT(0),
-        PB_LOGINING(50),
         PB_WRONG_PSD("密码错误", -1),
         PB_BAD_WEB("网络环境差", -1),
         PB_LOGIN_SUCCESS("登录成功",100),
@@ -92,6 +91,7 @@ public class ProgressButtonUtil {
         if(state == PBConst.PB_INIT){
             Log.v("login", "init");
             valueAnimator.end();
+            isProgressing = false;
             pb.setProgress(state.getPBState());
             return;
         }
