@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.view.consts.PBConst;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
@@ -79,7 +80,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
                 if(!pbUtil.isProgressing()){
                     pbUtil.progress();
                 }else{
-                    pbUtil.updatePBState(ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS);
+                    pbUtil.updatePBState(PBConst.PB_LOGIN_SUCCESS);
                     finish();
                 }
 

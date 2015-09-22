@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.view.consts.PBConst;
 import com.xuemooc.edxapp.view.custom.SlideSwitch;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
@@ -83,7 +84,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 if(!pbUtil.isProgressing()){
                     pbUtil.progress();
                 }else{
-                    pbUtil.updatePBState(ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS);
+                    pbUtil.updatePBState(PBConst.PB_LOGIN_SUCCESS);
                 }
 
                 break;

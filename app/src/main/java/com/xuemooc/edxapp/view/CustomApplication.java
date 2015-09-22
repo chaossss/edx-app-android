@@ -10,6 +10,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
 
 /**
+ * CustomApplication helps init the Main page Drawer
  * Created by chaossss on 28.07.15.
  */
 public class CustomApplication extends Application {

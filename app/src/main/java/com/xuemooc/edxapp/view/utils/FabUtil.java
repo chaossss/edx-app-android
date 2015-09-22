@@ -17,6 +17,7 @@ import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.custom.CheckableFrameLayout;
 
 /**
+ * Util that helps deal with FAB(Floating Action Button)'s add/remove event
  * Created by chaossss on 2015/9/22.
  */
 public class FabUtil {

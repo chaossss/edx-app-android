@@ -6,15 +6,17 @@ import android.os.Message;
 import com.xuemooc.edxapp.http.handler.LoginHandler;
 import com.xuemooc.edxapp.http.interfaces.ILogin;
 import com.xuemooc.edxapp.http.util.LoginUtil;
-import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
+import com.xuemooc.edxapp.view.consts.PBConst;
 
 /**
+ * while executing login operation, LoginTask is a async task which process
+ * network communication
  * Created by chaossss on 2015/9/21.
  */
 public class LoginTask implements Runnable {
     private Message msg;
     private LoginHandler loginHandler;
-    private ProgressButtonUtil.PBConst state;
+    private PBConst state;
 
     public LoginTask(ILogin iLogin) {
         loginHandler = new LoginHandler(iLogin);
@@ -32,16 +34,16 @@ public class LoginTask implements Runnable {
                 //start
                 if(uid.equals("yhc") && psd.equals("666")){
                     temp.what = LoginUtil.LOGIN_SUCCESS_SHOW;
-                    state = ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS;
+                    state = PBConst.PB_LOGIN_SUCCESS;
                 }else{
                     temp.what = LoginUtil.LOGIN_ERROR_SHOW;
 
                     if(!uid.equals("yhc")){
-                        state = ProgressButtonUtil.PBConst.PB_INVALID_USER;
+                        state = PBConst.PB_INVALID_USER;
                     }else if(psd.equals("123")){
-                        state = ProgressButtonUtil.PBConst.PB_BAD_WEB;
+                        state = PBConst.PB_BAD_WEB;
                     }else if(psd.equals("111")){
-                        state = ProgressButtonUtil.PBConst.PB_WRONG_PSD;
+                        state = PBConst.PB_WRONG_PSD;
                     }
                 }
 
@@ -55,14 +57,14 @@ public class LoginTask implements Runnable {
 
             case LoginUtil.LOGIN_SUCCESS:
                 temp.what = msg.what;
-                temp.obj = ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS;
+                temp.obj = PBConst.PB_LOGIN_SUCCESS;
 
                 loginHandler.sendMessageDelayed(temp, 4000);
                 break;
 
             case LoginUtil.LOGIN_RESET:
                 temp.what = msg.what;
-                temp.obj = ProgressButtonUtil.PBConst.PB_INIT;
+                temp.obj = PBConst.PB_INIT;
 
                 loginHandler.sendMessageDelayed(temp, 4000);
                 break;
