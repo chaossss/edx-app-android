@@ -15,6 +15,7 @@ import com.xuemooc.edxapp.http.Api;
 import com.xuemooc.edxapp.http.IApi;
 import com.xuemooc.edxapp.http.interfaces.ILogin;
 import com.xuemooc.edxapp.http.util.LoginUtil;
+import com.xuemooc.edxapp.view.consts.PBConst;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case LoginUtil.LOGIN_SUCCESS_SHOW:
-                showLoginState((ProgressButtonUtil.PBConst)msg.obj);
+                showLoginState((PBConst)msg.obj);
 
                 temp = new Message();
                 temp.what = LoginUtil.LOGIN_SUCCESS;
@@ -125,7 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case LoginUtil.LOGIN_ERROR_SHOW:
                 isLogining.set(false);
-                showLoginState((ProgressButtonUtil.PBConst)msg.obj);
+                showLoginState((PBConst)msg.obj);
 
                 temp = new Message();
                 temp.what = LoginUtil.LOGIN_RESET;
@@ -133,12 +134,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case LoginUtil.LOGIN_RESET:
-                showLoginState((ProgressButtonUtil.PBConst)msg.obj);
+                showLoginState((PBConst)msg.obj);
                 break;
         }
     }
 
-    public void showLoginState(ProgressButtonUtil.PBConst loginState){
+    public void showLoginState(PBConst loginState){
         pbUtil.updatePBState(loginState);
     }
 }

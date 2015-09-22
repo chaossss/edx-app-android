@@ -9,6 +9,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
+ * Util that helps deal with login event
  * Created by chaossss on 2015/9/21.
  */
 public class LoginUtil{
