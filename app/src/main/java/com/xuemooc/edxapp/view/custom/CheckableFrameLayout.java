@@ -32,12 +32,7 @@ public class CheckableFrameLayout extends FrameLayout implements Checkable {
         return mChecked;
     }
 
-    @Override
     public void setChecked(boolean checked) {
-        setChecked(checked, true);
-    }
-
-    public void setChecked(boolean checked, boolean allowAnimate) {
         mChecked = checked;
         refreshDrawableState();
     }

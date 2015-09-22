@@ -79,7 +79,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
                 if(!pbUtil.isProgressing()){
                     pbUtil.progress();
                 }else{
-                    pbUtil.finishProgress(ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS);
+                    pbUtil.updatePBState(ProgressButtonUtil.PBConst.PB_LOGIN_SUCCESS);
                     finish();
                 }
 

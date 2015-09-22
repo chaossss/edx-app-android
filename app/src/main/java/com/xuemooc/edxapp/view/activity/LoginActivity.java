@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.http.Api;
+import com.xuemooc.edxapp.http.IApi;
 import com.xuemooc.edxapp.http.interfaces.ILogin;
 import com.xuemooc.edxapp.http.util.LoginUtil;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
@@ -22,8 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created by chaossss on 2015/8/7.
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ILogin{
-    private Button regist;
-
+    private Button register;
     private ProgressButtonUtil pbUtil;
     private CircularProgressButton login;
 
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText psd;
     private EditText email;
 
+    private IApi iApi;
     private AtomicBoolean isLogining;
 
     @Override
@@ -44,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView(){
-        regist = (Button) findViewById(R.id.login_regist);
+        register = (Button) findViewById(R.id.login_register);
         login = (CircularProgressButton) findViewById(R.id.login_btn);
 
         forgetPsd = (TextView) findViewById(R.id.login_forget_psd);
@@ -57,11 +59,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void setClickListener(){
         login.setOnClickListener(this);
-        regist.setOnClickListener(this);
+        register.setOnClickListener(this);
         forgetPsd.setOnClickListener(this);
     }
 
     private void initParam(){
+        iApi = new Api(this);
         isLogining = new AtomicBoolean(false);
         pbUtil = new ProgressButtonUtil(login);
     }
@@ -70,11 +73,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.login_forget_psd:
-                startActivity(new Intent(LoginActivity.this, RegistActivity.class));
+                startActivity(new Intent(LoginActivity.this, ForgetPsdActivity.class));
                 break;
 
-            case R.id.login_regist:
-                startActivity(new Intent(LoginActivity.this, RegistActivity.class));
+            case R.id.login_register:
+
                 break;
 
             case R.id.login_btn:
@@ -83,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         pbUtil.progress();
                     }
 
+                    //start
                     Bundle data = new Bundle();
                     Message msg = new Message();
 
@@ -93,6 +97,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     msg.what = LoginUtil.SEND_INFO;
 
                     LoginUtil.getLoginUtil(this).sendRequest(msg);
+
+                    //end
+                    //start->end 登录的网络部分代码
                 }
 
                 break;
@@ -132,6 +139,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void showLoginState(ProgressButtonUtil.PBConst loginState){
-        pbUtil.finishProgress(loginState);
+        pbUtil.updatePBState(loginState);
     }
 }

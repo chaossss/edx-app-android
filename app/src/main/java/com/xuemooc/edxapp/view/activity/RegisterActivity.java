@@ -3,14 +3,16 @@ package com.xuemooc.edxapp.view.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.xuemooc.edxapp.R;
+
 /**
- * Regist Page Activity
- * Created by chaossss on 2015/9/17.
+ * Created by chaossss on 2015/9/22.
  */
-public class RegistActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
     }
 }

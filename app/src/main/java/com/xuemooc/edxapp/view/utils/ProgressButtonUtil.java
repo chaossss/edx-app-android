@@ -1,7 +1,6 @@
 package com.xuemooc.edxapp.view.utils;
 
 import android.animation.ValueAnimator;
-import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.dd.CircularProgressButton;
@@ -80,24 +79,11 @@ public class ProgressButtonUtil {
         }
     }
 
-    public void finishProgress(PBConst state){
-        if(state == PBConst.PB_LOGIN_SUCCESS){
-            Log.v("login", "success");
+    public void updatePBState(PBConst state){
+        if(state == PBConst.PB_LOGIN_SUCCESS || state == PBConst.PB_INIT){
             valueAnimator.end();
             pb.setProgress(state.getPBState());
-            return;
-        }
-
-        if(state == PBConst.PB_INIT){
-            Log.v("login", "init");
-            valueAnimator.end();
-            isProgressing = false;
-            pb.setProgress(state.getPBState());
-            return;
-        }
-
-        if(state != PBConst.PB_LOGIN_SUCCESS || state != PBConst.PB_INIT){
-            Log.v("login", "fail");
+        }else{
             valueAnimator.end();
             pb.setProgress(state.getPBState());
             pb.setErrorText(state.getPBString());
