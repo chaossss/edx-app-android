@@ -42,12 +42,11 @@
         </activity>
 
         <activity
-            android:name=".view.activity.RegistActivity" >
-        </activity>
-
-        <activity
             android:name=".view.activity.ClassDetailActivity" >
         </activity>
 
+        <activity
+            android:name=".view.activity.RegisterActivity" >
+        </activity>
     </application>
 </manifest>

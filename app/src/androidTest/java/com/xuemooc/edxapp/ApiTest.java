@@ -21,7 +21,6 @@ import java.util.Map;
  * Created by hackeris on 15/7/28.
  */
 public class ApiTest extends ApplicationTestCase<Application> {
-
     private IApi api;
 
     private String testUserEmail = "hackeris@qq.com";
