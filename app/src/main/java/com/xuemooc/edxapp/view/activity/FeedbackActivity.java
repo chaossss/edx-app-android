@@ -1,6 +1,7 @@
 package com.xuemooc.edxapp.view.activity;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -8,22 +9,24 @@ import android.widget.EditText;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.view.consts.PBConst;
+import com.xuemooc.edxapp.http.interfaces.ILogin;
+import com.xuemooc.edxapp.http.util.FeedBackUtil;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
 /**
  * Created by chaossss on 2015/8/7.
  */
-public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener{
+public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener,ILogin{
     private Toolbar toolbar;
 
     private EditText feedback;
 
     private ProgressButtonUtil pbUtil;
+    private FeedBackUtil feedBackUtil;
     private CircularProgressButton submit;
 
-    private StringBuilder feedbackSB;
+    private String feedbackStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +50,8 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initParam(){
-        feedbackSB = new StringBuilder();
         pbUtil = new ProgressButtonUtil(submit);
+        feedBackUtil = FeedBackUtil.getFeedBackUtil(this);
     }
 
     private void initToolbar(){
@@ -71,18 +74,15 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.feedback_submit:
-                if(feedbackSB.length() != 0){
-                    feedbackSB.delete(0, feedbackSB.length());
-                }
-
-                feedbackSB.append(feedback.getText().toString());
+                feedbackStr = feedback.getText().toString();
 
                 if(!pbUtil.isProgressing()){
                     pbUtil.progress();
-                }else{
-                    pbUtil.updatePBState(PBConst.PB_LOGIN_SUCCESS);
-                    finish();
                 }
+
+                Message msg = new Message();
+                msg.obj = feedbackStr;
+                feedBackUtil.sendRequest(msg);
 
                 break;
 
@@ -90,5 +90,10 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void updateUI(Message msg) {
+        finish();
     }
 }

@@ -1,6 +1,9 @@
 package com.xuemooc.edxapp.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,31 +29,35 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private RelativeLayout checkUpdate;
 
     private SlideSwitch wifiDownloadSwitch;
-    private SlideSwitch selectDownloadPosSwitch;
 
     private ProgressButtonUtil pbUtil;
     private CircularProgressButton loginOut;
+
+    private NetworkInfo netInfo;
+
+    private boolean isEnableDownloadWifi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        SystemBarTintManager sm = new SystemBarTintManager(this);
-        sm.setStatusBarTintEnabled(true);
-        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
+        init();
+    }
 
+    private void init(){
         initView();
+        initParam();
     }
 
     private void initView(){
         initToolbar();
+        initStatusBar();
 
         loginOut = (CircularProgressButton)findViewById(R.id.settings_login_out);
-        pbUtil = new ProgressButtonUtil(loginOut);
+
 
         wifiDownloadSwitch = (SlideSwitch)findViewById(R.id.settings_wifi_download_only_switch);
-        selectDownloadPosSwitch = (SlideSwitch)findViewById(R.id.settings_select_download_video_location_switch);
 
         aboutUs = (RelativeLayout)findViewById(R.id.settings_about_us);
         feedback = (RelativeLayout) findViewById(R.id.settings_feedback);
@@ -66,15 +73,27 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         toolbar.setNavigationOnClickListener(this);
     }
 
+    private void initStatusBar(){
+        SystemBarTintManager sm = new SystemBarTintManager(this);
+        sm.setStatusBarTintEnabled(true);
+        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
+    }
+
     private void initListener(){
         loginOut.setOnClickListener(this);
 
         wifiDownloadSwitch.setOnClickListener(this);
-        selectDownloadPosSwitch.setOnClickListener(this);
 
         aboutUs.setOnClickListener(this);
         feedback.setOnClickListener(this);
         checkUpdate.setOnClickListener(this);
+    }
+
+    private void initParam(){
+        isEnableDownloadWifi = true;
+        pbUtil = new ProgressButtonUtil(loginOut);
+
+        netInfo = ((ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
     }
 
     @Override
@@ -90,19 +109,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.settings_wifi_download_only_switch:
-                if(wifiDownloadSwitch.isOpen()){
-                    wifiDownloadSwitch.setState(false);
-                }else{
-                    wifiDownloadSwitch.setState(true);
-                }
-                break;
-
-            case R.id.settings_select_download_video_location_switch:
-                if(selectDownloadPosSwitch.isOpen()){
-                    selectDownloadPosSwitch.setState(false);
-                }else{
-                    selectDownloadPosSwitch.setState(true);
-                }
+                boolean isOpen = wifiDownloadSwitch.isOpen();
+                boolean isWifi = netInfo.getType() == ConnectivityManager.TYPE_WIFI;
+                isEnableDownloadWifi = isOpen & isWifi;
+                wifiDownloadSwitch.setState(!isOpen);
                 break;
 
             case R.id.settings_about_us:
