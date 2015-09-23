@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/md_white_1000">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <include android:id="@+id/about_us_toolbar" layout="@layout/header_toolbar"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/about_us_text"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/about_us_toolbar"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/class_detail_text"
+            android:textColor="#000000"
+            android:padding="@dimen/text_padding"
+            android:textSize="@dimen/feedback_text_size" />
+    </RelativeLayout>
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

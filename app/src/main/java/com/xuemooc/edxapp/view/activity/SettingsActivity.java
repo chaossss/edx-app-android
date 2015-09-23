@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private void initToolbar(){
         toolbar = (Toolbar) findViewById(R.id.setting_toolbar);
-        toolbar.setTitle(R.string.setting_title);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(this);
     }
