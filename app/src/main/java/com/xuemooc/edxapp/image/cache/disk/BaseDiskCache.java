@@ -2,8 +2,7 @@ package com.xuemooc.edxapp.image.cache.disk;
 
 import android.graphics.Bitmap;
 
-import com.xuemooc.edxapp.image.cache.disk.naming.FileNameGenerator;
-import com.xuemooc.edxapp.image.cache.disk.naming.HashCodeFileNameGenerator;
+import com.xuemooc.edxapp.image.utils.HashCodeFileNameGenerator;
 import com.xuemooc.edxapp.image.utils.IOUtils;
 
 import java.io.BufferedOutputStream;
@@ -26,7 +25,7 @@ public class BaseDiskCache implements DiskCache {
 
     protected final File cacheDir;
     protected final File reserveCacheDir;
-    protected final FileNameGenerator fileNameGenerator;
+    protected final HashCodeFileNameGenerator fileNameGenerator;
 
     protected int bufferSize = DEFAULT_BUFFER_SIZE;
     protected int compressQuality = DEFAULT_COMPRESS_QUALITY;

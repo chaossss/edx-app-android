@@ -1,10 +1,9 @@
-package com.xuemooc.edxapp.image.cache.disk.naming;
+package com.xuemooc.edxapp.image.utils;
 
 /**
  * Created by chaossss on 2015/9/24.
  */
-public class HashCodeFileNameGenerator implements FileNameGenerator {
-    @Override
+public class HashCodeFileNameGenerator{
     public String generate(String imageUri) {
         return String.valueOf(imageUri.hashCode());
     }
