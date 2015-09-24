@@ -2,6 +2,8 @@ package com.xuemooc.edxapp.image.cache.disk;
 
 import android.graphics.Bitmap;
 
+import com.xuemooc.edxapp.image.utils.IOUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +38,7 @@ public interface DiskCache {
      * @return true - if image was saved successfully; false - if image wasn't saved in disk cache
      * @throws java.io.IOException
      */
-    boolean save(String imageUri, InputStream imageStream) throws IOException;
+    boolean save(String imageUri, InputStream imageStream, IOUtils.CopyListener listener) throws IOException;
 
     /**
      * Removes image file associated with incoming Uri
