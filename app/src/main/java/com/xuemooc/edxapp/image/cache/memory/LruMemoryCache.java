@@ -12,18 +12,10 @@ import java.util.Map;
  */
 public class LruMemoryCache implements MemoryCache{
     private int size;
-    private final int maxCacheSize;
+    private final int maxCacheSize = 4 * 1024 * 1024;
     private final LinkedHashMap<String, Bitmap> lruCacheMap;
 
-    /**
-     * @param maxCacheSize Maximum sum of the sizes of the Bitmaps in this cache.
-     */
-    public LruMemoryCache(int maxCacheSize) {
-        if(maxCacheSize <= 0){
-            throw new IllegalArgumentException("max cache size couldn't less than 0");
-        }
-
-        this.maxCacheSize = maxCacheSize;
+    public LruMemoryCache() {
         lruCacheMap = new LinkedHashMap<>(0, 0.75f, true);
     }
 

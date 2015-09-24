@@ -21,28 +21,23 @@ public class BaseDiskCache implements DiskCache {
     public static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.PNG;
 
     private static final String TEMP_IMAGE_POSTFIX = ".tmp";
+    private static final String IMG_CACHE_DIR = "/sdcard/UESTC_MOOC/ImgCache";
     private static final String ERROR_ARG_NULL = "argument must be not null";
 
     protected final File cacheDir;
     protected final File reserveCacheDir;
-    protected final HashCodeFileNameGenerator fileNameGenerator;
 
     protected int bufferSize = DEFAULT_BUFFER_SIZE;
     protected int compressQuality = DEFAULT_COMPRESS_QUALITY;
     protected Bitmap.CompressFormat compressFormat = DEFAULT_COMPRESS_FORMAT;
 
-    public BaseDiskCache(File cacheDir) {
-        this(cacheDir, null);
+    public BaseDiskCache() {
+        this(null);
     }
 
-    public BaseDiskCache(File cacheDir, File reserveCacheDir) {
-        if(cacheDir == null){
-            throw new IllegalArgumentException("cacheDir" + ERROR_ARG_NULL);
-        }
-
-        this.cacheDir = cacheDir;
+    public BaseDiskCache(File reserveCacheDir) {
+        this.cacheDir = new File(IMG_CACHE_DIR);
         this.reserveCacheDir = reserveCacheDir;
-        this.fileNameGenerator = new HashCodeFileNameGenerator();
     }
 
     @Override
@@ -126,15 +121,8 @@ public class BaseDiskCache implements DiskCache {
     }
 
     protected File getFile(String imageUri){
-        String fileName = fileNameGenerator.generate(imageUri);
-        File dir = cacheDir;
+        String fileName = HashCodeFileNameGenerator.generate(imageUri);
 
-        if(!cacheDir.exists() && !cacheDir.mkdirs()){
-            if(reserveCacheDir != null && (reserveCacheDir.exists() || reserveCacheDir.mkdirs())){
-                dir = reserveCacheDir;
-            }
-        }
-
-        return new File(dir, fileName);
+        return new File(cacheDir, fileName);
     }
 }
