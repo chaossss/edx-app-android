@@ -1,104 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xuemooc.edxapp.view.custom.OverScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/login_id_and_psd"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp">
-        <RelativeLayout
-            android:id="@+id/login_username"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/login_id_and_psd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-            <ImageView
-                android:id="@+id/login_username_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/profile"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"/>
-
-            <EditText
-                android:id="@+id/login_username_input"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp">
+            <RelativeLayout
+                android:id="@+id/login_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="left|center_vertical"
-                android:layout_toRightOf="@id/login_username_icon"
-                android:paddingLeft="@dimen/text_padding"
-                android:singleLine="true"
-                android:hint="@string/login_email"/>
-        </RelativeLayout>
+                android:layout_marginBottom="16dp">
+                <ImageView
+                    android:id="@+id/login_username_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/profile"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"/>
 
-        <RelativeLayout
-            android:id="@+id/login_userpsd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-            <ImageView
-                android:id="@+id/login_userpsd_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/profile"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"/>
+                <EditText
+                    android:id="@+id/login_username_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="left|center_vertical"
+                    android:layout_toRightOf="@id/login_username_icon"
+                    android:paddingLeft="@dimen/text_padding"
+                    android:singleLine="true"
+                    android:hint="@string/login_email"/>
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/login_userpsd_input"
+            <RelativeLayout
+                android:id="@+id/login_userpsd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="left|center_vertical"
-                android:layout_toRightOf="@id/login_userpsd_icon"
-                android:paddingLeft="@dimen/text_padding"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:hint="@string/login_psd"/>
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_marginTop="16dp">
+                <ImageView
+                    android:id="@+id/login_userpsd_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/profile"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"/>
 
-    <TextView
-        android:id="@+id/login_forget_psd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/login_id_and_psd"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/login_forget_psd"/>
+                <EditText
+                    android:id="@+id/login_userpsd_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="left|center_vertical"
+                    android:layout_toRightOf="@id/login_userpsd_icon"
+                    android:paddingLeft="@dimen/text_padding"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:hint="@string/login_psd"/>
+            </RelativeLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/login_forget_psd">
-        <com.dd.CircularProgressButton
-            android:id="@+id/login_btn"
+        <TextView
+            android:id="@+id/login_forget_psd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/login_id_and_psd"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/login_forget_psd"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/md_white_1000"
-            app:cpb_paddingProgress="10dp"
-            app:cpb_textIdle="@string/login_login"
-            app:cpb_textComplete="@string/login_login_success"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/login_forget_psd">
+            <com.dd.CircularProgressButton
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_white_1000"
+                app:cpb_paddingProgress="10dp"
+                app:cpb_textIdle="@string/login_login"
+                app:cpb_textComplete="@string/login_login_success"/>
 
-        <Button
-            android:id="@+id/login_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_padding"
-            android:text="@string/login_register"/>
-    </LinearLayout>
-</RelativeLayout>
+            <Button
+                android:id="@+id/login_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_padding"
+                android:text="@string/login_register"/>
+        </LinearLayout>
+    </RelativeLayout>
+</com.xuemooc.edxapp.view.custom.OverScrollView>
