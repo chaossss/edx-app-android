@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.Api;
-import com.xuemooc.edxapp.http.IApi;
 import com.xuemooc.edxapp.http.interfaces.ILogin;
 import com.xuemooc.edxapp.http.util.LoginUtil;
 import com.xuemooc.edxapp.view.consts.PBConst;
@@ -34,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText psd;
     private EditText email;
 
-    private IApi iApi;
+    private LoginUtil loginUtil;
     private AtomicBoolean isLogining;
 
     @Override
@@ -65,9 +63,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initParam(){
-        iApi = new Api(this);
         isLogining = new AtomicBoolean(false);
         pbUtil = new ProgressButtonUtil(login);
+        loginUtil = LoginUtil.getLoginUtil(this);
     }
 
     @Override
@@ -97,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     msg.setData(data);
                     msg.what = LoginUtil.SEND_INFO;
 
-                    LoginUtil.getLoginUtil(this).sendRequest(msg);
+                    loginUtil.sendRequest(msg);
 
                     //end
                     //start->end 登录的网络部分代码
@@ -121,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 temp = new Message();
                 temp.what = LoginUtil.LOGIN_SUCCESS;
-                LoginUtil.getLoginUtil(this).sendRequest(temp);
+                loginUtil.sendRequest(temp);
                 break;
 
             case LoginUtil.LOGIN_ERROR_SHOW:
@@ -130,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 temp = new Message();
                 temp.what = LoginUtil.LOGIN_RESET;
-                LoginUtil.getLoginUtil(this).sendRequest(temp);
+                loginUtil.sendRequest(temp);
                 break;
 
             case LoginUtil.LOGIN_RESET:

@@ -32,29 +32,36 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_detail);
 
-        SystemBarTintManager sm = new SystemBarTintManager(this);
-        sm.setStatusBarTintEnabled(true);
-        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
-
         initView();
         initParam();
     }
 
     private void initView(){
-        previewImg = findViewById(R.id.image);
+        initStatusBar();
+        initToolBar();
 
-        toolbar = (Toolbar)findViewById(R.id.class_detail_toolbar);
-        toolbar.setTitle("");
-        toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
-
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(this);
+        previewImg = findViewById(R.id.class_detail_image);
 
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
 
         fab = (CheckableFrameLayout) findViewById(R.id.class_detail_fab);
         fab.setOnClickListener(this);
+    }
+
+    private void initStatusBar(){
+        SystemBarTintManager sm = new SystemBarTintManager(this);
+        sm.setStatusBarTintEnabled(true);
+        sm.setStatusBarTintResource(R.color.colorPrimaryDark);
+    }
+
+    private void initToolBar(){
+        toolbar = (Toolbar)findViewById(R.id.class_detail_toolbar);
+        toolbar.setTitle("");
+        toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(this);
     }
 
     private void initParam(){

@@ -3,6 +3,7 @@ package com.xuemooc.edxapp.http.util;
 import android.os.Message;
 
 import com.xuemooc.edxapp.http.interfaces.ILogin;
+import com.xuemooc.edxapp.http.interfaces.WebUtil;
 import com.xuemooc.edxapp.http.thread.LoginTask;
 
 import java.util.concurrent.Executor;
@@ -12,7 +13,7 @@ import java.util.concurrent.Executors;
  * Util that helps deal with login event
  * Created by chaossss on 2015/9/21.
  */
-public class LoginUtil{
+public class LoginUtil implements WebUtil{
     private ILogin iLogin;
     private final Executor threadPool;
     private volatile static LoginUtil loginUtil;
@@ -42,7 +43,8 @@ public class LoginUtil{
         return loginUtil;
     }
 
-    public void sendRequest(Message msg){
+    @Override
+    public void sendRequest(Message msg) {
         LoginTask task = new LoginTask(iLogin);
         task.sendMsgToServer(msg);
         threadPool.execute(task);

@@ -3,7 +3,7 @@ package com.xuemooc.edxapp.http.thread;
 import android.os.Bundle;
 import android.os.Message;
 
-import com.xuemooc.edxapp.http.handler.LoginHandler;
+import com.xuemooc.edxapp.http.handler.WebHandler;
 import com.xuemooc.edxapp.http.interfaces.ILogin;
 import com.xuemooc.edxapp.http.util.LoginUtil;
 import com.xuemooc.edxapp.view.consts.PBConst;
@@ -15,16 +15,16 @@ import com.xuemooc.edxapp.view.consts.PBConst;
  */
 public class LoginTask implements Runnable {
     private Message msg;
-    private LoginHandler loginHandler;
+    private WebHandler webHandler;
     private PBConst state;
 
     public LoginTask(ILogin iLogin) {
-        loginHandler = new LoginHandler(iLogin);
+        webHandler = new WebHandler(iLogin);
     }
 
     @Override
     public void run() {
-        Message temp = loginHandler.obtainMessage();
+        Message temp = webHandler.obtainMessage();
         switch(msg.what){
             case LoginUtil.SEND_INFO:
                 Bundle b = msg.getData();
@@ -48,7 +48,7 @@ public class LoginTask implements Runnable {
                 }
 
                 temp.obj = state;
-                loginHandler.sendMessageDelayed(temp, 3000);
+                webHandler.sendMessageDelayed(temp, 3000);
 
                 //end
 
@@ -59,14 +59,14 @@ public class LoginTask implements Runnable {
                 temp.what = msg.what;
                 temp.obj = PBConst.PB_LOGIN_SUCCESS;
 
-                loginHandler.sendMessageDelayed(temp, 4000);
+                webHandler.sendMessageDelayed(temp, 4000);
                 break;
 
             case LoginUtil.LOGIN_RESET:
                 temp.what = msg.what;
                 temp.obj = PBConst.PB_INIT;
 
-                loginHandler.sendMessageDelayed(temp, 4000);
+                webHandler.sendMessageDelayed(temp, 4000);
                 break;
         }
     }
