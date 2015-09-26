@@ -3,7 +3,7 @@ package com.xuemooc.edxapp;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.xuemooc.edxapp.http.CacheManager;
+import com.xuemooc.edxapp.http.util.CacheManager;
 
 import java.io.IOException;
 

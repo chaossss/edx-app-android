@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.interfaces.ILogin;
-import com.xuemooc.edxapp.image.ImageLoader;
+import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.http.image.ImageLoader;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
 import com.xuemooc.edxapp.view.subview.MyCourseListHolder;
 
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by chaossss on 2015/7/30.
  */
-public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> implements View.OnClickListener, ILogin{
+public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> implements View.OnClickListener, IWebMessage {
     private OnItemClickListener listener;
     private List<MyCourseModel> courseList = new ArrayList<>();
 
@@ -79,7 +79,12 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     }
 
     @Override
-    public void updateUI(Message msg) {
+    public void sendRequest(Message msg) {
+
+    }
+
+    @Override
+    public void onMessageResponse(Message msg) {
         Bitmap bitmap = (Bitmap) msg.obj;
         imageMap.put("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg", bitmap);
     }
