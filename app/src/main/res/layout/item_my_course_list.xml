@@ -36,7 +36,7 @@
         android:id="@+id/my_course_list_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dsa"
+        android:text=""
         android:textSize="10sp"
         android:textColor="@color/md_black_1000"
         android:layout_toRightOf="@+id/my_course_list_img"

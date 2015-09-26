@@ -1,7 +1,9 @@
 package com.xuemooc.edxapp.view.subview;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xuemooc.edxapp.R;
@@ -14,6 +16,7 @@ public class MyCourseListHolder extends RecyclerView.ViewHolder {
     private TextView school;
     private TextView courseName;
     private TextView updateInfo;
+    private ImageView courseImage;
 
     public MyCourseListHolder(View itemView) {
         super(itemView);
@@ -21,6 +24,7 @@ public class MyCourseListHolder extends RecyclerView.ViewHolder {
         school = (TextView) itemView.findViewById(R.id.my_course_list_school);
         courseName = (TextView) itemView.findViewById(R.id.my_course_list_name);
         updateInfo = (TextView) itemView.findViewById(R.id.my_course_list_update);
+        courseImage = (ImageView) itemView.findViewById(R.id.my_course_list_img);
     }
 
     /**
@@ -33,5 +37,9 @@ public class MyCourseListHolder extends RecyclerView.ViewHolder {
         this.school.setText(school);
         this.courseName.setText(courseName);
         this.updateInfo.setText(updateInfo);
+    }
+
+    public void setImage(Bitmap img){
+        courseImage.setImageBitmap(img);
     }
 }
