@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.interfaces.ILogin;
+import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.http.util.FeedBackUtil;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
 import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
@@ -17,7 +17,7 @@ import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 /**
  * Created by chaossss on 2015/8/7.
  */
-public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener,ILogin{
+public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener,IWebMessage {
     private Toolbar toolbar;
 
     private EditText feedback;
@@ -93,7 +93,12 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void updateUI(Message msg) {
+    public void sendRequest(Message msg) {
+
+    }
+
+    @Override
+    public void onMessageResponse(Message msg) {
         finish();
     }
 }
