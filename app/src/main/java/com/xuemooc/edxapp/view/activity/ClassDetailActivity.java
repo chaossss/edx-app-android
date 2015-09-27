@@ -65,7 +65,7 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
     }
 
     private void initParam(){
-        fabUtil = FabUtil.getFabUtil(this);
+        fabUtil = FabUtil.getFabUtil();
         parallaxImgHeight = getResources().getDimensionPixelSize(R.dimen.activity_detail_toolbar_height);
     }
 
@@ -95,7 +95,7 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.class_detail_fab:
-                fabUtil.addCourse(fab);
+                fabUtil.addCourse(this, fab);
                 break;
 
             default:
