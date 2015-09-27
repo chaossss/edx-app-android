@@ -1,8 +1,8 @@
-package com.xuemooc.edxapp.http.image.cache.disk;
+package com.xuemooc.edxapp.utils.cache.disk;
 
 import android.graphics.Bitmap;
 
-import com.xuemooc.edxapp.http.image.utils.IOUtils;
+import com.xuemooc.edxapp.utils.util.IOUtils;
 
 import java.io.File;
 import java.io.IOException;

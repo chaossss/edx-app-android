@@ -24,7 +24,7 @@ import com.xuemooc.edxapp.model.api.SectionItemModel;
 import com.xuemooc.edxapp.model.api.SyncLastAccessedSubsectionResponse;
 import com.xuemooc.edxapp.model.api.TranscriptModel;
 import com.xuemooc.edxapp.model.api.VideoResponseModel;
-import com.xuemooc.edxapp.utils.Config;
+import com.xuemooc.edxapp.utils.util.Config;
 import com.xuemooc.edxapp.utils.exception.AuthException;
 import com.xuemooc.edxapp.model.api.AuthErrorResponse;
 import com.xuemooc.edxapp.model.api.AuthResponse;
@@ -32,8 +32,8 @@ import com.xuemooc.edxapp.model.api.EnrolledCoursesResponse;
 import com.xuemooc.edxapp.model.api.ProfileModel;
 import com.xuemooc.edxapp.model.api.ResetPasswordResponse;
 import com.xuemooc.edxapp.module.prefs.PrefManager;
-import com.xuemooc.edxapp.utils.DateUtil;
-import com.xuemooc.edxapp.utils.NetworkUtil;
+import com.xuemooc.edxapp.utils.util.DateUtil;
+import com.xuemooc.edxapp.utils.util.NetworkUtil;
 
 import org.json.JSONObject;
 

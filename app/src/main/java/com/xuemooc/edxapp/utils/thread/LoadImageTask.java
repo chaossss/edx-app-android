@@ -7,12 +7,12 @@ import android.util.Log;
 
 import com.xuemooc.edxapp.utils.handler.WebHandler;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.http.image.cache.disk.BaseDiskCache;
-import com.xuemooc.edxapp.http.image.cache.disk.DiskCache;
-import com.xuemooc.edxapp.http.image.cache.memory.LruMemoryCache;
-import com.xuemooc.edxapp.http.image.cache.memory.MemoryCache;
-import com.xuemooc.edxapp.http.image.download.BaseImageDownloader;
-import com.xuemooc.edxapp.http.image.download.ImageDownloader;
+import com.xuemooc.edxapp.utils.cache.disk.BaseDiskCache;
+import com.xuemooc.edxapp.utils.cache.disk.DiskCache;
+import com.xuemooc.edxapp.utils.cache.memory.LruMemoryCache;
+import com.xuemooc.edxapp.utils.cache.memory.MemoryCache;
+import com.xuemooc.edxapp.utils.download.BaseImageDownloader;
+import com.xuemooc.edxapp.utils.download.ImageDownloader;
 
 import java.io.IOException;
 

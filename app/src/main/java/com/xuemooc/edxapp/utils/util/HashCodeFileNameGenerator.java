@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.http.image.utils;
+package com.xuemooc.edxapp.utils.util;
 
 /**
  * Created by chaossss on 2015/9/24.

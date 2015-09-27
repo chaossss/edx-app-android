@@ -1,9 +1,9 @@
-package com.xuemooc.edxapp.http.image.cache.disk;
+package com.xuemooc.edxapp.utils.cache.disk;
 
 import android.graphics.Bitmap;
 
-import com.xuemooc.edxapp.http.image.utils.IOUtils;
-import com.xuemooc.edxapp.http.image.utils.HashCodeFileNameGenerator;
+import com.xuemooc.edxapp.utils.util.IOUtils;
+import com.xuemooc.edxapp.utils.util.HashCodeFileNameGenerator;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

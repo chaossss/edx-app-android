@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.http.image.download;
+package com.xuemooc.edxapp.utils.download;
 
 import android.graphics.Bitmap;
 

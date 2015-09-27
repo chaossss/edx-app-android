@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.http.image;
+package com.xuemooc.edxapp.utils.loader;
 
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;

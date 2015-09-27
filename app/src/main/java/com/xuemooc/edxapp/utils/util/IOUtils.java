@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.http.image.utils;
+package com.xuemooc.edxapp.utils.util;
 
 import java.io.Closeable;
 import java.io.IOException;

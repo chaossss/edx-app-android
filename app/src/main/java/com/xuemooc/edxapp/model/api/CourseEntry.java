@@ -3,7 +3,7 @@ package com.xuemooc.edxapp.model.api;
 import android.content.Context;
 
 import com.xuemooc.edxapp.http.Api;
-import com.xuemooc.edxapp.utils.DateUtil;
+import com.xuemooc.edxapp.utils.util.DateUtil;
 
 import java.io.Serializable;
 import java.text.ParseException;

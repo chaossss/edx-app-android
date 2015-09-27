@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.http.image.ImageLoader;
+import com.xuemooc.edxapp.utils.loader.ImageLoader;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
 import com.xuemooc.edxapp.view.subview.MyCourseListHolder;
 
