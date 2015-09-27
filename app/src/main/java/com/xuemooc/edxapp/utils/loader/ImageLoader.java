@@ -1,5 +1,7 @@
 package com.xuemooc.edxapp.utils.loader;
 
+import android.os.Message;
+
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 
@@ -27,7 +29,7 @@ public class ImageLoader{
         return imageLoader;
     }
 
-    public void load(String imageUri){
-        new Thread(new LoadImageTask(imageUri, iWebMessage)).start();
+    public void load(Message msg){
+        new Thread(new LoadImageTask(msg, iWebMessage)).start();
     }
 }

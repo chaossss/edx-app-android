@@ -23,7 +23,7 @@ public interface DiskCache {
      * Retruns file of cached image
      * @return return File of cached image or null if image wasn't cached
      */
-    File get(String imageUri);
+    File getFile(String imageUri);
 
     /**
      * Saves image stream in disk cache.

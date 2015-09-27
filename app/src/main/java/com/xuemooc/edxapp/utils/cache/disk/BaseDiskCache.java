@@ -26,10 +26,6 @@ public class BaseDiskCache implements DiskCache {
     protected final File cacheDir;
     protected final File reserveCacheDir;
 
-    protected int bufferSize = DEFAULT_BUFFER_SIZE;
-    protected int compressQuality = DEFAULT_COMPRESS_QUALITY;
-    protected Bitmap.CompressFormat compressFormat = DEFAULT_COMPRESS_FORMAT;
-
     public BaseDiskCache() {
         this(null);
     }
@@ -45,19 +41,14 @@ public class BaseDiskCache implements DiskCache {
     }
 
     @Override
-    public File get(String imageUri) {
-        return getFile(imageUri);
-    }
-
-    @Override
     public boolean save(String imageUri, Bitmap image) throws IOException {
         File imageFile = getFile(imageUri);
         File tmpFile = new File(imageFile.getAbsolutePath() + TEMP_IMAGE_POSTFIX);
-        OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile), bufferSize);
+        OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile), DEFAULT_BUFFER_SIZE);
 
         boolean savedSuccessfully = false;
         try{
-            savedSuccessfully = image.compress(compressFormat, compressQuality, os);
+            savedSuccessfully = image.compress(DEFAULT_COMPRESS_FORMAT, DEFAULT_COMPRESS_QUALITY, os);
         } finally {
             IOUtils.closeSliently(os);
             if(savedSuccessfully && !tmpFile.renameTo(imageFile)){
@@ -75,14 +66,14 @@ public class BaseDiskCache implements DiskCache {
 
     @Override
     public boolean save(String imageUri, InputStream imageStream, IOUtils.CopyListener listener) throws IOException {
-        File imageFile = get(imageUri);
+        File imageFile = getFile(imageUri);
         File tmpFile = new File(imageFile.getAbsolutePath() + TEMP_IMAGE_POSTFIX);
 
         boolean loaded = false;
         try{
-            OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile), bufferSize);
+            OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile), DEFAULT_BUFFER_SIZE);
             try{
-                loaded = IOUtils.copyStream(imageStream, os, listener, bufferSize);
+                loaded = IOUtils.copyStream(imageStream, os, listener, DEFAULT_BUFFER_SIZE);
             } finally {
                 IOUtils.closeSliently(os);
             }
@@ -119,7 +110,7 @@ public class BaseDiskCache implements DiskCache {
         }
     }
 
-    protected File getFile(String imageUri){
+    public File getFile(String imageUri){
         String fileName = HashCodeFileNameGenerator.generate(imageUri);
 
         return new File(cacheDir, fileName);

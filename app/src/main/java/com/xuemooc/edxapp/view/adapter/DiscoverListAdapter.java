@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.model.data.DiscoverCourseModel;
+import com.xuemooc.edxapp.utils.loader.ImageLoader;
+import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.subview.DiscoverListHolder;
 
 import java.util.ArrayList;
@@ -36,6 +38,10 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     public DiscoverListAdapter(List<DiscoverCourseModel> courseList) {
         super();
         this.courseList = courseList;
+        Message msg = Message.obtain();
+        msg.what = MessageConst.DISCOVER_LIST_IMG;
+        msg.obj = "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg";
+        ImageLoader.getImageLoader(this).load(msg);
     }
 
     /**
@@ -59,7 +65,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     {
         DiscoverCourseModel course = courseList.get(position);
         holder.setInfo(course.getCourseName(),course.getSchool(),course.getWatchNums(),course.getTime());
-        holder.setCourseImage(imageMap.get("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg"));
+        holder.setCourseImage(imageMap.get("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg"));
     }
 
     @Override
@@ -84,8 +90,10 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
 
     @Override
     public void onMessageResponse(Message msg) {
-        Bitmap bitmap = (Bitmap) msg.obj;
-        imageMap.put("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg", bitmap);
-        this.notifyDataSetChanged();
+        if(msg.what == MessageConst.DISCOVER_LIST_IMG){
+            Bitmap bitmap = (Bitmap) msg.obj;
+            imageMap.put("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg", bitmap);
+            this.notifyDataSetChanged();
+        }
     }
 }
