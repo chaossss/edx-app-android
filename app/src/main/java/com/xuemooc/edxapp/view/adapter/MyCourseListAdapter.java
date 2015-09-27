@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.utils.loader.ImageLoader;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
+import com.xuemooc.edxapp.utils.loader.ImageLoader;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.subview.MyCourseListHolder;
 
@@ -35,7 +35,7 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
         Message msg = Message.obtain();
         msg.what = MessageConst.MY_COURSE_LIST_IMG;
         msg.obj = "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg";
-        ImageLoader.getImageLoader(this).load(msg);
+        ImageLoader.getImageLoader().load(msg, this);
     }
 
     /**
@@ -53,7 +53,7 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     @Override
     public MyCourseListHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_course_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_course_list, parent, false);
         view.setOnClickListener(this);
         MyCourseListHolder holder = new MyCourseListHolder(view);
 

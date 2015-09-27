@@ -40,7 +40,7 @@ public class LoadImageTask implements Runnable {
 
         if(bitmap == null){
             try {
-                Log.v("image-load", "load from web & cache");
+                Log.v("image-load", "load from web & cache" + url);
                 bitmap = imageDownloader.getStream(url);
                 memoryCache.put(url, bitmap);
             } catch (IOException e){
@@ -48,7 +48,7 @@ public class LoadImageTask implements Runnable {
             }
         }
 
-        Message temp = Message.obtain();
+        Message temp = new Message();
         temp.obj = bitmap;
         temp.what = msg.what;
         handler.sendMessage(temp);

@@ -41,7 +41,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
         Message msg = Message.obtain();
         msg.what = MessageConst.DISCOVER_LIST_IMG;
         msg.obj = "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg";
-        ImageLoader.getImageLoader(this).load(msg);
+        ImageLoader.getImageLoader().load(msg, this);
     }
 
     /**

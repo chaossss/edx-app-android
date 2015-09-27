@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onMessageResponse(Message msg) {
         if(msg.what == MessageConst.DRAWER_HEADER_USER_IMG){
             userImg.setImageBitmap((Bitmap) msg.obj);
+            userImg.invalidate();
         }
     }
 
@@ -251,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Message msg = Message.obtain();
         msg.what = MessageConst.DRAWER_HEADER_USER_IMG;
         msg.obj = "http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg";
-        ImageLoader.getImageLoader(this).load(msg);
+        ImageLoader.getImageLoader().load(msg, this);
     }
 
     @Override
