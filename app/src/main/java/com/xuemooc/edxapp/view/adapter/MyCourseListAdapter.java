@@ -87,6 +87,7 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     public void onMessageResponse(Message msg) {
         Bitmap bitmap = (Bitmap) msg.obj;
         imageMap.put("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg", bitmap);
+        this.notifyDataSetChanged();
     }
 
     public interface OnItemClickListener{

@@ -1,7 +1,9 @@
 package com.xuemooc.edxapp.view.subview;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xuemooc.edxapp.R;
@@ -11,10 +13,11 @@ import com.xuemooc.edxapp.R;
  * Created by chaossss on 2015/7/29.
  */
 public class DiscoverListHolder extends RecyclerView.ViewHolder{
-    private TextView time = null;
-    private TextView school = null;
-    private TextView watchNums = null;
-    private TextView courseName = null;
+    private TextView time;
+    private TextView school;
+    private TextView watchNums;
+    private TextView courseName;
+    private ImageView courseImage;
 
     public DiscoverListHolder(View itemView) {
         super(itemView);
@@ -23,6 +26,7 @@ public class DiscoverListHolder extends RecyclerView.ViewHolder{
         school = (TextView) itemView.findViewById(R.id.discover_list_school);
         watchNums = (TextView) itemView.findViewById(R.id.discover_list_watch);
         courseName = (TextView) itemView.findViewById(R.id.discover_list_name);
+        courseImage = (ImageView) itemView.findViewById(R.id.discover_list_img);
     }
 
     /**
@@ -37,5 +41,9 @@ public class DiscoverListHolder extends RecyclerView.ViewHolder{
         this.school.setText(school);
         this.watchNums.setText(watchNums + "");
         this.courseName.setText(courseName);
+    }
+
+    public void setCourseImage(Bitmap bitmap){
+        courseImage.setImageBitmap(bitmap);
     }
 }

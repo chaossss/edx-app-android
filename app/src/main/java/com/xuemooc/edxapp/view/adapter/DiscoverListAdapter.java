@@ -1,23 +1,29 @@
 package com.xuemooc.edxapp.view.adapter;
 
+import android.graphics.Bitmap;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.model.data.DiscoverCourseModel;
 import com.xuemooc.edxapp.view.subview.DiscoverListHolder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 发现课程列表的数据填充器
  * Created by chaossss on 2015/7/30.
  */
-public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder> implements View.OnClickListener{
+public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder> implements View.OnClickListener, IWebMessage{
     private OnItemClickListener listener;
+    private final Map<String, Bitmap> imageMap = new HashMap<>();
     private List<DiscoverCourseModel> courseList = new ArrayList<>();
 
     public interface OnItemClickListener{
@@ -53,6 +59,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     {
         DiscoverCourseModel course = courseList.get(position);
         holder.setInfo(course.getCourseName(),course.getSchool(),course.getWatchNums(),course.getTime());
+        holder.setCourseImage(imageMap.get("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg"));
     }
 
     @Override
@@ -68,5 +75,17 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     @Override
     public void onClick(View v) {
         listener.onItemClick(v);
+    }
+
+    @Override
+    public void sendRequest(Message msg) {
+
+    }
+
+    @Override
+    public void onMessageResponse(Message msg) {
+        Bitmap bitmap = (Bitmap) msg.obj;
+        imageMap.put("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg", bitmap);
+        this.notifyDataSetChanged();
     }
 }
