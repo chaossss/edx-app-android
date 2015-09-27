@@ -1,18 +1,14 @@
 package com.xuemooc.edxapp.utils.thread;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.util.Log;
 
-import com.xuemooc.edxapp.utils.handler.WebHandler;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.http.image.cache.disk.BaseDiskCache;
-import com.xuemooc.edxapp.http.image.cache.disk.DiskCache;
-import com.xuemooc.edxapp.http.image.cache.memory.LruMemoryCache;
-import com.xuemooc.edxapp.http.image.cache.memory.MemoryCache;
-import com.xuemooc.edxapp.http.image.download.BaseImageDownloader;
-import com.xuemooc.edxapp.http.image.download.ImageDownloader;
+import com.xuemooc.edxapp.utils.cache.disk.BaseDiskCache;
+import com.xuemooc.edxapp.utils.cache.memory.LruMemoryCache;
+import com.xuemooc.edxapp.utils.download.BaseImageDownloader;
+import com.xuemooc.edxapp.utils.handler.WebHandler;
 
 import java.io.IOException;
 
@@ -20,15 +16,15 @@ import java.io.IOException;
  * Created by chaossss on 2015/9/26.
  */
 public class LoadImageTask implements Runnable {
-    private String url;
-    private IWebMessage iWebMessage;
+    private Message msg;
     private WebHandler handler;
-    private DiskCache diskCache;
-    private MemoryCache memoryCache;
-    private ImageDownloader imageDownloader;
+    private IWebMessage iWebMessage;
+    private BaseDiskCache diskCache;
+    private LruMemoryCache memoryCache;
+    private BaseImageDownloader imageDownloader;
 
-    public LoadImageTask(String url, IWebMessage iWebMessage) {
-        this.url = url;
+    public LoadImageTask(Message msg, IWebMessage iWebMessage) {
+        this.msg = msg;
         this.iWebMessage = iWebMessage;
         handler = new WebHandler(this.iWebMessage);
 
@@ -39,32 +35,34 @@ public class LoadImageTask implements Runnable {
 
     @Override
     public void run() {
-        Bitmap bitmap = loadImageFromNative();
+        String url = (String) msg.obj;
+        Bitmap bitmap = loadImageFromNative(url);
 
         if(bitmap == null){
             try {
-                Log.v("image-load", "load from web");
+                Log.v("image-load", "load from web & cache" + url);
                 bitmap = imageDownloader.getStream(url);
+                memoryCache.put(url, bitmap);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }
 
-        Message msg = Message.obtain();
-        msg.obj = bitmap;
-        msg.what = 6666;
-        handler.sendMessage(msg);
+        Message temp = new Message();
+        temp.obj = bitmap;
+        temp.what = msg.what;
+        handler.sendMessage(temp);
     }
 
-    private Bitmap loadImageFromNative(){
+    private Bitmap loadImageFromNative(String url){
         Log.v("image-load", "load from memory");
         Bitmap bitmap = memoryCache.get(url);
 
-        if(bitmap == null){
-            Log.v("image-load", "load from disk");
-            String path = diskCache.get(url).getAbsolutePath();
-            bitmap = BitmapFactory.decodeFile(path);
-        }
+//        if(bitmap == null){
+//            Log.v("image-load", "load from disk");
+//            String path = diskCache.getFile(url).getAbsolutePath();
+//            bitmap = BitmapFactory.decodeFile(path);
+//        }
 
         return bitmap;
     }

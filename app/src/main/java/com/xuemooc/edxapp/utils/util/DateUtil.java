@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.utils;
+package com.xuemooc.edxapp.utils.util;
 
 import android.annotation.SuppressLint;
 

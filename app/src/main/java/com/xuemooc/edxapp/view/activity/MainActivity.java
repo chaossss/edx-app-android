@@ -1,7 +1,9 @@
 package com.xuemooc.edxapp.view.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +24,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.loader.ImageLoader;
+import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
 import com.xuemooc.edxapp.view.fragment.MyCourseFragment;
 import com.xuemooc.edxapp.view.fragment.MyDownloadFragment;
@@ -34,7 +39,7 @@ import java.util.List;
  * Main Page Activity
  * Created by chaossss on 28.07.15.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerItemClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener, IWebMessage{
     private static final int MY_COURSE = 0;
     private static final int DISCOVER = 1;
     private static final int MY_DOWNLOAD = 2;
@@ -106,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         new MyDrawerItem().withName(R.string.drawer_item_discover_course).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(DISCOVER),
                         new MyDrawerItem().withName(R.string.drawer_item_download).withIcon(FontAwesome.Icon.faw_arrow_circle_o_down).withIdentifier(MY_DOWNLOAD)
                 )
+                .withOnDrawerListener(this)
                 .withStickyFooter(footer)
                 .withAnimateDrawerItems(true)
                 .withOnDrawerItemClickListener(this)
@@ -226,5 +232,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void sendRequest(Message msg) {
+
+    }
+
+    @Override
+    public void onMessageResponse(Message msg) {
+        if(msg.what == MessageConst.DRAWER_HEADER_USER_IMG){
+            userImg.setImageBitmap((Bitmap) msg.obj);
+            userImg.invalidate();
+        }
+    }
+
+    @Override
+    public void onDrawerOpened(View view) {
+        Message msg = Message.obtain();
+        msg.what = MessageConst.DRAWER_HEADER_USER_IMG;
+        msg.obj = "http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg";
+        ImageLoader.getImageLoader().load(msg, this);
+    }
+
+    @Override
+    public void onDrawerClosed(View view) {
+
+    }
+
+    @Override
+    public void onDrawerSlide(View view, float v) {
+
     }
 }

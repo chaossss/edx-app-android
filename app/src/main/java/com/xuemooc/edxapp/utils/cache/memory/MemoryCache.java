@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.http.image.cache.memory;
+package com.xuemooc.edxapp.utils.cache.memory;
 
 import android.graphics.Bitmap;
 

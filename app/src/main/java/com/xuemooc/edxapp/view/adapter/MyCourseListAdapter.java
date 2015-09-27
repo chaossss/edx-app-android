@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.http.image.ImageLoader;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
+import com.xuemooc.edxapp.utils.loader.ImageLoader;
+import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.subview.MyCourseListHolder;
 
 import java.util.ArrayList;
@@ -30,7 +31,11 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     public MyCourseListAdapter(List<MyCourseModel> courseList) {
         super();
         this.courseList = courseList;
-        ImageLoader.getImageLoader(this).load("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg");
+
+        Message msg = Message.obtain();
+        msg.what = MessageConst.MY_COURSE_LIST_IMG;
+        msg.obj = "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg";
+        ImageLoader.getImageLoader().load(msg, this);
     }
 
     /**
@@ -48,7 +53,7 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     @Override
     public MyCourseListHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_course_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_course_list, parent, false);
         view.setOnClickListener(this);
         MyCourseListHolder holder = new MyCourseListHolder(view);
 
@@ -60,7 +65,7 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     {
         MyCourseModel course = courseList.get(position);
         holder.setInfo(course.getCourseName(),course.getSchool(),course.getUpdateInfo());
-        holder.setImage(imageMap.get("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg"));
+        holder.setImage(imageMap.get("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg"));
     }
 
     @Override
@@ -85,8 +90,11 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
 
     @Override
     public void onMessageResponse(Message msg) {
-        Bitmap bitmap = (Bitmap) msg.obj;
-        imageMap.put("http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg", bitmap);
+        if(msg.what == MessageConst.MY_COURSE_LIST_IMG){
+            Bitmap bitmap = (Bitmap) msg.obj;
+            imageMap.put("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg", bitmap);
+            this.notifyDataSetChanged();
+        }
     }
 
     public interface OnItemClickListener{

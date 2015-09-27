@@ -1,10 +1,10 @@
-package com.xuemooc.edxapp.http.image.download;
+package com.xuemooc.edxapp.utils.download;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 
-import com.xuemooc.edxapp.http.image.utils.IOUtils;
+import com.xuemooc.edxapp.utils.util.IOUtils;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

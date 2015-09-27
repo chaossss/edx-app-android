@@ -1,4 +1,6 @@
-package com.xuemooc.edxapp.http.image;
+package com.xuemooc.edxapp.utils.loader;
+
+import android.os.Message;
 
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
@@ -9,17 +11,14 @@ import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 public class ImageLoader{
     private volatile static ImageLoader imageLoader;
 
-    private IWebMessage iWebMessage;
-
-    private ImageLoader(IWebMessage iWebMessage) {
-        this.iWebMessage = iWebMessage;
+    private ImageLoader() {
     }
 
-    public static ImageLoader getImageLoader(IWebMessage iWebMessage){
+    public static ImageLoader getImageLoader(){
         if(imageLoader == null){
             synchronized (ImageLoader.class){
                 if(imageLoader == null){
-                    imageLoader = new ImageLoader(iWebMessage);
+                    imageLoader = new ImageLoader();
                 }
             }
         }
@@ -27,7 +26,7 @@ public class ImageLoader{
         return imageLoader;
     }
 
-    public void load(String imageUri){
-        new Thread(new LoadImageTask(imageUri, iWebMessage)).start();
+    public void load(Message msg, IWebMessage iWebMessage){
+        new Thread(new LoadImageTask(msg, iWebMessage)).start();
     }
 }

@@ -1,4 +1,4 @@
-package com.xuemooc.edxapp.utils;
+package com.xuemooc.edxapp.utils.util;
 
 /**
  * Created by hackeris on 15/7/28.

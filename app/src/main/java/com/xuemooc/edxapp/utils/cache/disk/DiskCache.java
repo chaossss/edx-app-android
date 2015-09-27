@@ -1,8 +1,8 @@
-package com.xuemooc.edxapp.http.image.cache.disk;
+package com.xuemooc.edxapp.utils.cache.disk;
 
 import android.graphics.Bitmap;
 
-import com.xuemooc.edxapp.http.image.utils.IOUtils;
+import com.xuemooc.edxapp.utils.util.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public interface DiskCache {
      * Retruns file of cached image
      * @return return File of cached image or null if image wasn't cached
      */
-    File get(String imageUri);
+    File getFile(String imageUri);
 
     /**
      * Saves image stream in disk cache.
