@@ -36,6 +36,56 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
     private MyCourseListAdapter adapter;
     private List<MyCourseModel> myCourseList = new ArrayList<>();
 
+    private String[] images = {
+            "http://img.my.csdn.net/uploads/201509/29/1443486720_3622.jpg",
+            "http://img.my.csdn.net/uploads/201508/28/1440748287_5111.JPG",
+            "http://img.my.csdn.net/uploads/201508/28/1440748262_7910.JPG",
+            "http://img.my.csdn.net/uploads/201506/05/1433498900_1272.jpg",
+            "http://img.my.csdn.net/uploads/201506/05/1433497742_3244.jpg",
+
+            "http://img.my.csdn.net/uploads/201505/21/1432198963_2181.jpg",
+            "http://img.my.csdn.net/uploads/201505/21/1432198863_3060.jpg",
+            "http://img.my.csdn.net/uploads/201505/21/1432196208_2233.jpg",
+            "http://img.my.csdn.net/uploads/201505/13/1431511575_9681.jpg",
+            "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg",
+
+            "http://img.my.csdn.net/uploads/201505/12/1431442731_8175.jpg",
+            "http://img.my.csdn.net/uploads/201504/26/1430014189_8490.png",
+            "http://img.my.csdn.net/uploads/201504/26/1430014189_2164.png",
+            "http://img.my.csdn.net/uploads/201504/25/1429952476_7900.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429952287_7023.jpg",
+
+            "http://img.my.csdn.net/uploads/201504/25/1429949329_3391.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429949236_2350.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429949102_5644.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429948986_4450.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429948882_7915.jpg",
+
+            "http://img.my.csdn.net/uploads/201504/25/1429948699_7368.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429948573_7445.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429948562_2232.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429948487_1166.jpg",
+            "http://img.my.csdn.net/uploads/201504/25/1429948464_2685.png",
+
+            "http://img.my.csdn.net/uploads/201504/25/1429948415_2193.png",
+            "http://img.my.csdn.net/uploads/201504/25/1429948243_6050.png",
+            "http://img.my.csdn.net/uploads/201504/18/1429318506_9608.jpg",
+            "http://img.my.csdn.net/uploads/201504/18/1429318506_3728.jpg",
+            "http://img.my.csdn.net/uploads/201504/18/1429318505_9339.jpg",
+
+            "http://img.my.csdn.net/uploads/201504/18/1429318505_8739.jpg",
+            "http://img.my.csdn.net/uploads/201504/17/1429260515_6846.jpg",
+            "http://img.my.csdn.net/uploads/201504/17/1429260514_6147.jpg",
+            "http://img.my.csdn.net/uploads/201504/17/1429260514_5562.jpg",
+            "http://img.my.csdn.net/uploads/201504/17/1429260514_8011.jpg",
+
+            "http://img.my.csdn.net/uploads/201504/13/1428914371_1788.png",
+            "http://img.my.csdn.net/uploads/201504/13/1428914371_2167.png",
+            "http://img.my.csdn.net/uploads/201504/13/1428914360_7454.png",
+            "http://img.my.csdn.net/uploads/201504/13/1428914360_6429.png",
+            "http://img.my.csdn.net/uploads/201504/13/1428914360_7495.jpg",
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +97,7 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         for(int i = 0;i < 5;++i)
         {
-            MyCourseModel temp = new MyCourseModel("课程" + i, "学校" + i, "", "更新信息" + i);
+            MyCourseModel temp = new MyCourseModel("课程" + i, "学校" + i, images[i], "更新信息" + i);
             myCourseList.add(temp);
         }
 

@@ -1,6 +1,8 @@
 package com.xuemooc.edxapp.utils.thread;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
@@ -40,29 +42,39 @@ public class LoadImageTask implements Runnable {
 
         if(bitmap == null){
             try {
-                Log.v("image-load", "load from web & cache" + url);
+                Log.v("image-load", "load from web");
                 bitmap = imageDownloader.getStream(url);
+                diskCache.save(url, bitmap);
                 memoryCache.put(url, bitmap);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }
 
+        Bundle b = new Bundle();
         Message temp = new Message();
+        b.putString("url", url);
+        temp.setData(b);
         temp.obj = bitmap;
         temp.what = msg.what;
         handler.sendMessage(temp);
+
+
     }
 
     private Bitmap loadImageFromNative(String url){
-        Log.v("image-load", "load from memory");
-        Bitmap bitmap = memoryCache.get(url);
+        Log.v("image-load", "load from native");
+        Bitmap bitmap;
 
-//        if(bitmap == null){
-//            Log.v("image-load", "load from disk");
-//            String path = diskCache.getFile(url).getAbsolutePath();
-//            bitmap = BitmapFactory.decodeFile(path);
-//        }
+        bitmap = memoryCache.get(url);
+
+        if(bitmap == null){
+            bitmap = BitmapFactory.decodeFile(diskCache.getFile(url).getAbsolutePath());
+        }
+
+        if(bitmap != null){
+            Log.v("image-load", "load from native - true");
+        }
 
         return bitmap;
     }

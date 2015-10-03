@@ -10,6 +10,7 @@ import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -27,22 +28,20 @@ public class FabUtil {
 
     private volatile static FabUtil fabUtil;
 
-    private Context context;
     private boolean isAdded;
 
     private Handler handler;
 
-    private FabUtil(Context context) {
+    private FabUtil() {
         isAdded = false;
-        this.context = context;
         handler = new Handler();
     }
 
-    public static FabUtil getFabUtil(Context context){
+    public static FabUtil getFabUtil(){
         if(fabUtil == null){
             synchronized (FabUtil.class){
                 if(fabUtil == null){
-                    fabUtil = new FabUtil(context);
+                    fabUtil = new FabUtil();
                 }
             }
         }
@@ -50,19 +49,19 @@ public class FabUtil {
         return fabUtil;
     }
 
-    public void addCourse(CheckableFrameLayout fab) {
+    public void addCourse(Context context, CheckableFrameLayout fab) {
         isAdded = !isAdded;
 
         fab.setChecked(isAdded);
 
         ImageView iconView = (ImageView) fab.findViewById(R.id.class_detail_fab_icon);
-        setOrAnimatePlusCheckIcon(iconView, isAdded);
+        setOrAnimatePlusCheckIcon(context, iconView, isAdded);
         fab.setContentDescription(context.getString(isAdded
                 ? R.string.class_detail_remove
                 : R.string.class_detail_add));
     }
 
-    private void setOrAnimatePlusCheckIcon(final ImageView imageView, boolean isCheck) {
+    private void setOrAnimatePlusCheckIcon(Context context, final ImageView imageView, boolean isCheck) {
         if (!hasL()) {
             compatSetOrAnimatePlusCheckIcon(imageView, isCheck);
             return;
@@ -70,7 +69,7 @@ public class FabUtil {
 
         Drawable drawable = imageView.getDrawable();
         if (!(drawable instanceof AnimatedStateListDrawable)) {
-            drawable = context.getResources().getDrawable(R.drawable.add_schedule_fab_icon_anim);
+            drawable = ContextCompat.getDrawable(context, R.drawable.add_schedule_fab_icon_anim);
             imageView.setImageDrawable(drawable);
         }
         imageView.setColorFilter(isCheck ?
