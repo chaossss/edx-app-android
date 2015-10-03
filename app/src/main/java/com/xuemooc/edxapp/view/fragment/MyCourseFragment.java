@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +23,14 @@ import com.xuemooc.edxapp.view.adapter.MyCourseListAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.codefalling.recyclerviewswipedismiss.SwipeDismissRecyclerViewTouchListener;
-
 /**
- * 我的课程页面
+ * MyCourse page
+ *
  * Created by chaossss on 2015/7/30.
  */
 public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, MyCourseListAdapter.OnItemClickListener{
     private RecyclerView myCourseListView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private SwipeDismissRecyclerViewTouchListener listener;
 
     private MyCourseListAdapter adapter;
     private List<MyCourseModel> myCourseList = new ArrayList<>();
@@ -101,70 +100,55 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
             myCourseList.add(temp);
         }
 
-        initSwipeDismissListener();
-        myCourseListView.setOnTouchListener(listener);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         adapter = new MyCourseListAdapter(myCourseList);
         myCourseListView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
 
+        ItemTouchHelper.SimpleCallback swipeDismissCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                final int pos = viewHolder.getAdapterPosition();
+                final MyCourseModel deletedCourse = adapter.removeCourse(pos);
+
+                adapter.notifyDataSetChanged();
+
+                new SnackBar.Builder(getActivity())
+                        .withOnClickListener(new SnackBar.OnMessageClickListener() {
+                            /**
+                             * undo the delete operation
+                             * @param parcelable
+                             */
+                            @Override
+                            public void onMessageClick(Parcelable parcelable) {
+                                adapter.addCourse(deletedCourse, pos);
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .withMessage("课程：" + deletedCourse.getCourseName() + "已删除")
+                        .withActionMessage("撤销")
+                        .withStyle(SnackBar.Style.ALERT)
+                        .withDuration(SnackBar.MED_SNACK)
+                        .show();
+
+            }
+        };
+        ItemTouchHelper swipeDismissHelper = new ItemTouchHelper(swipeDismissCallback);
+        swipeDismissHelper.attachToRecyclerView(myCourseListView);
+
         return root;
     }
 
-    /**
-     * 初始化左滑删除监听
-     */
-    private void initSwipeDismissListener(){
-        listener = new SwipeDismissRecyclerViewTouchListener.Builder(myCourseListView,
-                new SwipeDismissRecyclerViewTouchListener.DismissCallbacks(){
-                    @Override
-                    public boolean canDismiss(int i) {
-                        return true;
-                    }
 
-                    /**
-                     * 当 RecyclerView 中 View 项被删除时触发的操作
-                     * @param view 被删除项
-                     */
-                    @Override
-                    public void onDismiss(View view) {
-                        int pos = myCourseListView.getChildAdapterPosition(view);
-                        MyCourseModel deleteCourse = adapter.removeCourse(pos);
-                        adapter.notifyDataSetChanged();
-
-                        new SnackBar.Builder(getActivity())
-                                .withOnClickListener(new SnackBar.OnMessageClickListener() {
-                                    /**
-                                     * 撤销删除操作的实现
-                                     * @param parcelable
-                                     */
-                                    @Override
-                                    public void onMessageClick(Parcelable parcelable) {
-
-                                    }
-                                })
-                                .withMessage("课程：" + deleteCourse.getCourseName() + "已删除")
-                                .withActionMessage("撤销")
-                                .withStyle(SnackBar.Style.ALERT)
-                                .withDuration(SnackBar.MED_SNACK)
-                                .show();
-                    }
-                })
-                .setIsVertical(false)
-                .setItemTouchCallback(
-                        new SwipeDismissRecyclerViewTouchListener.OnItemTouchCallBack() {
-                            @Override
-                            public void onTouch(int i) {
-
-                            }
-                        }
-                )
-                .create();
-    }
 
     /**
-     * 刷新数据操作
+     * When swipe down on the list's top, get the latest data and update the list
      */
     private void refreshContent()
     {
@@ -176,7 +160,7 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
                 for(int i=0;i<5;++i)
                 {
                     MyCourseModel temp = new MyCourseModel("new课程" + i, "new学校" + i, "", "new更新信息" + i);
-                    myCourseList.add(temp);
+                    myCourseList.add(0, temp);
                 }
                 adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
@@ -185,7 +169,7 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     /**
-     * 下拉刷新监听接口实现
+     * Swipe down operation's listener implement
      */
     @Override
     public void onRefresh() {

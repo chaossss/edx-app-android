@@ -15,6 +15,8 @@ import com.xuemooc.edxapp.utils.handler.WebHandler;
 import java.io.IOException;
 
 /**
+ * An async task used to process image's loading process
+ *
  * Created by chaossss on 2015/9/26.
  */
 public class LoadImageTask implements Runnable {

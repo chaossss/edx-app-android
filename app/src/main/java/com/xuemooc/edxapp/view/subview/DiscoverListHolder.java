@@ -43,7 +43,7 @@ public class DiscoverListHolder extends RecyclerView.ViewHolder{
         this.courseName.setText(courseName);
     }
 
-    public void setCourseImage(Bitmap bitmap){
+    public void setImage(Bitmap bitmap){
         courseImage.setImageBitmap(bitmap);
     }
 }
