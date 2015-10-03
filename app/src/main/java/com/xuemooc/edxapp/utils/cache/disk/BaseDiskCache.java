@@ -55,7 +55,6 @@ public class BaseDiskCache implements DiskCache {
                 tmpFile.delete();
             }
         }
-        image.recycle();
         return savedSuccessfully;
     }
 
@@ -87,7 +86,6 @@ public class BaseDiskCache implements DiskCache {
 
     @Override
     public void close() {
-
     }
 
     @Override

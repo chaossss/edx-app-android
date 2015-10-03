@@ -49,10 +49,6 @@ public class LruMemoryCache implements MemoryCache{
         }
     }
 
-    public boolean isExist(String imageUri){
-        return lruCacheMap.containsKey(imageUri);
-    }
-
     @Override
     public final Bitmap remove(String key) {
         if(key == null){
