@@ -52,6 +52,16 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     }
 
     /**
+     * Add course to course list
+     *
+     * @param course course wanted to add
+     * @param index specified position
+     */
+    public void addCourse(MyCourseModel course, int index){
+        courseList.add(index, course);
+    }
+
+    /**
      * Remove specified course if exists
      *
      * @param pos Index of the specified course in the list

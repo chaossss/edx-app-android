@@ -3,15 +3,18 @@ package com.xuemooc.edxapp.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mrengineer13.snackbar.SnackBar;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
 import com.xuemooc.edxapp.view.activity.ClassDetailActivity;
@@ -103,25 +106,46 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
         myCourseListView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
 
+        ItemTouchHelper.SimpleCallback swipeDismissCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                final int pos = viewHolder.getAdapterPosition();
+                final MyCourseModel deletedCourse = adapter.removeCourse(pos);
+
+                adapter.notifyDataSetChanged();
+
+                new SnackBar.Builder(getActivity())
+                        .withOnClickListener(new SnackBar.OnMessageClickListener() {
+                            /**
+                             * undo the delete operation
+                             * @param parcelable
+                             */
+                            @Override
+                            public void onMessageClick(Parcelable parcelable) {
+                                adapter.addCourse(deletedCourse, pos);
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .withMessage("课程：" + deletedCourse.getCourseName() + "已删除")
+                        .withActionMessage("撤销")
+                        .withStyle(SnackBar.Style.ALERT)
+                        .withDuration(SnackBar.MED_SNACK)
+                        .show();
+
+            }
+        };
+        ItemTouchHelper swipeDismissHelper = new ItemTouchHelper(swipeDismissCallback);
+        swipeDismissHelper.attachToRecyclerView(myCourseListView);
+
         return root;
     }
 
-//    new SnackBar.Builder(getActivity())
-//            .withOnClickListener(new SnackBar.OnMessageClickListener() {
-//        /**
-//         * undo the delete operation
-//         * @param parcelable
-//         */
-//        @Override
-//        public void onMessageClick(Parcelable parcelable) {
-//
-//        }
-//    })
-//            .withMessage("课程：" + deleteCourse.getCourseName() + "已删除")
-//            .withActionMessage("撤销")
-//    .withStyle(SnackBar.Style.ALERT)
-//    .withDuration(SnackBar.MED_SNACK)
-//    .show();
+
 
     /**
      * When swipe down on the list's top, get the latest data and update the list
