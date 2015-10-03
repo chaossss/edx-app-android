@@ -42,8 +42,10 @@ public class LoadImageTask implements Runnable {
 
         if(bitmap == null){
             try {
-                Log.v("image-load", "load from native - false");
+                Log.v("image-load", "load from web");
                 bitmap = imageDownloader.getStream(url);
+                diskCache.save(url, bitmap);
+                memoryCache.put(url, bitmap);
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -57,21 +59,21 @@ public class LoadImageTask implements Runnable {
         temp.what = msg.what;
         handler.sendMessage(temp);
 
-        try{
-            diskCache.save(url, bitmap);
-        } catch (IOException e){
-            Log.v("image-cache", "disk cache error!");
-        }
-        memoryCache.put(url, bitmap);
+
     }
 
     private Bitmap loadImageFromNative(String url){
+        Log.v("image-load", "load from native");
         Bitmap bitmap;
 
         bitmap = memoryCache.get(url);
 
         if(bitmap == null){
-            bitmap = BitmapFactory.decodeFile(diskCache.getFilePath(url));
+            bitmap = BitmapFactory.decodeFile(diskCache.getFile(url).getAbsolutePath());
+        }
+
+        if(bitmap != null){
+            Log.v("image-load", "load from native - true");
         }
 
         return bitmap;

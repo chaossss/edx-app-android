@@ -21,7 +21,7 @@ public class BaseDiskCache implements DiskCache {
     public static final int DEFAULT_BUFFER_SIZE = 32 * 1024;
     public static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.JPEG;
 
-    private static final String TEMP_IMAGE_POSTFIX = ".tmp";
+    private static final String TEMP_IMAGE_POSTFIX = ".cache";
     private static final String IMG_CACHE_DIR = Environment.getExternalStorageDirectory().getPath() + "/UESTC_MOOC/Image";
 
     protected final File cacheDir;
@@ -100,9 +100,5 @@ public class BaseDiskCache implements DiskCache {
 
     public File getFile(String imageUri){
         return new File(cacheDir, HashCodeFileNameGenerator.generate(imageUri));
-    }
-
-    public String getFilePath(String imageUri){
-        return getFile(imageUri).getAbsolutePath() + TEMP_IMAGE_POSTFIX;
     }
 }
