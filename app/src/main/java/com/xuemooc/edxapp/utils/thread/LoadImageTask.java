@@ -1,6 +1,7 @@
 package com.xuemooc.edxapp.utils.thread;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
@@ -48,7 +49,10 @@ public class LoadImageTask implements Runnable {
             }
         }
 
+        Bundle b = new Bundle();
         Message temp = new Message();
+        b.putString("url", url);
+        temp.setData(b);
         temp.obj = bitmap;
         temp.what = msg.what;
         handler.sendMessage(temp);

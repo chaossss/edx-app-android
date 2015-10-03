@@ -32,10 +32,12 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
         super();
         this.courseList = courseList;
 
-        Message msg = Message.obtain();
-        msg.what = MessageConst.MY_COURSE_LIST_IMG;
-        msg.obj = "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg";
-        ImageLoader.getImageLoader().load(msg, this);
+        for(int i = 0; i < courseList.size(); i++){
+            Message msg = Message.obtain();
+            msg.what = MessageConst.MY_COURSE_LIST_IMG;
+            msg.obj = courseList.get(i).getImgUrl();
+            ImageLoader.getImageLoader().load(msg, this);
+        }
     }
 
     /**
@@ -65,7 +67,8 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     {
         MyCourseModel course = courseList.get(position);
         holder.setInfo(course.getCourseName(),course.getSchool(),course.getUpdateInfo());
-        holder.setImage(imageMap.get("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg"));
+
+        holder.setImage(imageMap.get(courseList.get(position).getImgUrl()));
     }
 
     @Override
@@ -92,7 +95,7 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     public void onMessageResponse(Message msg) {
         if(msg.what == MessageConst.MY_COURSE_LIST_IMG){
             Bitmap bitmap = (Bitmap) msg.obj;
-            imageMap.put("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg", bitmap);
+            imageMap.put((String)msg.getData().get("url"), bitmap);
             this.notifyDataSetChanged();
         }
     }
