@@ -6,6 +6,8 @@ import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 
 /**
+ * Loader used to load image
+ *
  * Created by chaossss on 2015/9/24.
  */
 public class ImageLoader{
@@ -26,6 +28,11 @@ public class ImageLoader{
         return imageLoader;
     }
 
+    /**
+     * Load Img by specified info, and update UI by IWebMessage callback
+     * @param msg
+     * @param iWebMessage
+     */
     public void load(Message msg, IWebMessage iWebMessage){
         new Thread(new LoadImageTask(msg, iWebMessage)).start();
     }
