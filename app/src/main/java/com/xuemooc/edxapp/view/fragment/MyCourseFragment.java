@@ -95,7 +95,7 @@ public class MyCourseFragment extends Fragment implements SwipeRefreshLayout.OnR
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.my_course_swipe);
         myCourseListView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
 
-        for(int i = 0;i < 30;++i)
+        for(int i = 0;i < 5;++i)
         {
             MyCourseModel temp = new MyCourseModel("课程" + i, "学校" + i, images[i], "更新信息" + i);
             myCourseList.add(temp);

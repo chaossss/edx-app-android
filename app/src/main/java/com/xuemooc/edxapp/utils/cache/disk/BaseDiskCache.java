@@ -1,6 +1,7 @@
 package com.xuemooc.edxapp.utils.cache.disk;
 
 import android.graphics.Bitmap;
+import android.os.Environment;
 
 import com.xuemooc.edxapp.utils.util.IOUtils;
 import com.xuemooc.edxapp.utils.util.HashCodeFileNameGenerator;
@@ -17,22 +18,19 @@ import java.io.OutputStream;
  */
 public class BaseDiskCache implements DiskCache {
     public static final int DEFAULT_COMPRESS_QUALITY = 100;
-    public static final int DEFAULT_BUFFER_SIZE = 32 * 10274;
-    public static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.PNG;
+    public static final int DEFAULT_BUFFER_SIZE = 32 * 1024;
+    public static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.JPEG;
 
     private static final String TEMP_IMAGE_POSTFIX = ".tmp";
-    private static final String IMG_CACHE_DIR = "/sdcard/UESTC_MOOC/ImgCache";
+    private static final String IMG_CACHE_DIR = Environment.getExternalStorageDirectory().getPath() + "/UESTC_MOOC/Image";
 
     protected final File cacheDir;
-    protected final File reserveCacheDir;
 
     public BaseDiskCache() {
-        this(null);
-    }
-
-    public BaseDiskCache(File reserveCacheDir) {
         this.cacheDir = new File(IMG_CACHE_DIR);
-        this.reserveCacheDir = reserveCacheDir;
+        if(!cacheDir.exists()){
+            cacheDir.mkdirs();
+        }
     }
 
     @Override
@@ -45,21 +43,18 @@ public class BaseDiskCache implements DiskCache {
         File imageFile = getFile(imageUri);
         File tmpFile = new File(imageFile.getAbsolutePath() + TEMP_IMAGE_POSTFIX);
         OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile), DEFAULT_BUFFER_SIZE);
-
         boolean savedSuccessfully = false;
-        try{
+        try {
             savedSuccessfully = image.compress(DEFAULT_COMPRESS_FORMAT, DEFAULT_COMPRESS_QUALITY, os);
         } finally {
             IOUtils.closeSliently(os);
-            if(savedSuccessfully && !tmpFile.renameTo(imageFile)){
+            if (savedSuccessfully && !tmpFile.renameTo(imageFile)) {
                 savedSuccessfully = false;
             }
-
-            if(!savedSuccessfully){
+            if (!savedSuccessfully) {
                 tmpFile.delete();
             }
         }
-
         image.recycle();
         return savedSuccessfully;
     }
@@ -67,23 +62,18 @@ public class BaseDiskCache implements DiskCache {
     @Override
     public boolean save(String imageUri, InputStream imageStream, IOUtils.CopyListener listener) throws IOException {
         File imageFile = getFile(imageUri);
-        File tmpFile = new File(imageFile.getAbsolutePath() + TEMP_IMAGE_POSTFIX);
 
         boolean loaded = false;
         try{
-            OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile), DEFAULT_BUFFER_SIZE);
+            OutputStream os = new BufferedOutputStream(new FileOutputStream(imageFile), DEFAULT_BUFFER_SIZE);
             try{
                 loaded = IOUtils.copyStream(imageStream, os, listener, DEFAULT_BUFFER_SIZE);
             } finally {
                 IOUtils.closeSliently(os);
             }
         } finally {
-            if(loaded && !tmpFile.renameTo(imageFile)){
-                loaded = false;
-            }
-
             if(!loaded){
-                tmpFile.delete();
+                imageFile.delete();
             }
         }
 
@@ -111,8 +101,10 @@ public class BaseDiskCache implements DiskCache {
     }
 
     public File getFile(String imageUri){
-        String fileName = HashCodeFileNameGenerator.generate(imageUri);
+        return new File(cacheDir, HashCodeFileNameGenerator.generate(imageUri));
+    }
 
-        return new File(cacheDir, fileName);
+    public String getFilePath(String imageUri){
+        return getFile(imageUri).getAbsolutePath() + TEMP_IMAGE_POSTFIX;
     }
 }
