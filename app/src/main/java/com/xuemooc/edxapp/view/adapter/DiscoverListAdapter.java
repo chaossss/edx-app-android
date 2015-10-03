@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 发现课程列表的数据填充器
+ * Adapter used to fill data into DiscoverCourse page's list
+ *
  * Created by chaossss on 2015/7/30.
  */
 public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder> implements View.OnClickListener, IWebMessage{
@@ -38,18 +39,42 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     public DiscoverListAdapter(List<DiscoverCourseModel> courseList) {
         super();
         this.courseList = courseList;
-        Message msg = Message.obtain();
-        msg.what = MessageConst.DISCOVER_LIST_IMG;
-        msg.obj = "http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg";
-        ImageLoader.getImageLoader().load(msg, this);
+
+        for(int i = 0; i < courseList.size(); i++){
+            Message msg = Message.obtain();
+            msg.what = MessageConst.DISCOVER_LIST_IMG;
+            msg.obj = courseList.get(i).getImgUrl();
+            ImageLoader.getImageLoader().load(msg, this);
+        }
     }
 
     /**
-     * 添加新增课程
-     * @param course
+     * Add course to course list
+     *
+     * @param course course wanted to add
      */
     public void addCourse(DiscoverCourseModel course){
         courseList.add(course);
+    }
+
+    /**
+     * Add course to course list
+     *
+     * @param course course wanted to add
+     * @param index specified position
+     */
+    public void addCourse(DiscoverCourseModel course, int index){
+        courseList.add(index, course);
+    }
+
+    /**
+     * Remove specified course if exists
+     *
+     * @param pos Index of the specified course in the list
+     * @return the specified course if exists;null if it doesn't
+     */
+    public DiscoverCourseModel removeCourse(int pos){
+        return courseList.remove(pos);
     }
 
     @Override
@@ -57,6 +82,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discover_list, parent, false);
         view.setOnClickListener(this);
+
         return new DiscoverListHolder(view);
     }
 
@@ -65,7 +91,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     {
         DiscoverCourseModel course = courseList.get(position);
         holder.setInfo(course.getCourseName(),course.getSchool(),course.getWatchNums(),course.getTime());
-        holder.setCourseImage(imageMap.get("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg"));
+        holder.setImage(imageMap.get(courseList.get(position).getImgUrl()));
     }
 
     @Override
@@ -92,7 +118,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
     public void onMessageResponse(Message msg) {
         if(msg.what == MessageConst.DISCOVER_LIST_IMG){
             Bitmap bitmap = (Bitmap) msg.obj;
-            imageMap.put("http://img.my.csdn.net/uploads/201505/12/1431442732_8432.jpg", bitmap);
+            imageMap.put((String)msg.getData().get("url"), bitmap);
             this.notifyDataSetChanged();
         }
     }

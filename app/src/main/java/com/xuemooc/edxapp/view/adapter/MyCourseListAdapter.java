@@ -27,8 +27,11 @@ import java.util.Map;
 public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> implements View.OnClickListener, IWebMessage {
     private OnItemClickListener listener;
     private List<MyCourseModel> courseList = new ArrayList<>();
-
     private final Map<String, Bitmap> imageMap = new HashMap<>();
+
+    public interface OnItemClickListener{
+        void onItemClick(View v);
+    }
 
     public MyCourseListAdapter(List<MyCourseModel> courseList) {
         super();
@@ -76,9 +79,8 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_course_list, parent, false);
         view.setOnClickListener(this);
-        MyCourseListHolder holder = new MyCourseListHolder(view);
 
-        return holder;
+        return new MyCourseListHolder(view);
     }
 
     @Override
@@ -117,9 +119,5 @@ public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder
             imageMap.put((String)msg.getData().get("url"), bitmap);
             this.notifyDataSetChanged();
         }
-    }
-
-    public interface OnItemClickListener{
-        void onItemClick(View v);
     }
 }
