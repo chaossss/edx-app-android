@@ -48,6 +48,9 @@
     <string name="feedback_hint">请输入你对我们的建议</string>
 
     <!-- ClassDetailPage -->
+    <string name="class_detail_info">详情</string>
+    <string name="class_detail_comment">评论</string>
+    <string name="class_detail_directory">目录</string>
     <string name="class_detail_add">学习该课程</string>
     <string name="class_detail_remove">取消学习该课程</string>
 

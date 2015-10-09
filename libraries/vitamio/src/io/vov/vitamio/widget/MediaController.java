@@ -338,7 +338,7 @@ public class MediaController extends FrameLayout {
         mAnchor.getLocationOnScreen(location);
         mWindow.setAnimationStyle(mAnimStyle);
         setWindowLayoutType();
-        mWindow.showAtLocation(mAnchor, Gravity.NO_GRAVITY, 0, mAnchor.getHeight() - mRoot.getMeasuredHeight());
+        mWindow.showAtLocation(mAnchor, Gravity.NO_GRAVITY, 0, mAnchor.getHeight());
       }
       mShowing = true;
       if (mShownListener != null)

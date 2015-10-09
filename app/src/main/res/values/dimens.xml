@@ -1,6 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="fab_margin">8dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
     <dimen name="text_padding">16dp</dimen>
     <dimen name="feedback_text_size">18sp</dimen>
     <dimen name="feedback_input_height">360dp</dimen>
