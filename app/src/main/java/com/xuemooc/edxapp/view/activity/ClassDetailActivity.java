@@ -2,19 +2,21 @@ package com.xuemooc.edxapp.view.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
-import com.nineoldandroids.view.ViewHelper;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.custom.CheckableFrameLayout;
+import com.xuemooc.edxapp.view.fragment.ClassDetailCommentFragment;
+import com.xuemooc.edxapp.view.fragment.ClassDetailDirectoryFragment;
+import com.xuemooc.edxapp.view.fragment.ClassDetailInfoFragment;
 import com.xuemooc.edxapp.view.utils.FabUtil;
 import com.xuemooc.edxapp.view.utils.SystemBarTintManager;
 
@@ -26,7 +28,7 @@ import io.vov.vitamio.widget.VideoView;
 /**
  * Created by chaossss on 2015/9/17.
  */
-public class ClassDetailActivity extends AppCompatActivity implements ObservableScrollViewCallbacks, View.OnClickListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener{
+public class ClassDetailActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener{
     private Toolbar toolbar;
 
     private Uri uri;
@@ -36,9 +38,10 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
     private String path = "http://www.modrails.com/videos/passenger_nginx.mov";
 
     private CheckableFrameLayout fab;
-    private ObservableScrollView mScrollView;
 
-    private int parallaxImgHeight;
+    private ViewPager pager;
+    private SmartTabLayout tab;
+
     private FabUtil fabUtil;
 
     @Override
@@ -69,14 +72,23 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
     private void initToolBar(){
         toolbar = (Toolbar)findViewById(R.id.class_detail_toolbar);
         toolbar.setTitle("");
-        toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
-
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(this);
     }
     private void initUI(){
-        mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
-        mScrollView.setScrollViewCallbacks(this);
+        pager = (ViewPager) findViewById(R.id.class_detail_pager);
+        tab = (SmartTabLayout) findViewById(R.id.class_detail_tab);
+
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add(R.string.class_detail_info, ClassDetailInfoFragment.class)
+                .add(R.string.class_detail_directory, ClassDetailDirectoryFragment.class)
+                .add(R.string.class_detail_comment, ClassDetailCommentFragment.class)
+                .create()
+        );
+
+        pager.setAdapter(adapter);
+        tab.setViewPager(pager);
 
         fab = (CheckableFrameLayout) findViewById(R.id.class_detail_fab);
         fab.setOnClickListener(this);
@@ -104,13 +116,11 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
 
     private void initParam(){
         fabUtil = FabUtil.getFabUtil();
-        parallaxImgHeight = getResources().getDimensionPixelSize(R.dimen.activity_detail_toolbar_height);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        onScrollChanged(mScrollView.getCurrentScrollY(), false, false);
     }
 
     @Override
@@ -146,22 +156,6 @@ public class ClassDetailActivity extends AppCompatActivity implements Observable
         }
 
         return true;
-    }
-
-    @Override
-    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-        int baseColor = getResources().getColor(R.color.primary);
-        float alpha = Math.min(1, (float) scrollY / parallaxImgHeight);
-        toolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
-        ViewHelper.setTranslationY(videoView, scrollY / 2);
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
     }
 
     @Override
