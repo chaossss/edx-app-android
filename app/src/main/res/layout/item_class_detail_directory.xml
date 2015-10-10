@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="68dp">
+    <ImageView
+        android:id="@+id/class_detail_directory_icon"
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/profile" />
+
+    <TextView
+        android:id="@+id/class_detail_directory_course_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/class_detail_directory_course_duration"
+        android:layout_toRightOf="@+id/class_detail_directory_icon"
+        android:layout_toEndOf="@+id/class_detail_directory_icon" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/divider"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/class_detail_directory_icon"
+        android:layout_alignRight="@+id/class_detail_directory_course_duration"
+        android:layout_alignEnd="@+id/class_detail_directory_course_duration" />
+
+    <TextView
+        android:id="@+id/class_detail_directory_course_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

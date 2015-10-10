@@ -33,7 +33,7 @@ public class ClassDetailInfoAdapter extends RecyclerView.Adapter<ClassDetailInfo
 
     @Override
     public ClassDetailInfoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_class_detail_info_content, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_class_detail_info, parent, false);
         return new ClassDetailInfoHolder(view);
     }
 
