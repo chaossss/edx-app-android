@@ -34,6 +34,6 @@ public class ClassDetailDirectoryAdapter extends RecyclerView.Adapter<ClassDetai
 
     @Override
     public void onBindViewHolder(ClassDetailDirectoryHolder holder, int position) {
-        holder.setClassDetailDirectoryInfo(data.get(position).getCourseName(), data.get(position).getCourseName());
+        holder.setClassDetailDirectoryInfo(data.get(position).getCourseName(), data.get(position).getCourseDuration());
     }
 }

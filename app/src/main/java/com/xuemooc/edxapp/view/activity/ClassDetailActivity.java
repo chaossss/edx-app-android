@@ -28,7 +28,7 @@ import io.vov.vitamio.widget.VideoView;
 /**
  * Created by chaossss on 2015/9/17.
  */
-public class ClassDetailActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener{
+public class ClassDetailActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener, ViewPager.OnPageChangeListener{
     private Toolbar toolbar;
 
     private Uri uri;
@@ -89,6 +89,7 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
 
         pager.setAdapter(adapter);
         tab.setViewPager(pager);
+        tab.setOnPageChangeListener(this);
 
         fab = (CheckableFrameLayout) findViewById(R.id.class_detail_fab);
         fab.setOnClickListener(this);
@@ -156,6 +157,25 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
         }
 
         return true;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if(position == 0){
+            fab.setVisibility(View.VISIBLE);
+        } else {
+            fab.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     @Override
