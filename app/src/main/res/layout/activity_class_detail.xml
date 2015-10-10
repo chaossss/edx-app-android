@@ -32,27 +32,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <ProgressBar
                     android:id="@+id/class_detail_video_view_pb"
                     style="?android:attr/progressBarStyleLarge"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/class_detail_video_view_pb_download_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="" />
+                    android:text=""
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/class_detail_video_view_pb_load_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="" />
+                    android:text=""
+                    android:visibility="gone"/>
             </LinearLayout>
         </RelativeLayout>
 
