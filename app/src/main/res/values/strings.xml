@@ -19,6 +19,12 @@
     <string name="drawer_item_download">我的下载</string>
     <string name="drawer_item_encourage">鼓励</string>
 
+    <!-- My Download -->
+    <string name="my_download_complete">已完成</string>
+    <string name="my_download_incomplete">未完成</string>
+    <string name="my_download_incomplete_all_start">全部开始</string>
+    <string name="my_download_incomplete_all_pause">全部暂停</string>
+
     <!-- DrawerFooter -->
     <string name="drawer_footer_setting">设置</string>
     <string name="drawer_footer_encourage">鼓励</string>
