@@ -101,8 +101,6 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
         loadRateView = (TextView) findViewById(R.id.class_detail_video_view_pb_load_rate);
         downloadRateView = (TextView) findViewById(R.id.class_detail_video_view_pb_download_rate);
 
-        uri = Uri.parse(path);
-        videoView.setVideoURI(uri);
         videoView.setMediaController(new MediaController(this));
         videoView.requestFocus();
         videoView.setOnInfoListener(this);
