@@ -12,6 +12,9 @@ import android.widget.Button;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.adapter.MyDownloadIncompleteAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by chaossss on 2015/10/10.
  */
@@ -20,6 +23,8 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
     private Button allPause;
     private RecyclerView incompleteTaskList;
     private MyDownloadIncompleteAdapter adapter;
+
+    private List<List<String>> incompleteTasks = new ArrayList<>();
 
     @Nullable
     @Override
@@ -38,7 +43,7 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
 
         incompleteTaskList = (RecyclerView) rootView.findViewById(R.id.my_download_incomplete_list);
 
-        adapter = new MyDownloadIncompleteAdapter();
+        adapter = new MyDownloadIncompleteAdapter(incompleteTasks);
         incompleteTaskList.setAdapter(adapter);
     }
 

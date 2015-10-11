@@ -40,6 +40,15 @@ public class MyDownloadIncompleteHolder extends RecyclerView.ViewHolder implemen
 
     public void setIncompleteItemList(List<String> incompleteItemDatas) {
         this.incompleteItemDatas = incompleteItemDatas;
+
+        if(incompleteItemDatas.size() > 0){
+            courseName.setText(incompleteItemDatas.get(0));
+            this.incompleteItemDatas.remove(0);
+        }
+    }
+
+    public void addIncompleteItem(String item){
+        incompleteItemDatas.add(item);
     }
 
     @Override
