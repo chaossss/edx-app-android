@@ -22,7 +22,6 @@ public class MyDownloadIncompleteItemAdapter extends RecyclerView.Adapter<MyDown
 
     public void setIncompleteItemDatas(List<String> incompleteItemDatas){
         this.incompleteItemDatas = incompleteItemDatas;
-        this.notifyDataSetChanged();
     }
 
     @Override
