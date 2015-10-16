@@ -11,26 +11,26 @@
         android:orientation="horizontal" >
 
         <ImageButton
-            android:id="@+id/mediacontroller_play_pause"
+            android:id="@+id/layout_controller_play_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/mediacontroller_button"
+            android:background="@drawable/layout_ontroller_button"
             android:contentDescription="@string/mediacontroller_play_pause"
-            android:src="@drawable/mediacontroller_pause" />
+            android:src="@drawable/layout_controller_pause" />
 
         <TextView
-            android:id="@+id/mediacontroller_time_current"
+            android:id="@+id/layout_controller_time_current"
             style="@style/MediaController_Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/mediacontroller_play_pause" />
+            android:layout_toRightOf="@id/layout_controller_play_pause" />
 
         <TextView
-            android:id="@+id/mediacontroller_time_total"
+            android:id="@+id/layout_controller_end_time"
             style="@style/MediaController_Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,19 +39,19 @@
             android:layout_marginRight="5dp" />
 
         <SeekBar
-            android:id="@+id/mediacontroller_seekbar"
+            android:id="@+id/layout_controller_progress"
             style="@style/MediaController_SeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/mediacontroller_time_total"
-            android:layout_toRightOf="@id/mediacontroller_time_current"
+            android:layout_toLeftOf="@id/layout_controller_end_time"
+            android:layout_toRightOf="@id/layout_controller_time_current"
             android:focusable="true"
             android:max="1000" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/mediacontroller_file_name"
+        android:id="@+id/layout_controller_file_name"
         style="@style/MediaController_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
