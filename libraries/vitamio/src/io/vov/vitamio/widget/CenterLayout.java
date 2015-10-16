@@ -46,8 +46,8 @@ public class CenterLayout extends ViewGroup {
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     int count = getChildCount();
 
-    int maxHeight = 0;
     int maxWidth = 0;
+    int maxHeight = 0;
 
     measureChildren(widthMeasureSpec, heightMeasureSpec);
 

@@ -20,6 +20,7 @@ package io.vov.vitamio.widget;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
@@ -172,14 +173,14 @@ public class MediaController extends FrameLayout {
 
   public MediaController(Context context) {
     super(context);
-    if (!mFromXml && initController(context))
+    initController(context);
+    if (!mFromXml)
       initFloatingWindow();
   }
 
-  private boolean initController(Context context) {
+  private void initController(Context context) {
     mContext = context;
     mAM = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-    return true;
   }
 
   private void initFloatingWindow() {
@@ -296,9 +297,10 @@ public class MediaController extends FrameLayout {
         int[] location = new int[2];
 
         mAnchor.getLocationOnScreen(location);
+        Rect anchorRect = new Rect(location[0], 0, location[0] + mAnchor.getWidth(), mAnchor.getHeight());
         mWindow.setAnimationStyle(mAnimStyle);
         setWindowLayoutType();
-        mWindow.showAtLocation(mAnchor, Gravity.NO_GRAVITY, 0, mAnchor.getHeight());
+        mWindow.showAtLocation(mAnchor, Gravity.NO_GRAVITY, anchorRect.left, anchorRect.bottom);
       }
       mShowing = true;
       if (mShownListener != null)
