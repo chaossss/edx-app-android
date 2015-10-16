@@ -37,6 +37,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
 import io.vov.vitamio.MediaFormat;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.MediaPlayer.OnBufferingUpdateListener;
@@ -51,10 +55,6 @@ import io.vov.vitamio.MediaPlayer.TrackInfo;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.utils.Log;
 import io.vov.vitamio.utils.ScreenResolution;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Displays a video file. The VideoView class can load images from various
@@ -82,6 +82,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
   private static final int STATE_SUSPEND = 6;
   private static final int STATE_RESUME = 7;
   private static final int STATE_SUSPEND_UNSUPPORTED = 8;
+
   OnVideoSizeChangedListener mSizeChangedListener = new OnVideoSizeChangedListener() {
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
       Log.d("onVideoSizeChanged: (%dx%d)", width, height);
@@ -92,6 +93,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
         setVideoLayout(mVideoLayout, mAspectRatio);
     }
   };
+
   OnPreparedListener mPreparedListener = new OnPreparedListener() {
     public void onPrepared(MediaPlayer mp) {
       Log.d("onPrepared");
@@ -130,6 +132,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
       }
     }
   };
+
   SurfaceHolder.Callback mSHCallback = new SurfaceHolder.Callback() {
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
       mSurfaceWidth = w;

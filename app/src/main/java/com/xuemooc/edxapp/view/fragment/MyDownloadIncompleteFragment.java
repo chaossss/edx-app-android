@@ -3,6 +3,7 @@ package com.xuemooc.edxapp.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.adapter.MyDownloadIncompleteAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by chaossss on 2015/10/10.
  */
@@ -20,6 +24,8 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
     private Button allPause;
     private RecyclerView incompleteTaskList;
     private MyDownloadIncompleteAdapter adapter;
+
+    private List<List<String>> incompleteTasks = new ArrayList<>();
 
     @Nullable
     @Override
@@ -37,8 +43,23 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
         allPause.setOnClickListener(this);
 
         incompleteTaskList = (RecyclerView) rootView.findViewById(R.id.my_download_incomplete_list);
+        incompleteTaskList.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        adapter = new MyDownloadIncompleteAdapter();
+        List<String> data1 = new ArrayList<>();
+        data1.add("data1-title");
+        data1.add("data1");
+        data1.add("data1");
+        data1.add("data1");
+        data1.add("data1");
+        List<String> data2 = new ArrayList<>();
+        data2.add("data2-title");
+        data2.add("data2");
+        data2.add("data2");
+        data2.add("data2");
+        data2.add("data2");
+        incompleteTasks.add(data1);
+        incompleteTasks.add(data2);
+        adapter = new MyDownloadIncompleteAdapter(incompleteTasks);
         incompleteTaskList.setAdapter(adapter);
     }
 

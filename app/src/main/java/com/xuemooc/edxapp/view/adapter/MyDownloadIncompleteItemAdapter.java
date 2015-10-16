@@ -20,6 +20,10 @@ public class MyDownloadIncompleteItemAdapter extends RecyclerView.Adapter<MyDown
         this.incompleteItemDatas = incompleteItemDatas;
     }
 
+    public void setIncompleteItemDatas(List<String> incompleteItemDatas){
+        this.incompleteItemDatas = incompleteItemDatas;
+    }
+
     @Override
     public int getItemCount() {
         return incompleteItemDatas.size();
@@ -39,6 +43,6 @@ public class MyDownloadIncompleteItemAdapter extends RecyclerView.Adapter<MyDown
      */
     @Override
     public void onBindViewHolder(MyDownloadIncompleteItemHolder holder, int position) {
-
+        holder.setItemName(incompleteItemDatas.get(position));
     }
 }

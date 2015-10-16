@@ -35,6 +35,5 @@ public class MyDownloadIncompleteAdapter extends RecyclerView.Adapter<MyDownload
     @Override
     public void onBindViewHolder(MyDownloadIncompleteHolder holder, int position) {
         holder.setIncompleteItemList(incompleteTaskList.get(position));
-        this.notifyDataSetChanged();
     }
 }

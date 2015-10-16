@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -109,6 +110,20 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onPrepared(MediaPlayer mp) {
                 mp.setPlaybackSpeed(1.0f);
+            }
+        });
+
+        RelativeLayout root = (RelativeLayout) findViewById(R.id.class_detail_video_view);
+        root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!videoView.isPlaying()){
+                    uri = Uri.parse(path);
+                    videoView.setVideoURI(uri);
+                    pb.setVisibility(View.VISIBLE);
+                    loadRateView.setVisibility(View.VISIBLE);
+                    downloadRateView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

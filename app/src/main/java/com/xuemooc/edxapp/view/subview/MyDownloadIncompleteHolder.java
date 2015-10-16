@@ -1,5 +1,6 @@
 package com.xuemooc.edxapp.view.subview;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -30,8 +31,7 @@ public class MyDownloadIncompleteHolder extends RecyclerView.ViewHolder implemen
 
         downloadingCourse.setOnClickListener(this);
 
-        adapter = new MyDownloadIncompleteItemAdapter(incompleteItemDatas);
-        courseItemList.setAdapter(adapter);
+        courseItemList.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
     }
 
     public List<String> getIncompleteItemList() {
@@ -40,6 +40,18 @@ public class MyDownloadIncompleteHolder extends RecyclerView.ViewHolder implemen
 
     public void setIncompleteItemList(List<String> incompleteItemDatas) {
         this.incompleteItemDatas = incompleteItemDatas;
+
+        if(incompleteItemDatas.size() > 0){
+            courseName.setText(incompleteItemDatas.get(0));
+            this.incompleteItemDatas.remove(0);
+        }
+
+        adapter = new MyDownloadIncompleteItemAdapter(this.incompleteItemDatas);
+        courseItemList.setAdapter(adapter);
+    }
+
+    public void addIncompleteItem(String item){
+        incompleteItemDatas.add(item);
     }
 
     @Override
