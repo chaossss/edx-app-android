@@ -18,12 +18,18 @@ import java.util.Map;
  * Created by chaossss on 2015/10/22.
  */
 public class MyDownloadIncompleteAdapter extends BaseExpandableListAdapter {
+    private List<MyDownloadIncompleteItemHolder> subView;
     private List<String> incompleteTasksName;
     private Map<String, List<String>> incompleteTasksInfo;
 
     public MyDownloadIncompleteAdapter() {
+        subView = new ArrayList<>();
         incompleteTasksInfo = new HashMap<>();
         incompleteTasksName = new ArrayList<>();
+    }
+
+    public List<MyDownloadIncompleteItemHolder> getSubView() {
+        return subView;
     }
 
     public void setIncompleteTasksInfo(Map<String, List<String>> incompleteTasksInfo) {
@@ -105,6 +111,7 @@ public class MyDownloadIncompleteAdapter extends BaseExpandableListAdapter {
             myDownloadIncompleteItemHolder = (MyDownloadIncompleteItemHolder)convertView.getTag();
         }
 
+        subView.add(myDownloadIncompleteItemHolder);
         myDownloadIncompleteItemHolder.setItemName(incompleteTasksInfo.get(incompleteTasksName.get(groupPosition)).get(childPosition));
         myDownloadIncompleteItemHolder.setDownloadSum("");
         myDownloadIncompleteItemHolder.setDownloadPercent("");

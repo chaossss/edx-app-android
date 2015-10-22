@@ -71,9 +71,15 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.my_download_incomplete_all_start:
+                for(int i = 0; i < adapter.getSubView().size(); i++){
+                    adapter.getSubView().get(i).changeDownloadState(false);
+                }
                 break;
 
             case R.id.my_download_incomplete_all_pause:
+                for(int i = 0; i < adapter.getSubView().size(); i++){
+                    adapter.getSubView().get(i).changeDownloadState(true);
+                }
                 break;
         }
     }

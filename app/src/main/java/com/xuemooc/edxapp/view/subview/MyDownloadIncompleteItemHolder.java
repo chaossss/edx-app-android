@@ -46,7 +46,11 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
     }
 
     public void changeDownloadState(){
-        isPaused = !isPaused;
+        changeDownloadState(!isPaused);
+    }
+
+    public void changeDownloadState(boolean isPaused){
+        this.isPaused = isPaused;
 
         if(isPaused){
             stateIcon.setImageResource(R.drawable.profile);
