@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.view.adapter.MyDownloadIncompleteAdapter1;
+import com.xuemooc.edxapp.view.adapter.MyDownloadIncompleteAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
     private Button allStart;
     private Button allPause;
     private ExpandableListView incompleteTaskList;
-    private MyDownloadIncompleteAdapter1 adapter;
+    private MyDownloadIncompleteAdapter adapter;
 
     @Nullable
     @Override
@@ -58,7 +58,7 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
             incompleteTasksInfo.put(incompleteTasksName.get(i), temp);
         }
 
-        adapter = new MyDownloadIncompleteAdapter1();
+        adapter = new MyDownloadIncompleteAdapter();
         adapter.setIncompleteTasksName(incompleteTasksName);
         adapter.setIncompleteTasksInfo(incompleteTasksInfo);
         incompleteTaskList.setAdapter(adapter);
