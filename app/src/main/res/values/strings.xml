@@ -62,6 +62,9 @@
     <string name="class_detail_add">学习该课程</string>
     <string name="class_detail_remove">取消学习该课程</string>
 
+    <!-- ClassDetailMenu -->
+    <string name="class_detail_menu_download">下载</string>
+
     <!-- 测试数据 -->
     <string name="class_detail_time">2015-08-06</string>
     <string name="class_detail_frequency">3h/week</string>

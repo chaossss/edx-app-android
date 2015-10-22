@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout settings = null;
     private RelativeLayout encourage = null;
 
-    //main page view
+    //menu_main page view
     private List<Fragment> fragments;
 
     //menu's state
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         menu.setGroupVisible(0, false);
         this.menu = menu;
         return true;

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -29,7 +32,7 @@ import io.vov.vitamio.widget.VideoView;
 /**
  * Created by chaossss on 2015/9/17.
  */
-public class ClassDetailActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener, ViewPager.OnPageChangeListener{
+public class ClassDetailActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener, ViewPager.OnPageChangeListener, android.support.v7.widget.Toolbar.OnMenuItemClickListener{
     private Toolbar toolbar;
 
     private Uri uri;
@@ -57,6 +60,13 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
         initParam();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_class_detail, menu);
+        return true;
+    }
+
     private void initView(){
         initStatusBar();
         initToolBar();
@@ -74,6 +84,7 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
         toolbar = (Toolbar)findViewById(R.id.class_detail_toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(this);
         toolbar.setNavigationOnClickListener(this);
     }
     private void initUI(){
@@ -202,5 +213,10 @@ public class ClassDetailActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
     }
 }
