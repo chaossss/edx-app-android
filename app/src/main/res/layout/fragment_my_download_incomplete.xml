@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
+    <ExpandableListView
         android:id="@+id/my_download_incomplete_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:layout_above="@+id/relativeLayout" />
+        android:layout_above="@+id/my_download_incomplete_operate_layout" />
 
     <LinearLayout
+        android:id="@+id/my_download_incomplete_operate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -17,8 +17,7 @@
         android:layout_alignParentStart="true"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:orientation="horizontal"
-        android:id="@+id/relativeLayout">
+        android:orientation="horizontal">
         <Button
             android:id="@+id/my_download_incomplete_all_start"
             android:layout_width="match_parent"
