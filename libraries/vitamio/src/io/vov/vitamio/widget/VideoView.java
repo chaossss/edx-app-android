@@ -72,6 +72,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
   public static final int VIDEO_LAYOUT_STRETCH = 2;
   public static final int VIDEO_LAYOUT_ZOOM = 3;
   public static final int VIDEO_LAYOUT_FIT_PARENT = 4;
+
   private static final int STATE_ERROR = -1;
   private static final int STATE_IDLE = 0;
   private static final int STATE_PREPARING = 1;

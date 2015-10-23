@@ -20,6 +20,8 @@ import com.xuemooc.edxapp.R;
 public class MyDownloadFragment extends Fragment{
     private ViewPager pager;
     private SmartTabLayout tab;
+    private FragmentPagerItemAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class MyDownloadFragment extends Fragment{
         pager = (ViewPager) rootView.findViewById(R.id.my_download_pager);
         tab = (SmartTabLayout) rootView.findViewById(R.id.my_download_tab);
 
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+         adapter = new FragmentPagerItemAdapter(
                 this.getFragmentManager(), FragmentPagerItems.with(this.getActivity())
                 .add(R.string.my_download_incomplete, MyDownloadIncompleteFragment.class)
                 .add(R.string.my_download_complete, MyDownloadCompleteFragment.class)
@@ -41,5 +43,13 @@ public class MyDownloadFragment extends Fragment{
 
         pager.setAdapter(adapter);
         tab.setViewPager(pager);
+    }
+
+    public Fragment getSubFragment(){
+        return adapter.getPage(pager.getCurrentItem());
+    }
+
+    public boolean isIncompleteShowing() {
+        return pager.getCurrentItem() == 0;
     }
 }

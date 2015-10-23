@@ -33,7 +33,6 @@ public class ControllerView {
     }
 
     public void setOnPauseBtnClickListener(View.OnClickListener onPauseBtnClickListener){
-        pauseBtn.requestFocus();
         pauseBtn.setOnClickListener(onPauseBtnClickListener);
     }
 

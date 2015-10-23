@@ -3,49 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/activity_toolbar_height">
     <ImageView
-        android:id="@+id/my_download_incomplete_item_icon"
+        android:id="@+id/my_download_incomplete_item_select_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_margin="12dp"
         android:scaleType="fitXY"
-        android:src="@drawable/profile"/>
+        android:src="@drawable/profile"
+        android:visibility="gone"/>
 
     <View
         android:id="@+id/my_download_incomplete_item_icon_divider"
         android:layout_width="0.1dp"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/my_download_incomplete_item_icon"
+        android:layout_toRightOf="@+id/my_download_incomplete_item_select_icon"
         android:background="@color/divider"/>
 
-    <TextView
-        android:id="@+id/my_download_incomplete_item_name"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dsadsa"
-        android:layout_marginLeft="8dp"
-        android:layout_alignTop="@+id/my_download_incomplete_item_icon"
+        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/my_download_incomplete_item_select_icon"
         android:layout_alignLeft="@+id/my_download_incomplete_item_icon_divider"
         android:layout_alignStart="@+id/my_download_incomplete_item_icon_divider"
         android:layout_toLeftOf="@+id/my_download_incomplete_item_state"
-        android:layout_toStartOf="@+id/my_download_incomplete_item_state" />
+        android:layout_toStartOf="@+id/my_download_incomplete_item_state" >
+        <TextView
+            android:id="@+id/my_download_incomplete_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dsadsa"
+            android:layout_marginLeft="8dp"/>
 
-    <TextView
-        android:id="@+id/my_download_incomplete_item_download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="dsadsa"
-        android:layout_below="@+id/my_download_incomplete_item_name"
-        android:layout_alignLeft="@+id/my_download_incomplete_item_name"
-        android:layout_alignStart="@+id/my_download_incomplete_item_name" />
+        <TextView
+            android:id="@+id/my_download_incomplete_item_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dsadsa"
+            android:layout_below="@+id/my_download_incomplete_item_name"
+            android:layout_alignLeft="@+id/my_download_incomplete_item_name"
+            android:layout_alignStart="@+id/my_download_incomplete_item_name" />
 
-    <TextView
-        android:id="@+id/my_download_incomplete_item_sum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="dsadsa"
-        android:layout_alignBottom="@+id/my_download_incomplete_item_download"
-        android:layout_toRightOf="@+id/my_download_incomplete_item_download"
-        android:layout_toEndOf="@+id/my_download_incomplete_item_download" />
+        <TextView
+            android:id="@+id/my_download_incomplete_item_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dsadsa"
+            android:layout_alignBottom="@+id/my_download_incomplete_item_download"
+            android:layout_toRightOf="@+id/my_download_incomplete_item_download"
+            android:layout_toEndOf="@+id/my_download_incomplete_item_download" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/my_download_incomplete_item_state"

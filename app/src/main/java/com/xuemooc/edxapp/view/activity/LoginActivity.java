@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Login Page Activity
  * Created by chaossss on 2015/8/7.
  */
-public class WebMessageActivity extends AppCompatActivity implements View.OnClickListener, IWebMessage {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, IWebMessage {
     private Button register;
     private ProgressButtonUtil pbUtil;
     private CircularProgressButton login;
@@ -72,7 +72,7 @@ public class WebMessageActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.login_forget_psd:
-                startActivity(new Intent(WebMessageActivity.this, ForgetPsdActivity.class));
+                startActivity(new Intent(LoginActivity.this, ForgetPsdActivity.class));
                 break;
 
             case R.id.login_register:
@@ -116,7 +116,7 @@ public class WebMessageActivity extends AppCompatActivity implements View.OnClic
 
         switch (msg.what){
             case LoginUtil.LOGIN_SUCCESS:
-                startActivity(new Intent(WebMessageActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 break;
 
             case LoginUtil.LOGIN_SUCCESS_SHOW:

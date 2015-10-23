@@ -3,18 +3,19 @@ package com.xuemooc.edxapp.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.view.adapter.MyDownloadIncompleteAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chaossss on 2015/10/10.
@@ -22,10 +23,8 @@ import java.util.List;
 public class MyDownloadIncompleteFragment extends Fragment implements View.OnClickListener{
     private Button allStart;
     private Button allPause;
-    private RecyclerView incompleteTaskList;
+    private ExpandableListView incompleteTaskList;
     private MyDownloadIncompleteAdapter adapter;
-
-    private List<List<String>> incompleteTasks = new ArrayList<>();
 
     @Nullable
     @Override
@@ -42,35 +41,50 @@ public class MyDownloadIncompleteFragment extends Fragment implements View.OnCli
         allStart.setOnClickListener(this);
         allPause.setOnClickListener(this);
 
-        incompleteTaskList = (RecyclerView) rootView.findViewById(R.id.my_download_incomplete_list);
-        incompleteTaskList.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        incompleteTaskList = (ExpandableListView) rootView.findViewById(R.id.my_download_incomplete_list);
+        incompleteTaskList.setGroupIndicator(null);
 
-        List<String> data1 = new ArrayList<>();
-        data1.add("data1-title");
-        data1.add("data1");
-        data1.add("data1");
-        data1.add("data1");
-        data1.add("data1");
-        List<String> data2 = new ArrayList<>();
-        data2.add("data2-title");
-        data2.add("data2");
-        data2.add("data2");
-        data2.add("data2");
-        data2.add("data2");
-        incompleteTasks.add(data1);
-        incompleteTasks.add(data2);
-        adapter = new MyDownloadIncompleteAdapter(incompleteTasks);
+        List<String> incompleteTasksName = new ArrayList<>();
+        incompleteTasksName.add("title1");
+        incompleteTasksName.add("title2");
+        incompleteTasksName.add("title3");
+        Map<String, List<String>> incompleteTasksInfo = new HashMap<>();
+        for(int i = 0; i < incompleteTasksName.size(); i++){
+            List<String> temp = new ArrayList<>();
+            temp.add("data");
+            temp.add("data");
+            temp.add("data");
+            temp.add("data");
+            incompleteTasksInfo.put(incompleteTasksName.get(i), temp);
+        }
+
+        adapter = new MyDownloadIncompleteAdapter();
+        adapter.setIncompleteTasksName(incompleteTasksName);
+        adapter.setIncompleteTasksInfo(incompleteTasksInfo);
         incompleteTaskList.setAdapter(adapter);
+        for(int i = 0; i < incompleteTasksName.size(); i++){
+            incompleteTaskList.expandGroup(i);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.my_download_incomplete_all_start:
+                for(int i = 0; i < adapter.getSubView().size(); i++){
+                    adapter.getSubView().get(i).changeDownloadState(false);
+                }
                 break;
 
             case R.id.my_download_incomplete_all_pause:
+                for(int i = 0; i < adapter.getSubView().size(); i++){
+                    adapter.getSubView().get(i).changeDownloadState(true);
+                }
                 break;
         }
+    }
+
+    public MyDownloadIncompleteAdapter getAdapter() {
+        return adapter;
     }
 }

@@ -17,8 +17,11 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
     private TextView downloadState;
 
     private ImageView stateIcon;
+    private ImageView selectIcon;
 
     private boolean isPaused;
+    private boolean isEditing;
+    private boolean isSelected;
 
     public MyDownloadIncompleteItemHolder(View itemView) {
         super(itemView);
@@ -31,6 +34,42 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
         downloadState = (TextView) itemView.findViewById(R.id.my_download_incomplete_item_state_text);
 
         stateIcon = (ImageView) itemView.findViewById(R.id.my_download_incomplete_item_state_icon);
+        selectIcon = (ImageView) itemView.findViewById(R.id.my_download_incomplete_item_select_icon);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(!isEditing){
+            changeDownloadState();
+        } else {
+            setSelected();
+        }
+    }
+
+    public void changeToEditState(){
+        isEditing = !isEditing;
+
+        if(isEditing){
+            selectIcon.setVisibility(View.VISIBLE);
+        } else {
+            selectIcon.setVisibility(View.GONE);
+        }
+    }
+
+    public void changeDownloadState(){
+        changeDownloadState(!isPaused);
+    }
+
+    public void changeDownloadState(boolean isPaused){
+        this.isPaused = isPaused;
+
+        if(isPaused){
+            stateIcon.setImageResource(R.drawable.profile);
+            downloadState.setText(R.string.my_download_incomplete_item_pause);
+        } else {
+            stateIcon.setImageResource(R.drawable.profile);
+            downloadState.setText(R.string.my_download_incomplete_item_downloading);
+        }
     }
 
     public void setItemName(String itemName){
@@ -45,20 +84,18 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
         this.sum.setText(downloadSum);
     }
 
-    public void changeDownloadState(){
-        isPaused = !isPaused;
+    private void setSelected(){
+        isSelected = !isSelected;
 
-        if(isPaused){
-            stateIcon.setImageResource(R.drawable.profile);
-            downloadState.setText(R.string.my_download_incomplete_item_pause);
+        //修改图标
+        if(isSelected){
+
         } else {
-            stateIcon.setImageResource(R.drawable.profile);
-            downloadState.setText(R.string.my_download_incomplete_item_downloading);
+
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        changeDownloadState();
+    public boolean isSelected() {
+        return isSelected;
     }
 }
