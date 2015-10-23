@@ -2,7 +2,8 @@
     <string name="app_name">学MOOC</string>
 
     <!-- Menu -->
-    <string name="action_settings">编辑</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_complete">完成</string>
 
     <!-- DrawerToolBar -->
     <string name="drawer_toolbar_discover">发现</string>

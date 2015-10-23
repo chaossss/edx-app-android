@@ -17,8 +17,11 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
     private TextView downloadState;
 
     private ImageView stateIcon;
+    private ImageView selectIcon;
 
     private boolean isPaused;
+    private boolean isEditing;
+    private boolean isSelected;
 
     public MyDownloadIncompleteItemHolder(View itemView) {
         super(itemView);
@@ -31,18 +34,26 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
         downloadState = (TextView) itemView.findViewById(R.id.my_download_incomplete_item_state_text);
 
         stateIcon = (ImageView) itemView.findViewById(R.id.my_download_incomplete_item_state_icon);
+        selectIcon = (ImageView) itemView.findViewById(R.id.my_download_incomplete_item_select_icon);
     }
 
-    public void setItemName(String itemName){
-        this.itemName.setText(itemName);
+    @Override
+    public void onClick(View v) {
+        if(!isEditing){
+            changeDownloadState();
+        } else {
+            setSelected();
+        }
     }
 
-    public void setDownloadPercent(String downloadPercent){
-        this.download.setText(downloadPercent);
-    }
+    public void changeToEditState(){
+        isEditing = !isEditing;
 
-    public void setDownloadSum(String downloadSum){
-        this.sum.setText(downloadSum);
+        if(isEditing){
+            selectIcon.setVisibility(View.VISIBLE);
+        } else {
+            selectIcon.setVisibility(View.GONE);
+        }
     }
 
     public void changeDownloadState(){
@@ -61,8 +72,30 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        changeDownloadState();
+    public void setItemName(String itemName){
+        this.itemName.setText(itemName);
+    }
+
+    public void setDownloadPercent(String downloadPercent){
+        this.download.setText(downloadPercent);
+    }
+
+    public void setDownloadSum(String downloadSum){
+        this.sum.setText(downloadSum);
+    }
+
+    private void setSelected(){
+        isSelected = !isSelected;
+
+        //修改图标
+        if(isSelected){
+
+        } else {
+
+        }
+    }
+
+    public boolean isSelected() {
+        return isSelected;
     }
 }

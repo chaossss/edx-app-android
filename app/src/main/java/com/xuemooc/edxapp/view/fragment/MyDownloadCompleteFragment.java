@@ -83,4 +83,8 @@ public class MyDownloadCompleteFragment extends Fragment implements View.OnClick
                 break;
         }
     }
+
+    public MyDownloadIncompleteAdapter getAdapter() {
+        return adapter;
+    }
 }

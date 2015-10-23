@@ -23,6 +23,7 @@ public class MyDownloadIncompleteHolder extends RecyclerView.ViewHolder implemen
 
         courseName = (TextView) itemView.findViewById(R.id.my_download_incomplete_course_name_text);
         downloadingCourse = (RelativeLayout) itemView.findViewById(R.id.my_download_incomplete_course_name);
+        downloadingCourse.setOnClickListener(this);
     }
 
     public List<String> getIncompleteItemList() {

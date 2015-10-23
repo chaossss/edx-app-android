@@ -29,7 +29,10 @@ import com.xuemooc.edxapp.utils.loader.ImageLoader;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
 import com.xuemooc.edxapp.view.fragment.MyCourseFragment;
+import com.xuemooc.edxapp.view.fragment.MyDownloadCompleteFragment;
 import com.xuemooc.edxapp.view.fragment.MyDownloadFragment;
+import com.xuemooc.edxapp.view.fragment.MyDownloadIncompleteFragment;
+import com.xuemooc.edxapp.view.subview.MyDownloadIncompleteItemHolder;
 import com.xuemooc.edxapp.view.subview.MyDrawerItem;
 
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ import java.util.List;
  * Main Page Activity
  * Created by chaossss on 28.07.15.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener, IWebMessage{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener, IWebMessage, android.support.v7.widget.Toolbar.OnMenuItemClickListener{
     private static final int MY_COURSE = 0;
     private static final int DISCOVER = 1;
     private static final int MY_DOWNLOAD = 2;
@@ -65,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //menu's state
     private Menu menu;
+
+    private boolean isEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.drawer_toolbar_my_course);
         setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(this);
     }
 
     /**
@@ -177,14 +183,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu.setGroupVisible(0, false);
         this.menu = menu;
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     /**
@@ -263,5 +261,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onDrawerSlide(View view, float v) {
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        isEditing = !isEditing;
+        MyDownloadFragment myDownloadFragment= (MyDownloadFragment)fragments.get(MY_DOWNLOAD);
+
+        if(myDownloadFragment.isIncompleteShowing()){
+            MyDownloadIncompleteFragment myDownloadIncompleteFragment = (MyDownloadIncompleteFragment)myDownloadFragment.getSubFragment();
+            List<MyDownloadIncompleteItemHolder> subView = myDownloadIncompleteFragment.getAdapter().getSubView();
+            for(int i = 0; i < subView.size(); i++){
+                subView.get(i).changeToEditState();
+            }
+        } else {
+            MyDownloadCompleteFragment myDownloadCompleteFragment = (MyDownloadCompleteFragment)myDownloadFragment.getSubFragment();
+            List<MyDownloadIncompleteItemHolder> subView = myDownloadCompleteFragment.getAdapter().getSubView();
+            for(int i = 0; i < subView.size(); i++){
+                subView.get(i).changeToEditState();
+            }
+        }
+
+        if(isEditing){
+            menu.getItem(0).setTitle(R.string.action_complete);
+        } else {
+            menu.getItem(0).setTitle(R.string.action_edit);
+        }
+
+        return false;
     }
 }
