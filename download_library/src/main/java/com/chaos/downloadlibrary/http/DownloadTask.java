@@ -7,6 +7,7 @@ public class DownloadTask implements Runnable {
     public static final int INIT = 1;
     public static final int DOWNLOAD = 2;
     public static final int PAUSE = 3;
+    private static final int THREAD_COUNT = 4;
 
     private int state;
     private  String urlStr;
