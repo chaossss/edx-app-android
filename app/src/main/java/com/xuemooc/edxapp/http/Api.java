@@ -489,7 +489,7 @@ public class Api implements IApi {
     /**
      * Returns any (mostly first video always) one video {@link VideoResponseModel}
      * object from subsection identified by
-     * given module id (subsectionId).
+     * given com.chaos.downloadlibrary.module id (subsectionId).
      * @param courseId
      * @param subsectionId
      * @return
@@ -507,7 +507,7 @@ public class Api implements IApi {
                     chapterentry.getValue().sections.entrySet()) {
                 // iterate videos
                 for (VideoResponseModel v : entry.getValue()) {
-                    // identify the subsection (module) if id matches
+                    // identify the subsection (com.chaos.downloadlibrary.module) if id matches
                     if (subsectionId.equals(v.getSection().id)) {
                         return v;
                     }

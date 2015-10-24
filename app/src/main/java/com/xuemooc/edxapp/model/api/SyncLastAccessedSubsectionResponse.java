@@ -21,7 +21,7 @@ public class SyncLastAccessedSubsectionResponse {
                 }
             }
         }
-        //logger.warn("Last visited module path is NULL");
+        //logger.warn("Last visited com.chaos.downloadlibrary.module path is NULL");
         return null;
     }
 }
