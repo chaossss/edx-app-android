@@ -7,9 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chaos.imageloader.core.ImageLoader;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.utils.loader.ImageLoader;
+import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.subview.ClassDetailInfoHolder;
 
@@ -23,7 +24,7 @@ public class ClassDetailInfoAdapter extends RecyclerView.Adapter<ClassDetailInfo
         Message msg = Message.obtain();
         msg.what = MessageConst.CLASS_DETAIL_TEACHER_IMG;
         msg.obj = "http://img.my.csdn.net/uploads/201504/13/1428914360_7495.jpg";
-        ImageLoader.getImageLoader().load(msg, this);
+        ImageLoader.getImageLoader().load(new LoadImageTask(msg, this));
     }
 
     @Override
