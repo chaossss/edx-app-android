@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
+import com.chaos.imageloader.cache.disk.BaseDiskCache;
+import com.chaos.imageloader.cache.disk.DiskCache;
+import com.chaos.imageloader.cache.memory.LruMemoryCache;
+import com.chaos.imageloader.cache.memory.MemoryCache;
+import com.chaos.imageloader.core.download.BaseImageDownloader;
+import com.chaos.imageloader.core.download.ImageDownloader;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.utils.cache.disk.BaseDiskCache;
-import com.xuemooc.edxapp.utils.cache.disk.DiskCache;
-import com.xuemooc.edxapp.utils.cache.memory.LruMemoryCache;
-import com.xuemooc.edxapp.utils.cache.memory.MemoryCache;
-import com.xuemooc.edxapp.utils.download.BaseImageDownloader;
-import com.xuemooc.edxapp.utils.download.ImageDownloader;
 import com.xuemooc.edxapp.utils.handler.WebHandler;
 
 import java.io.IOException;

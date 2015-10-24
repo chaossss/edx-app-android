@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chaos.imageloader.core.ImageLoader;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
 import com.xuemooc.edxapp.model.data.DiscoverCourseModel;
-import com.xuemooc.edxapp.utils.loader.ImageLoader;
+import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.subview.DiscoverListHolder;
 
@@ -44,7 +45,7 @@ public class DiscoverListAdapter extends RecyclerView.Adapter<DiscoverListHolder
             Message msg = Message.obtain();
             msg.what = MessageConst.DISCOVER_LIST_IMG;
             msg.obj = courseList.get(i).getImgUrl();
-            ImageLoader.getImageLoader().load(msg, this);
+            ImageLoader.getImageLoader().load(new LoadImageTask(msg, this));
         }
     }
 

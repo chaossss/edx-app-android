@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chaos.imageloader.core.ImageLoader;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -25,7 +26,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.http.interfaces.IWebMessage;
-import com.xuemooc.edxapp.utils.loader.ImageLoader;
+import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
 import com.xuemooc.edxapp.view.fragment.MyCourseFragment;
@@ -250,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Message msg = Message.obtain();
         msg.what = MessageConst.DRAWER_HEADER_USER_IMG;
         msg.obj = "http://www.hinews.cn/pic/0/16/57/20/16572013_223861.jpg";
-        ImageLoader.getImageLoader().load(msg, this);
+        ImageLoader.getImageLoader().load(new LoadImageTask(msg, this));
     }
 
     @Override

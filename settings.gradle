@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':download_library', ':image_loader'
 include(':libraries:vitamio')
