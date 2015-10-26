@@ -8,5 +8,5 @@ import com.chaos.downloadlibrary.module.LoadInfo;
 public interface Downloader {
     void cancel(String urlStr);
     void receive(String urlStr);
-    void download(String urlStr);
+    void download(LoadInfo loadInfo);
 }

@@ -2,13 +2,17 @@ package com.chaos.downloadlibrary.core;
 
 import android.content.Context;
 import android.os.Environment;
+import android.os.Message;
 import android.util.Log;
 
+import com.chaos.downloadlibrary.DownloadConst;
+import com.chaos.downloadlibrary.OnDownloadInfoResponse;
 import com.chaos.downloadlibrary.http.DownloadPretreatmentTask;
 import com.chaos.downloadlibrary.http.DownloadTask;
 import com.chaos.downloadlibrary.module.DAO;
 import com.chaos.downloadlibrary.module.DownloadInfo;
 import com.chaos.downloadlibrary.module.LoadInfo;
+import com.chaos.downloadlibrary.util.DownloadHandler;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -24,23 +28,25 @@ import java.util.concurrent.Executors;
 /**
  * Created by chaos on 2015/10/24.
  */
-public class FileDownloader implements Downloader {
+public class FileDownloader implements Downloader, OnDownloadInfoResponse{
+    private static final int THREAD_COUNT = 4;
     private static final int THREAD_POOL_SIZE = 2;
 
     private final Executor threadPool;
+    private List<DownloadInfo> downloadInfos;
     private final Map<String, Runnable> pretreamentTasks;
     private volatile static FileDownloader fileDownloader;
 
     private static final String STORAGE_PATH = Environment.getExternalStorageDirectory().getPath() + "/UESTC_MOOC/Download";
 
     private Context context;
+    private DownloadHandler downloadHandler;
 
     private int fileSize;
 
-    private List<DownloadInfo> infos;
-
     private FileDownloader(Context context) {
         this.context = context;
+        downloadHandler = new DownloadHandler(this);
         pretreamentTasks = new ConcurrentHashMap<>();
         threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     }
@@ -55,74 +61,32 @@ public class FileDownloader implements Downloader {
 
     @Override
     public void receive(String urlStr) {
-        DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(urlStr);
-        pretreamentTasks.put(urlStr, downloadPretreatmentTask);
-        threadPool.execute(downloadPretreatmentTask);
-        download(urlStr);
-    }
-
-    @Override
-    public void download(String urlStr) {
-        if(infos != null){
-            for(DownloadInfo downloadInfo : infos){
-
-            }
-        }
-        threadPool.execute(pretreamentTasks.get(urlStr));
-    }
-
-    public LoadInfo getLoadInfo(String urlStr){
-        if(isDownloadFirstTime(urlStr)) {
-            Log.v("TAG", "isDownloadFirstTime");
-            init(urlStr);
-            int range = fileSize / THREAD_COUNT;
-            infos = new ArrayList<>();
-
-            for(int i = 0; i < THREAD_COUNT - 1; i++){
-                DownloadInfo downloadInfo = new DownloadInfo(i, i * range, (i + 1) * range - 1, 0, urlStr);
-                infos.add(downloadInfo);
-            }
-
-            DownloadInfo downloadInfo = new DownloadInfo(THREAD_COUNT - 1, (THREAD_COUNT - 1) * range, fileSize -1, 0, urlStr);
-            infos.add(downloadInfo);
-
-            DAO.getInstance(context).saveInfo(infos);
-            return new LoadInfo(fileSize, 0, urlStr);
+        if (isDownloadFirstTime(urlStr)) {
+            DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(urlStr, STORAGE_PATH + urlStr, downloadHandler);
+            pretreamentTasks.put(urlStr, downloadPretreatmentTask);
+            threadPool.execute(downloadPretreatmentTask);
         } else {
-            infos = DAO.getInstance(context).getInfos(urlStr);
-            Log.v("TAG", "not isFirst size = " + infos.size());
+            downloadInfos = DAO.getInstance(context).getInfos(urlStr);
 
             int size = 0;
             int completeSize = 0;
-            for(DownloadInfo info : infos) {
-                completeSize += info.getCompeleteSize();
-                size += info.getEndPos() - info.getStartPos() + 1;
+            for(DownloadInfo downloadInfo : downloadInfos){
+                completeSize += downloadInfo.getCompeleteSize();
+                size += downloadInfo.getEndPos() - downloadInfo.getStartPos() + 1;
             }
 
-            return new LoadInfo(size, completeSize, urlStr);
+            download(new LoadInfo(size, completeSize, urlStr));
         }
     }
 
-    private void init(String urlStr){
-        try {
-            URL url = new URL(urlStr);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(5000);
-            connection.setRequestMethod("GET");
-            fileSize = connection.getContentLength();
+    @Override
+    public void download(LoadInfo loadInfo) {
+        if(downloadInfos != null){
+            for(DownloadInfo downloadInfo : downloadInfos){
 
-            File file = new File(STORAGE_PATH);
-            if(!file.exists()){
-                file.createNewFile();
             }
-
-            RandomAccessFile accessFile = new RandomAccessFile(file, "rwd");
-            accessFile.setLength(fileSize);
-            accessFile.close();
-            connection.disconnect();
-        } catch (Exception e){
-            e.printStackTrace();
         }
+        threadPool.execute(pretreamentTasks.get(loadInfo.getUrlstring()));
     }
 
     private boolean isDownloadFirstTime(String urlStr){
@@ -131,6 +95,25 @@ public class FileDownloader implements Downloader {
 
     @Override
     public void cancel(String urlStr) {
-        DownloadTask task = (DownloadTask)pretreamentTasks.get(urlStr);
+    }
+
+    @Override
+    public void onDownloadInfoResponse(Message msg) {
+        switch(msg.what){
+            case DownloadConst.DOWNLOAD_PRETREATMENT:
+                String urlStr = (String) msg.obj;
+                int range = msg.arg1 / THREAD_COUNT;
+
+                downloadInfos = new ArrayList<>();
+                for(int i = 0; i < THREAD_COUNT - 1; i++){
+                    DownloadInfo downloadInfo = new DownloadInfo(i, i * range, (i + 1) * range - 1, 0, urlStr);
+                    downloadInfos.add(downloadInfo);
+                }
+                downloadInfos.add(new DownloadInfo(THREAD_COUNT - 1, (THREAD_COUNT - 1) * range, fileSize - 1, 0, urlStr));
+                DAO.getInstance(context).saveInfo(downloadInfos);
+
+                download(new LoadInfo(fileSize, 0, urlStr));
+                break;
+        }
     }
 }
