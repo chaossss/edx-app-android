@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import com.chaos.downloadlibrary.http.DownloadPretreatmentTask;
 import com.chaos.downloadlibrary.http.DownloadTask;
 import com.chaos.downloadlibrary.module.DAO;
 import com.chaos.downloadlibrary.module.DownloadInfo;
@@ -24,11 +25,10 @@ import java.util.concurrent.Executors;
  * Created by chaos on 2015/10/24.
  */
 public class FileDownloader implements Downloader {
-    private static final int THREAD_COUNT = 4;
     private static final int THREAD_POOL_SIZE = 2;
 
     private final Executor threadPool;
-    private final Map<String, Runnable> tasks;
+    private final Map<String, Runnable> pretreamentTasks;
     private volatile static FileDownloader fileDownloader;
 
     private static final String STORAGE_PATH = Environment.getExternalStorageDirectory().getPath() + "/UESTC_MOOC/Download";
@@ -41,7 +41,7 @@ public class FileDownloader implements Downloader {
 
     private FileDownloader(Context context) {
         this.context = context;
-        tasks = new ConcurrentHashMap<>();
+        pretreamentTasks = new ConcurrentHashMap<>();
         threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     }
 
@@ -55,7 +55,9 @@ public class FileDownloader implements Downloader {
 
     @Override
     public void receive(String urlStr) {
-        tasks.put(urlStr, new DownloadTask(urlStr));
+        DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(urlStr);
+        pretreamentTasks.put(urlStr, downloadPretreatmentTask);
+        threadPool.execute(downloadPretreatmentTask);
         download(urlStr);
     }
 
@@ -66,7 +68,7 @@ public class FileDownloader implements Downloader {
 
             }
         }
-        threadPool.execute(tasks.get(urlStr));
+        threadPool.execute(pretreamentTasks.get(urlStr));
     }
 
     public LoadInfo getLoadInfo(String urlStr){
@@ -129,7 +131,6 @@ public class FileDownloader implements Downloader {
 
     @Override
     public void cancel(String urlStr) {
-        DownloadTask task = (DownloadTask)tasks.get(urlStr);
-        task.pause();
+        DownloadTask task = (DownloadTask)pretreamentTasks.get(urlStr);
     }
 }
