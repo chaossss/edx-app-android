@@ -57,7 +57,7 @@ public class DownloadTask implements Runnable {
             // 设置范围，格式为Range：bytes x-y;
             connection.setRequestProperty("Range", "bytes="+(startPos + compeleteSize) + "-" + endPos);
 
-            randomAccessFile = new RandomAccessFile(FileDownloader.STORAGE_PATH + urlStr, "rwd");
+            randomAccessFile = new RandomAccessFile(FileDownloader.STORAGE_PATH + urlStr.hashCode(), "rwd");
             randomAccessFile.seek(startPos + compeleteSize);
 
             // 将要下载的文件写到保存在保存路径下的文件中
@@ -76,7 +76,7 @@ public class DownloadTask implements Runnable {
                 Message message = Message.obtain();
                 message.what = DownloadConst.DOWNLOAD_UPDATE_UI;
                 message.obj = urlStr;
-                message.arg1 = length;
+                message.arg1 = compeleteSize;
                 UIHandler.sendMessage(message);
 
                 if (state == DownloadConst.DOWNLOAD_PAUSE) {

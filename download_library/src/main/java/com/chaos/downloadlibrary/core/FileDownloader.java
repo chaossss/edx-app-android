@@ -63,7 +63,7 @@ public class FileDownloader implements Downloader, OnDownloadInfoResponse{
     @Override
     public void receive(String urlStr) {
         if (isDownloadFirstTime(urlStr)) {
-            DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(urlStr, STORAGE_PATH + urlStr, downloadHandler);
+            DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(urlStr, STORAGE_PATH + urlStr.hashCode(), downloadHandler);
             downloadTasks.put(urlStr, Executors.newFixedThreadPool(THREAD_COUNT));
             threadPool.execute(downloadPretreatmentTask);
         } else {
@@ -82,15 +82,19 @@ public class FileDownloader implements Downloader, OnDownloadInfoResponse{
 
     @Override
     public void download(LoadInfo loadInfo, List<DownloadInfo> downloadInfos) {
+        if(downloadTasks.size() == 0 || downloadTasks == null){
+            return;
+        }
+
         if(downloadInfos != null){
             for(DownloadInfo downloadInfo : downloadInfos){
                 downloadTasks.get(loadInfo.getUrlstring()).execute(new DownloadTask(context, downloadInfo, UIHandler));
             }
 
-            Message msg = Message.obtain();
-            msg.obj = loadInfo;
-            msg.what = DownloadConst.DOWNLOAD_UPDATE_UI;
-            UIHandler.sendMessage(msg);
+//            Message msg = Message.obtain();
+//            msg.obj = loadInfo;
+//            msg.what = DownloadConst.DOWNLOAD_UPDATE_UI;
+//            UIHandler.sendMessage(msg);
         }
     }
 
@@ -114,7 +118,7 @@ public class FileDownloader implements Downloader, OnDownloadInfoResponse{
                 String urlStr = (String) msg.obj;
                 int range = fileSize / THREAD_COUNT;
 
-                List <DownloadInfo> downloadInfos = new ArrayList<>();
+                List<DownloadInfo> downloadInfos = new ArrayList<>();
                 for(int i = 0; i < THREAD_COUNT - 1; i++){
                     DownloadInfo downloadInfo = new DownloadInfo(i, i * range, (i + 1) * range - 1, 0, urlStr);
                     downloadInfos.add(downloadInfo);
