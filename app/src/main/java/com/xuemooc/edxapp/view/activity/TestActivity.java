@@ -39,8 +39,8 @@ public class TestActivity extends AppCompatActivity implements WebCommunication,
     private static final String DOWNLOAD_PATH_SUFFIX = "/UESTC_MOOC/Download/";
     private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath();
 
-    private Map<String, Downloader> downloaders = new HashMap<>();
-    private Map<String, ProgressBar> ProgressBars = new HashMap<>();
+    private Map<String, Downloader> downloaders;
+    private Map<String, ProgressBar> progressBarMap;
 
     private WebHandler handler;
 
@@ -52,52 +52,60 @@ public class TestActivity extends AppCompatActivity implements WebCommunication,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        list = (RecyclerView) findViewById(R.id.test_list);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        initParam();
+    }
+
+    private void initParam(){
+        initTestData();
+        checkDownloadDir();
+
+        handler = new WebHandler(this);
+
+        downloaders = new HashMap<>();
+        progressBarMap = new HashMap<>();
+    }
+
+    private void checkDownloadDir(){
         File file = new File(SD_PATH + DOWNLOAD_PATH_SUFFIX);
         if(!file.exists()){
             file.mkdirs();
         }
-
-        handler = new WebHandler(this);
-        list = (RecyclerView) findViewById(R.id.test_list);
-        list.setLayoutManager(new LinearLayoutManager(this));
-        showListView();
     }
 
-    // 显示listView，这里可以随便添加
-    private void showListView() {
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        Map<String, String> map = new HashMap<String, String>();
+    private void initTestData() {
+        List<Map<String, String>> data = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
         map.put("name", "haozip_v3.1.exe");
         data.add(map);
-        map = new HashMap<String, String>();
+        map = new HashMap<>();
         map.put("name", "haozip_v3.1_hj.exe");
         data.add(map);
-        map = new HashMap<String, String>();
+        map = new HashMap<>();
         map.put("name", "haozip_v2.8_x64_tiny.exe");
         data.add(map);
-        map = new HashMap<String, String>();
+        map = new HashMap<>();
         map.put("name", "haozip_v2.8_tiny.exe");
         data.add(map);
         adapter = new TestAdapter(data, this);
         list.setAdapter(adapter);
     }
 
-    /**
-     * 响应开始下载按钮的点击事件
-     */
     public void startDownload(View v) {
         Log.v("TAG", "startDownload");
 
-        // 得到textView的内容
-        LinearLayout layout = (LinearLayout) v.getParent();
-        String resouceName = ((TextView) layout.findViewById(R.id.tv_resouce_name)).getText().toString();
-        String urlStr = URL + resouceName;
-        String localfile = SD_PATH + DOWNLOAD_PATH_SUFFIX + resouceName;
+        TestHolder holder = (TestHolder)list.getChildViewHolder((View) v.getParent());
+        holder.pause();
+
+        String resourceName = holder.getResourceName();
+        String urlStr = URL + resourceName;
+        String filePath = SD_PATH + DOWNLOAD_PATH_SUFFIX + resourceName;
         showProgress(urlStr, v);
 
         FileDownloader downloader = (FileDownloader)downloaders.get(urlStr);
         if(downloader == null){
-            downloader = new FileDownloader(urlStr, localfile, 4, this, handler);
+            downloader = new FileDownloader(urlStr, filePath, this, handler);
             downloaders.put(urlStr, downloader);
         }
         DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(downloaders.get(urlStr), handler);
@@ -114,26 +122,27 @@ public class TestActivity extends AppCompatActivity implements WebCommunication,
         switch(msg.what){
             case DownloadConst.DOWNLOAD_UPDATE_UI:
                 Log.v("TAG", "getUpdateUIInfo");
-                String url = (String) msg.obj;
+
                 int length = msg.arg1;
-                ProgressBar bar = ProgressBars.get(url);
+                String url = (String) msg.obj;
+                ProgressBar bar = progressBarMap.get(url);
+
                 if (bar != null) {
                     Log.v("TAG", "updatePB");
                     bar.incrementProgressBy(length);
+
                     if (bar.getProgress() == bar.getMax()) {
-                        LinearLayout layout = (LinearLayout) bar.getParent();
-                        TextView resouceName=(TextView)layout.findViewById(R.id.tv_resouce_name);
-                        Toast.makeText(TestActivity.this, "[" + resouceName.getText() + "]下载完成！", Toast.LENGTH_SHORT).show();
-                        layout.removeView(bar);
-                        ProgressBars.remove(url);
+                        TestHolder holder = (TestHolder)list.getChildViewHolder((View) bar.getParent());
+                        String resourceName = holder.getResourceName();
+                        holder.complete();
+
+                        Toast.makeText(TestActivity.this, "[" + resourceName + "]下载完成！", Toast.LENGTH_SHORT).show();
+
                         downloaders.get(url).delete(url);
                         downloaders.get(url).reset();
                         downloaders.remove(url);
 
-                        Button btn_start=(Button)layout.findViewById(R.id.btn_start);
-                        Button btn_pause=(Button)layout.findViewById(R.id.btn_pause);
-                        btn_pause.setVisibility(View.GONE);
-                        btn_start.setVisibility(View.GONE);
+                        progressBarMap.remove(url);
                     }
                 }
                 break;
@@ -159,22 +168,22 @@ public class TestActivity extends AppCompatActivity implements WebCommunication,
     }
 
     private void showProgress(String urlStr, View v) {
-        ProgressBar bar = ProgressBars.get(urlStr);
+        ProgressBar bar = progressBarMap.get(urlStr);
         if (bar == null) {
-            TestHolder holder = (TestHolder)list.getChildViewHolder((View)v.getParent().getParent());
+            TestHolder holder = (TestHolder)list.getChildViewHolder((View)v.getParent());
             bar = holder.getProgressBar();
-            ProgressBars.put(urlStr, bar);
+            progressBarMap.put(urlStr, bar);
         }
     }
 
     private void showProgress(LoadInfo loadInfo) {
-        ProgressBar bar = ProgressBars.get(loadInfo.getUrlstring());
+        ProgressBar bar = progressBarMap.get(loadInfo.getUrlstring());
         bar.setMax(loadInfo.getFileSize());
         bar.setProgress(loadInfo.getComplete());
     }
 
     public void pauseDownload(View v) {
-        TestHolder holder = (TestHolder) list.getChildViewHolder((View) v.getParent().getParent());
+        TestHolder holder = (TestHolder) list.getChildViewHolder((View) v.getParent());
         String urlStr = URL + holder.getResourceName();
         downloaders.get(urlStr).pause();
         holder.pause();
