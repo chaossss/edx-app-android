@@ -12,7 +12,7 @@ import com.chaos.imageloader.cache.memory.LruMemoryCache;
 import com.chaos.imageloader.cache.memory.MemoryCache;
 import com.chaos.imageloader.core.download.BaseImageDownloader;
 import com.chaos.imageloader.core.download.ImageDownloader;
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.utils.handler.WebHandler;
 
 import java.io.IOException;
@@ -25,20 +25,20 @@ import java.io.IOException;
 public class LoadImageTask implements Runnable {
     private Message msg;
     private WebHandler handler;
-    private IWebMessage iWebMessage;
+    private WebCommunication webCommunication;
     private DiskCache diskCache;
     private MemoryCache memoryCache;
     private ImageDownloader imageDownloader;
 
-    public LoadImageTask(Message msg, IWebMessage iWebMessage) {
+    public LoadImageTask(Message msg, WebCommunication webCommunication) {
         this.msg = msg;
-        this.iWebMessage = iWebMessage;
+        this.webCommunication = webCommunication;
 
         initParams();
     }
 
     private void initParams(){
-        handler = new WebHandler(iWebMessage);
+        handler = new WebHandler(webCommunication);
 
         diskCache = new BaseDiskCache();
         memoryCache = new LruMemoryCache();

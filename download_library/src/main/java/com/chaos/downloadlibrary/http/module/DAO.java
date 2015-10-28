@@ -1,4 +1,4 @@
-package com.chaos.downloadlibrary.module;
+package com.chaos.downloadlibrary.http.module;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -2,7 +2,7 @@ package com.xuemooc.edxapp.http.util;
 
 import android.os.Message;
 
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.utils.thread.LoginTask;
 
 import java.util.concurrent.Executor;
@@ -12,8 +12,8 @@ import java.util.concurrent.Executors;
  * Util that helps deal with login event
  * Created by chaossss on 2015/9/21.
  */
-public class LoginUtil implements IWebMessage{
-    private IWebMessage iWebMessage;
+public class LoginUtil implements WebCommunication {
+    private WebCommunication webCommunication;
     private final Executor threadPool;
     private volatile static LoginUtil loginUtil;
 
@@ -25,16 +25,16 @@ public class LoginUtil implements IWebMessage{
 
     private static final int THREAD_POOL_SIZE = 2;
 
-    private LoginUtil(IWebMessage iWebMessage) {
-        this.iWebMessage = iWebMessage;
+    private LoginUtil(WebCommunication webCommunication) {
+        this.webCommunication = webCommunication;
         threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     }
 
-    public static LoginUtil getLoginUtil(IWebMessage iWebMessage){
+    public static LoginUtil getLoginUtil(WebCommunication webCommunication){
         if(loginUtil == null){
             synchronized (LoginUtil.class){
                 if(loginUtil == null){
-                    loginUtil = new LoginUtil(iWebMessage);
+                    loginUtil = new LoginUtil(webCommunication);
                 }
             }
         }
@@ -44,7 +44,7 @@ public class LoginUtil implements IWebMessage{
 
     @Override
     public void sendRequest(Message msg) {
-        LoginTask task = new LoginTask(iWebMessage);
+        LoginTask task = new LoginTask(webCommunication);
         task.sendMsgToServer(msg);
         threadPool.execute(task);
     }

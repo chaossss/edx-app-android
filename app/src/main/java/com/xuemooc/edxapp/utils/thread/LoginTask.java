@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 
 import com.xuemooc.edxapp.utils.handler.WebHandler;
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.http.util.LoginUtil;
 import com.xuemooc.edxapp.view.consts.PBConst;
 
@@ -18,8 +18,8 @@ public class LoginTask implements Runnable {
     private WebHandler webHandler;
     private PBConst state;
 
-    public LoginTask(IWebMessage iWebMessage) {
-        webHandler = new WebHandler(iWebMessage);
+    public LoginTask(WebCommunication webCommunication) {
+        webHandler = new WebHandler(webCommunication);
     }
 
     @Override

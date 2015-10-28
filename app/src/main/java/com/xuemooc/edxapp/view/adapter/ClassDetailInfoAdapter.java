@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.chaos.imageloader.core.ImageLoader;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.subview.ClassDetailInfoHolder;
@@ -17,7 +17,7 @@ import com.xuemooc.edxapp.view.subview.ClassDetailInfoHolder;
 /**
  * Created by chaossss on 2015/10/9.
  */
-public class ClassDetailInfoAdapter extends RecyclerView.Adapter<ClassDetailInfoHolder> implements IWebMessage {
+public class ClassDetailInfoAdapter extends RecyclerView.Adapter<ClassDetailInfoHolder> implements WebCommunication {
     private Bitmap teacherImg;
 
     public ClassDetailInfoAdapter() {

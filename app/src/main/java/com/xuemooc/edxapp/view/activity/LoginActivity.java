@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.http.util.LoginUtil;
 import com.xuemooc.edxapp.view.consts.PBConst;
 import com.xuemooc.edxapp.view.utils.ProgressButtonUtil;
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Login Page Activity
  * Created by chaossss on 2015/8/7.
  */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, IWebMessage {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, WebCommunication {
     private Button register;
     private ProgressButtonUtil pbUtil;
     private CircularProgressButton login;

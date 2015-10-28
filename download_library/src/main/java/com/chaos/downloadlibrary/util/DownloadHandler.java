@@ -3,7 +3,7 @@ package com.chaos.downloadlibrary.util;
 import android.os.Handler;
 import android.os.Message;
 
-import com.chaos.downloadlibrary.OnDownloadInfoResponse;
+import com.chaos.downloadlibrary.http.response.OnDownloadInfoResponse;
 
 /**
  * Created by chaos on 2015/10/26.
