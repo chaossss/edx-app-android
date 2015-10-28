@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -38,7 +39,7 @@ public class TestActivity extends AppCompatActivity implements IWebMessage, View
     // 固定下载的资源路径，这里可以设置网络上的地址
     private static final String URL = "http://download.haozip.com/";
     // 固定存放下载的音乐的路径：SD卡目录下
-    private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath().toString();
+    private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath().toString() + "/UESTC_MOOC/Download";
     // 存放各个下载器
     private Map<String, Downloader> downloaders = new HashMap<>();
     // 存放与下载器对应的进度条
@@ -80,11 +81,13 @@ public class TestActivity extends AppCompatActivity implements IWebMessage, View
      * 响应开始下载按钮的点击事件
      */
     public void startDownload(View v) {
+        Log.v("TAG", "startDownload");
+
         // 得到textView的内容
         LinearLayout layout = (LinearLayout) v.getParent();
         String resouceName = ((TextView) layout.findViewById(R.id.tv_resouce_name)).getText().toString();
         String urlstr = URL + resouceName;
-        String localfile = SD_PATH + resouceName;
+        String localfile = SD_PATH + "/" + resouceName;
         //设置下载线程数为4，这里是我为了方便随便固定的
         String threadcount = "4";
         DownloadTask downloadTask=new DownloadTask(v);
@@ -99,10 +102,12 @@ public class TestActivity extends AppCompatActivity implements IWebMessage, View
     @Override
     public void onMessageResponse(Message msg) {
         if(msg.what == DownloadConst.DOWNLOAD_UPDATE_UI){
+            Log.v("TAG", "getUpdateUIInfo");
             String url = (String) msg.obj;
             int length = msg.arg1;
             ProgressBar bar = ProgressBars.get(url);
             if (bar != null) {
+                Log.v("TAG", "updatePB");
                 // 设置进度条按读取的length长度更新
                 bar.incrementProgressBy(length);
                 if (bar.getProgress() == bar.getMax()) {
@@ -173,6 +178,9 @@ public class TestActivity extends AppCompatActivity implements IWebMessage, View
             if(loadInfo!=null){
                 // 显示进度条
                 showProgress(loadInfo, urlstr, v);
+
+                Log.v("TAG", "download");
+
                 // 调用方法开始下载
                 downloader.download();
             }

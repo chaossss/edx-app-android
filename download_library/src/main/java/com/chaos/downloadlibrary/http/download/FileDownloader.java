@@ -135,6 +135,7 @@ public class FileDownloader implements Downloader {
 
             state = DownloadConst.DOWNLOAD_DOWNLOADING;
             for (DownloadInfo info : downloadInfos) {
+                Log.v("TAG", "startThread");
                 new MyThread(info.getThreadId(), info.getStartPos(),
                         info.getEndPos(), info.getCompeleteSize(),
                         info.getUrl()).start();
@@ -165,6 +166,7 @@ public class FileDownloader implements Downloader {
             RandomAccessFile randomAccessFile;
 
             try {
+                Log.v("TAG", "runThread");
                 URL url = new URL(urlstr);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(5000);
@@ -185,6 +187,7 @@ public class FileDownloader implements Downloader {
                     randomAccessFile.write(buffer, 0, length);
                     compeleteSize += length;
 
+                    Log.v("TAG", "updateDB");
                     // 更新数据库中的下载信息
                     DAO.getInstance(context).updataInfos(threadId, compeleteSize, urlstr);
 
@@ -193,8 +196,9 @@ public class FileDownloader implements Downloader {
                     message.what = DownloadConst.DOWNLOAD_UPDATE_UI;
                     message.obj = urlstr;
                     message.arg1 = length;
+                    Log.v("TAG", "updateUI");
                     handler.sendMessage(message);
-                    if (state == DownloadConst.DOWNLOAD_DOWNLOADING) {
+                    if (state == DownloadConst.DOWNLOAD_PAUSE) {
                         return;
                     }
                 }
