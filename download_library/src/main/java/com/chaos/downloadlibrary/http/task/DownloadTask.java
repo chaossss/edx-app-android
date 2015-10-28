@@ -1,15 +1,14 @@
-package com.chaos.downloadlibrary.http;
+package com.chaos.downloadlibrary.http.task;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
 import com.chaos.downloadlibrary.DownloadConst;
-import com.chaos.downloadlibrary.core.FileDownloader;
-import com.chaos.downloadlibrary.module.DAO;
-import com.chaos.downloadlibrary.module.DownloadInfo;
+import com.chaos.downloadlibrary.core.FileDownloadManager;
+import com.chaos.downloadlibrary.http.module.DAO;
+import com.chaos.downloadlibrary.http.module.DownloadInfo;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -57,7 +56,7 @@ public class DownloadTask implements Runnable {
             // 设置范围，格式为Range：bytes x-y;
             connection.setRequestProperty("Range", "bytes="+(startPos + compeleteSize) + "-" + endPos);
 
-            randomAccessFile = new RandomAccessFile(FileDownloader.STORAGE_PATH + urlStr.hashCode(), "rwd");
+            randomAccessFile = new RandomAccessFile(FileDownloadManager.STORAGE_PATH + urlStr.hashCode(), "rwd");
             randomAccessFile.seek(startPos + compeleteSize);
 
             // 将要下载的文件写到保存在保存路径下的文件中

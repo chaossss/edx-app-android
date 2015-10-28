@@ -1,4 +1,4 @@
-package com.chaos.downloadlibrary;
+package com.chaos.downloadlibrary.http.response;
 
 import android.os.Message;
 

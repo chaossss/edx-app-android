@@ -1,4 +1,4 @@
-package com.chaos.downloadlibrary.module;
+package com.chaos.downloadlibrary.http.module;
 
 /**
  * Created by chaos on 2015/10/24.

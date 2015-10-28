@@ -4,21 +4,16 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.chaos.downloadlibrary.DownloadConst;
-import com.chaos.downloadlibrary.OnDownloadInfoResponse;
-import com.chaos.downloadlibrary.http.DownloadPretreatmentTask;
-import com.chaos.downloadlibrary.http.DownloadTask;
-import com.chaos.downloadlibrary.module.DAO;
-import com.chaos.downloadlibrary.module.DownloadInfo;
-import com.chaos.downloadlibrary.module.LoadInfo;
+import com.chaos.downloadlibrary.http.response.OnDownloadInfoResponse;
+import com.chaos.downloadlibrary.http.task.DownloadPretreatmentTask;
+import com.chaos.downloadlibrary.http.task.DownloadTask;
+import com.chaos.downloadlibrary.http.module.DAO;
+import com.chaos.downloadlibrary.http.module.DownloadInfo;
+import com.chaos.downloadlibrary.http.module.LoadInfo;
 import com.chaos.downloadlibrary.util.DownloadHandler;
 
-import java.io.File;
-import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,21 +25,21 @@ import java.util.concurrent.Executors;
 /**
  * Created by chaos on 2015/10/24.
  */
-public class FileDownloader implements Downloader, OnDownloadInfoResponse{
+public class FileDownloadManager implements DownloadManager, OnDownloadInfoResponse{
     private static final int THREAD_COUNT = 4;
     private static final int THREAD_POOL_SIZE = 2;
 
     private Handler UIHandler;
     private final Executor threadPool;
     private final Map<String, ExecutorService> downloadTasks;
-    private volatile static FileDownloader fileDownloader;
+    private volatile static FileDownloadManager fileDownloader;
 
     public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().getPath() + "/UESTC_MOOC/Download";
 
     private Context context;
     private DownloadHandler downloadHandler;
 
-    private FileDownloader(Context context, Handler UIHandler) {
+    private FileDownloadManager(Context context, Handler UIHandler) {
         this.context = context;
         this.UIHandler = UIHandler;
         downloadTasks = new ConcurrentHashMap<>();
@@ -52,9 +47,9 @@ public class FileDownloader implements Downloader, OnDownloadInfoResponse{
         threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     }
 
-    public static FileDownloader getInstance(Context context, Handler UIHandler){
+    public static FileDownloadManager getInstance(Context context, Handler UIHandler){
         if(fileDownloader == null){
-            fileDownloader = new FileDownloader(context, UIHandler);
+            fileDownloader = new FileDownloadManager(context, UIHandler);
         }
 
         return fileDownloader;
