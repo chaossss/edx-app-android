@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.chaos.imageloader.core.ImageLoader;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.model.data.MyCourseModel;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * Created by chaossss on 2015/7/30.
  */
-public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> implements View.OnClickListener, IWebMessage {
+public class MyCourseListAdapter extends RecyclerView.Adapter<MyCourseListHolder> implements View.OnClickListener, WebCommunication {
     private OnItemClickListener listener;
     private List<MyCourseModel> courseList = new ArrayList<>();
     private final Map<String, Bitmap> imageMap = new HashMap<>();

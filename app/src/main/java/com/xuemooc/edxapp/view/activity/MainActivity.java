@@ -25,7 +25,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.xuemooc.edxapp.R;
-import com.xuemooc.edxapp.http.interfaces.IWebMessage;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
 import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
@@ -43,7 +43,7 @@ import java.util.List;
  * Main Page Activity
  * Created by chaossss on 28.07.15.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener, IWebMessage, android.support.v7.widget.Toolbar.OnMenuItemClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener, WebCommunication, android.support.v7.widget.Toolbar.OnMenuItemClickListener{
     private static final int MY_COURSE = 0;
     private static final int DISCOVER = 1;
     private static final int MY_DOWNLOAD = 2;

@@ -7,7 +7,6 @@ import android.os.Message;
 
 import com.chaos.downloadlibrary.DownloadConst;
 import com.chaos.downloadlibrary.http.response.OnDownloadInfoResponse;
-import com.chaos.downloadlibrary.http.task.DownloadPretreatmentTask;
 import com.chaos.downloadlibrary.http.task.DownloadTask;
 import com.chaos.downloadlibrary.http.module.DAO;
 import com.chaos.downloadlibrary.http.module.DownloadInfo;
@@ -58,9 +57,6 @@ public class FileDownloadManager implements DownloadManager, OnDownloadInfoRespo
     @Override
     public void receive(String urlStr) {
         if (isDownloadFirstTime(urlStr)) {
-            DownloadPretreatmentTask downloadPretreatmentTask = new DownloadPretreatmentTask(urlStr, STORAGE_PATH + urlStr.hashCode(), downloadHandler);
-            downloadTasks.put(urlStr, Executors.newFixedThreadPool(THREAD_COUNT));
-            threadPool.execute(downloadPretreatmentTask);
         } else {
             List<DownloadInfo> downloadInfos = DAO.getInstance(context).getInfos(urlStr);
 
