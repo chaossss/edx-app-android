@@ -29,7 +29,7 @@ public class TestHolder extends RecyclerView.ViewHolder{
         pause = (Button) itemView.findViewById(R.id.btn_pause);
 
         start.setVisibility(View.VISIBLE);
-        pause.setVisibility(View.GONE);
+        pause.setVisibility(View.INVISIBLE);
 
         resourceName = (TextView) itemView.findViewById(R.id.tv_resouce_name);
         progressBar = (ProgressBar) itemView.findViewById(R.id.test_pb);
@@ -51,12 +51,20 @@ public class TestHolder extends RecyclerView.ViewHolder{
     }
 
     public void pause(){
-        if(!isPause){
-            start.setVisibility(View.GONE);
+        isPause = !isPause;
+
+        if(isPause){
+            start.setVisibility(View.INVISIBLE);
             pause.setVisibility(View.VISIBLE);
         } else {
             start.setVisibility(View.VISIBLE);
-            pause.setVisibility(View.GONE);
+            pause.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void complete(){
+        start.setVisibility(View.GONE);
+        pause.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 }

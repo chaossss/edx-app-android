@@ -33,6 +33,10 @@ public class FileDownloader implements Downloader {
     private Handler handler;
     private List<DownloadInfo> downloadInfos;
 
+    public FileDownloader(String urlStr, String filePath, Context context, Handler handler) {
+        this(urlStr, filePath, 4, context, handler);
+    }
+
     public FileDownloader(String urlStr, String filePath, int threadCount, Context context, Handler handler) {
         this.urlStr = urlStr;
         this.filePath = filePath;
