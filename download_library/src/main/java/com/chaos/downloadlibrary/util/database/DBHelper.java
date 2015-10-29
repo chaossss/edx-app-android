@@ -1,4 +1,4 @@
-package com.chaos.downloadlibrary.util;
+package com.chaos.downloadlibrary.util.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,7 +15,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Creates a download_info table in download.db database to storage relating info
-     * @param db
      */
     @Override
     public void onCreate(SQLiteDatabase db) {

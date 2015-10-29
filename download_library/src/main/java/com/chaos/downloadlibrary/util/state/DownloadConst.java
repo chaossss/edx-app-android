@@ -1,4 +1,4 @@
-package com.chaos.downloadlibrary;
+package com.chaos.downloadlibrary.util.state;
 
 /**
  * Created by chaos on 2015/10/26.

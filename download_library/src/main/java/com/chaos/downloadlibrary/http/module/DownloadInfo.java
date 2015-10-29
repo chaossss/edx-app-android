@@ -1,6 +1,7 @@
 package com.chaos.downloadlibrary.http.module;
 
 /**
+ * DownloadInfo model
  * Created by chaos on 2015/10/24.
  */
 public class DownloadInfo {
@@ -18,25 +19,6 @@ public class DownloadInfo {
         this.endPos = endPos;
         this.compeleteSize = compeleteSize;
         this.url=url;
-    }
-
-    public DownloadInfo() {
-    }
-
-    public void setEndPos(int endPos) {
-        this.endPos = endPos;
-    }
-
-    public void setStartPos(int startPos) {
-        this.startPos = startPos;
-    }
-
-    public void setThreadId(int threadId) {
-        this.threadId = threadId;
-    }
-
-    public void setCompeleteSize(int compeleteSize) {
-        this.compeleteSize = compeleteSize;
     }
 
     public void setUrl(String url) {

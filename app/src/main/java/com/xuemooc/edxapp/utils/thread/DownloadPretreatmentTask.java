@@ -1,10 +1,9 @@
 package com.xuemooc.edxapp.utils.thread;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
-import com.chaos.downloadlibrary.DownloadConst;
+import com.chaos.downloadlibrary.util.state.DownloadConst;
 import com.chaos.downloadlibrary.http.download.Downloader;
 import com.chaos.downloadlibrary.http.download.FileDownloader;
 import com.chaos.downloadlibrary.http.module.LoadInfo;

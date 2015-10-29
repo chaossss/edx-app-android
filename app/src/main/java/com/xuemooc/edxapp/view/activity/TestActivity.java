@@ -8,13 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chaos.downloadlibrary.DownloadConst;
+import com.chaos.downloadlibrary.util.state.DownloadConst;
 import com.chaos.downloadlibrary.http.download.Downloader;
 import com.chaos.downloadlibrary.http.download.FileDownloader;
 import com.chaos.downloadlibrary.http.module.LoadInfo;
@@ -129,6 +126,7 @@ public class TestActivity extends AppCompatActivity implements WebCommunication,
 
                 if (bar != null) {
                     Log.v("TAG", "updatePB");
+                    Log.v("DATA", "update pb length" + length);
                     bar.incrementProgressBy(length);
 
                     if (bar.getProgress() == bar.getMax()) {
@@ -177,6 +175,8 @@ public class TestActivity extends AppCompatActivity implements WebCommunication,
     }
 
     private void showProgress(LoadInfo loadInfo) {
+        Log.v("DATA", "fileSize" + loadInfo.getFileSize());
+        Log.v("DATA", "completeSize" + loadInfo.getComplete());
         ProgressBar bar = progressBarMap.get(loadInfo.getUrlstring());
         bar.setMax(loadInfo.getFileSize());
         bar.setProgress(loadInfo.getComplete());

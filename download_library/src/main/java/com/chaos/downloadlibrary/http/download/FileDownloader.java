@@ -5,8 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.chaos.downloadlibrary.DownloadConst;
-import com.chaos.downloadlibrary.http.module.DAO;
+import com.chaos.downloadlibrary.util.state.DownloadConst;
+import com.chaos.downloadlibrary.util.database.DAO;
 import com.chaos.downloadlibrary.http.module.DownloadInfo;
 import com.chaos.downloadlibrary.http.module.LoadInfo;
 
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * FileDownloader class can be used to download file from net
  * Created by chaos on 2015/10/28.
  */
 public class FileDownloader implements Downloader {
@@ -53,7 +54,7 @@ public class FileDownloader implements Downloader {
 
             int range = fileSize / threadCount;
 
-            downloadInfos = new ArrayList<DownloadInfo>();
+            downloadInfos = new ArrayList<>();
             for (int i = 0; i < threadCount - 1; i++) {
                 DownloadInfo info = new DownloadInfo(i, i * range, (i + 1)* range - 1, 0, urlStr);
                 downloadInfos.add(info);
@@ -64,10 +65,7 @@ public class FileDownloader implements Downloader {
             //保存infos中的数据到数据库
             DAO.getInstance(context).saveInfo(downloadInfos);
 
-            //创建一个LoadInfo对象记载下载器的具体信息
-            LoadInfo loadInfo = new LoadInfo(fileSize, 0, urlStr);
-
-            return loadInfo;
+            return new LoadInfo(fileSize, 0, urlStr);
         } else {
             //得到数据库中已有的urlstr的下载器的具体信息
             downloadInfos = DAO.getInstance(context).getInfos(urlStr);
@@ -75,14 +73,14 @@ public class FileDownloader implements Downloader {
             Log.v("TAG", "not isFirst size=" + downloadInfos.size());
 
             int size = 0;
-            int compeleteSize = 0;
+            int completeSize = 0;
 
-            for (DownloadInfo info : downloadInfos) {
-                compeleteSize += info.getCompeleteSize();
-                size += info.getEndPos() - info.getStartPos() + 1;
+            for (DownloadInfo downloadInfo : downloadInfos) {
+                completeSize += downloadInfo.getCompeleteSize();
+                size += downloadInfo.getEndPos() - downloadInfo.getStartPos() + 1;
             }
 
-            return new LoadInfo(size, compeleteSize, urlStr);
+            return new LoadInfo(size, completeSize, urlStr);
         }
     }
 
@@ -140,6 +138,7 @@ public class FileDownloader implements Downloader {
             state = DownloadConst.DOWNLOAD_DOWNLOADING;
             for (DownloadInfo info : downloadInfos) {
                 Log.v("TAG", "startThread");
+                Log.v("DATA", "getCompeleteSize" + info.getCompeleteSize());
                 new MyThread(info.getThreadId(), info.getStartPos(),
                         info.getEndPos(), info.getCompeleteSize(),
                         info.getUrl()).start();
@@ -151,16 +150,16 @@ public class FileDownloader implements Downloader {
         private int threadId;
         private int startPos;
         private int endPos;
-        private int compeleteSize;
-        private String urlstr;
+        private int completeSize;
+        private String urlStr;
 
         public MyThread(int threadId, int startPos, int endPos,
-                        int compeleteSize, String urlstr) {
+                        int completeSize, String urlStr) {
             this.threadId = threadId;
             this.startPos = startPos;
             this.endPos = endPos;
-            this.compeleteSize = compeleteSize;
-            this.urlstr = urlstr;
+            this.completeSize = completeSize;
+            this.urlStr = urlStr;
         }
 
         @Override
@@ -171,34 +170,34 @@ public class FileDownloader implements Downloader {
 
             try {
                 Log.v("TAG", "runThread");
-                URL url = new URL(urlstr);
+                URL url = new URL(urlStr);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(5000);
                 connection.setRequestMethod("GET");
 
                 // 设置范围，格式为Range：bytes x-y;
-                connection.setRequestProperty("Range", "bytes="+(startPos + compeleteSize) + "-" + endPos);
+                connection.setRequestProperty("Range", "bytes="+(startPos + completeSize) + "-" + endPos);
 
                 randomAccessFile = new RandomAccessFile(filePath, "rwd");
-                randomAccessFile.seek(startPos + compeleteSize);
+                randomAccessFile.seek(startPos + completeSize);
 
                 // 将要下载的文件写到保存在保存路径下的文件中
-                int length = -1;
+                int length;
                 byte[] buffer = new byte[4096];
                 is = connection.getInputStream();
 
                 while ((length = is.read(buffer)) != -1) {
                     randomAccessFile.write(buffer, 0, length);
-                    compeleteSize += length;
+                    completeSize += length;
 
-                    Log.v("TAG", "updateDB");
+                    Log.v("DATA", "updateDB" + completeSize * 4);
                     // 更新数据库中的下载信息
-                    DAO.getInstance(context).updataInfos(threadId, compeleteSize, urlstr);
+                    DAO.getInstance(context).updataInfos(threadId, completeSize, urlStr);
 
                     // 用消息将下载信息传给进度条，对进度条进行更新
                     Message message = Message.obtain();
                     message.what = DownloadConst.DOWNLOAD_UPDATE_UI;
-                    message.obj = urlstr;
+                    message.obj = urlStr;
                     message.arg1 = length;
                     Log.v("TAG", "updateUI");
                     handler.sendMessage(message);

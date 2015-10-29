@@ -1,15 +1,16 @@
-package com.chaos.downloadlibrary.http.module;
+package com.chaos.downloadlibrary.util.database;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.chaos.downloadlibrary.util.DBHelper;
+import com.chaos.downloadlibrary.http.module.DownloadInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class that uses to access to db
  * Created by chaos on 2015/10/24.
  */
 public class DAO {
@@ -42,9 +43,8 @@ public class DAO {
     }
 
     /**
-     * Check whether database has data
-     * @param urlStr
-     * @return
+     * Check whether database has the specified data
+     * @param urlStr url wanted to check
      */
     public synchronized boolean isHasInfo(String urlStr){
         int count = -1;
