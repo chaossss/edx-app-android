@@ -1,16 +1,21 @@
 package com.xuemooc.edxapp.view.subview;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xuemooc.edxapp.R;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by chaossss on 2015/10/10.
  */
-public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder{
+    private static final int MB = 1024 * 1024;
+
     private TextView sum;
     private TextView download;
     private TextView itemName;
@@ -19,14 +24,18 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
     private ImageView stateIcon;
     private ImageView selectIcon;
 
+    private int sumNum;
+    private int currDownloadPercent;
+
     private boolean isPaused;
     private boolean isEditing;
     private boolean isSelected;
 
-    public MyDownloadIncompleteItemHolder(View itemView) {
+    public MyDownloadIncompleteItemHolder(View itemView, View.OnClickListener onClickListener) {
         super(itemView);
 
-        itemView.setOnClickListener(this);
+        isPaused = true;
+        itemView.setOnClickListener(onClickListener);
 
         sum = (TextView) itemView.findViewById(R.id.my_download_incomplete_item_sum);
         download = (TextView) itemView.findViewById(R.id.my_download_incomplete_item_download);
@@ -35,15 +44,6 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
 
         stateIcon = (ImageView) itemView.findViewById(R.id.my_download_incomplete_item_state_icon);
         selectIcon = (ImageView) itemView.findViewById(R.id.my_download_incomplete_item_select_icon);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(!isEditing){
-            changeDownloadState();
-        } else {
-            setSelected();
-        }
     }
 
     public void changeToEditState(){
@@ -72,16 +72,43 @@ public class MyDownloadIncompleteItemHolder extends RecyclerView.ViewHolder impl
         }
     }
 
+    public boolean isPaused() {
+        return isPaused;
+    }
+
     public void setItemName(String itemName){
         this.itemName.setText(itemName);
     }
 
-    public void setDownloadPercent(String downloadPercent){
-        this.download.setText(downloadPercent);
+    public void setDownloadPercent(int downloadPercent){
+        currDownloadPercent += downloadPercent;
+        float res = (float)currDownloadPercent / MB;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        this.download.setText(decimalFormat.format(res) + "MB" + " / ");
     }
 
-    public void setDownloadSum(String downloadSum){
-        this.sum.setText(downloadSum);
+    public void setDownloadSum(int downloadSum){
+        sumNum = downloadSum;
+        float res = (float)sumNum / MB;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        this.sum.setText(decimalFormat.format(res) + "MB");
+    }
+
+    public String getItemName(){
+        return itemName.getText().toString();
+    }
+
+    public int getDownloadSum(){
+        return sumNum;
+    }
+
+    public int getDownloadPercent(){
+        return currDownloadPercent;
+    }
+
+    public void complete(){
+        stateIcon.setImageResource(R.drawable.profile);
+        downloadState.setText(R.string.my_download_complete);
     }
 
     private void setSelected(){

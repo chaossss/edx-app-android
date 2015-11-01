@@ -58,7 +58,7 @@ public class MyDownloadCompleteFragment extends Fragment implements View.OnClick
             incompleteTasksInfo.put(incompleteTasksName.get(i), temp);
         }
 
-        adapter = new MyDownloadIncompleteAdapter();
+        adapter = new MyDownloadIncompleteAdapter(this);
         adapter.setIncompleteTasksName(incompleteTasksName);
         adapter.setIncompleteTasksInfo(incompleteTasksInfo);
         incompleteTaskList.setAdapter(adapter);

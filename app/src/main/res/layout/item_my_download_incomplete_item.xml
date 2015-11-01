@@ -31,14 +31,12 @@
             android:id="@+id/my_download_incomplete_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="dsadsa"
             android:layout_marginLeft="8dp"/>
 
         <TextView
             android:id="@+id/my_download_incomplete_item_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dsadsa"
             android:layout_below="@+id/my_download_incomplete_item_name"
             android:layout_alignLeft="@+id/my_download_incomplete_item_name"
             android:layout_alignStart="@+id/my_download_incomplete_item_name" />
@@ -47,7 +45,6 @@
             android:id="@+id/my_download_incomplete_item_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dsadsa"
             android:layout_alignBottom="@+id/my_download_incomplete_item_download"
             android:layout_toRightOf="@+id/my_download_incomplete_item_download"
             android:layout_toEndOf="@+id/my_download_incomplete_item_download" />

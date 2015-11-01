@@ -1,14 +1,29 @@
 package com.xuemooc.edxapp.view.adapter;
 
+import android.os.Environment;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.chaos.downloadlibrary.http.download.Downloader;
+import com.chaos.downloadlibrary.http.download.FileDownloader;
+import com.chaos.downloadlibrary.http.module.LoadInfo;
+import com.chaos.downloadlibrary.util.state.DownloadConst;
 import com.xuemooc.edxapp.R;
+import com.xuemooc.edxapp.utils.handler.WebHandler;
+import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
+import com.xuemooc.edxapp.utils.thread.DownloadPretreatmentTask;
+import com.xuemooc.edxapp.view.activity.TestActivity;
 import com.xuemooc.edxapp.view.subview.MyDownloadIncompleteHolder;
 import com.xuemooc.edxapp.view.subview.MyDownloadIncompleteItemHolder;
+import com.xuemooc.edxapp.view.subview.TestHolder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,14 +33,18 @@ import java.util.Map;
  * Created by chaossss on 2015/10/22.
  */
 public class MyDownloadIncompleteAdapter extends BaseExpandableListAdapter {
-    private List<MyDownloadIncompleteItemHolder> subView;
     private List<String> incompleteTasksName;
+    private List<MyDownloadIncompleteItemHolder> subView;
     private Map<String, List<String>> incompleteTasksInfo;
 
-    public MyDownloadIncompleteAdapter() {
+    private View.OnClickListener onClickListener;
+
+    public MyDownloadIncompleteAdapter(View.OnClickListener onClickListener) {
         subView = new ArrayList<>();
         incompleteTasksInfo = new HashMap<>();
         incompleteTasksName = new ArrayList<>();
+
+        this.onClickListener = onClickListener;
     }
 
     public List<MyDownloadIncompleteItemHolder> getSubView() {
@@ -105,7 +124,7 @@ public class MyDownloadIncompleteAdapter extends BaseExpandableListAdapter {
 
         if(convertView == null){
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_download_incomplete_item, parent, false);
-            myDownloadIncompleteItemHolder = new MyDownloadIncompleteItemHolder(convertView);
+            myDownloadIncompleteItemHolder = new MyDownloadIncompleteItemHolder(convertView, onClickListener);
             convertView.setTag(myDownloadIncompleteItemHolder);
         } else {
             myDownloadIncompleteItemHolder = (MyDownloadIncompleteItemHolder)convertView.getTag();
@@ -113,8 +132,6 @@ public class MyDownloadIncompleteAdapter extends BaseExpandableListAdapter {
 
         subView.add(myDownloadIncompleteItemHolder);
         myDownloadIncompleteItemHolder.setItemName(incompleteTasksInfo.get(incompleteTasksName.get(groupPosition)).get(childPosition));
-        myDownloadIncompleteItemHolder.setDownloadSum("");
-        myDownloadIncompleteItemHolder.setDownloadPercent("");
 
         return convertView;
     }
