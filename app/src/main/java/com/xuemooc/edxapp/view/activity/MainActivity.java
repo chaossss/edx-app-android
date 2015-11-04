@@ -28,6 +28,7 @@ import com.xuemooc.edxapp.R;
 import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.utils.thread.LoadImageTask;
 import com.xuemooc.edxapp.utils.util.MessageConst;
+import com.xuemooc.edxapp.view.CustomApplication;
 import com.xuemooc.edxapp.view.fragment.DiscoverFragment;
 import com.xuemooc.edxapp.view.fragment.MyCourseFragment;
 import com.xuemooc.edxapp.view.fragment.MyDownloadCompleteFragment;
@@ -129,9 +130,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Init Drawer Header, and set relating listener
      */
     private void initHeader(){
-        header = (FrameLayout) LayoutInflater.from(this.getApplication()).inflate(R.layout.drawer_header,null);
+        header = (FrameLayout) LayoutInflater.from(this.getApplication()).inflate(R.layout.drawer_header, null);
 
         userName = (TextView) header.findViewById(R.id.header_user_name);
+        try {
+            userName.setText(CustomApplication.api.getProfile().username);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         userImg = (BezelImageView) header.findViewById(R.id.header_user_icon);
     }
 

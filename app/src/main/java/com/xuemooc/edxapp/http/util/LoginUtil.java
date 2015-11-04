@@ -1,7 +1,9 @@
 package com.xuemooc.edxapp.http.util;
 
+import android.content.Context;
 import android.os.Message;
 
+import com.xuemooc.edxapp.http.Api;
 import com.xuemooc.edxapp.utils.interfaces.WebCommunication;
 import com.xuemooc.edxapp.utils.thread.LoginTask;
 

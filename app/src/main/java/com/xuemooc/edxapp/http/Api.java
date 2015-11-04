@@ -37,6 +37,7 @@ import com.xuemooc.edxapp.utils.util.NetworkUtil;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -121,7 +122,7 @@ public class Api implements IApi {
      */
     @Override
     public AuthResponse auth(String username, String password)
-            throws Exception {
+            throws IOException {
         Bundle p = new Bundle();
         p.putString("grant_type", "password");
         p.putString("client_id", Config.getInstance().getClientId());

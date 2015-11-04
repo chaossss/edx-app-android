@@ -8,15 +8,21 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
+import com.xuemooc.edxapp.http.Api;
+import com.xuemooc.edxapp.http.IApi;
 
 /**
  * CustomApplication helps init the Main page Drawer
  * Created by chaossss on 28.07.15.
  */
 public class CustomApplication extends Application {
+    public static IApi api;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        api = new Api(getApplicationContext());
 
         DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
             @Override

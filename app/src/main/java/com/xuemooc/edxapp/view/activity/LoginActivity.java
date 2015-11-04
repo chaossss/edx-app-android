@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         pbUtil.progress();
                     }
 
-                    //start
                     Bundle data = new Bundle();
                     Message msg = new Message();
 
@@ -96,9 +95,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     msg.what = LoginUtil.SEND_INFO;
 
                     loginUtil.sendRequest(msg);
-
-                    //end
-                    //start->end 登录的网络部分代码
                 }
 
                 break;
@@ -112,11 +108,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onMessageResponse(Message msg) {
-        Message temp = null;
+        Message temp;
 
         switch (msg.what){
             case LoginUtil.LOGIN_SUCCESS:
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                isLogining.set(false);
+                temp = new Message();
+                temp.what = LoginUtil.LOGIN_RESET;
+                loginUtil.sendRequest(temp);
                 break;
 
             case LoginUtil.LOGIN_SUCCESS_SHOW:
@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case LoginUtil.LOGIN_RESET:
+                psd.setText("");
                 showLoginState((PBConst)msg.obj);
                 break;
         }
